@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Um blog só pra gente</title>
+    <meta name="theme-color" content="#140a1f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+
+    <main>
+        <section class="hero">
+            <h1>Oi, <b data-nome>branquinha</b>.<br>Preparada pra<br>um lugar virtual só nosso?</h1>
+            <p>Se envolver com um desenvolvedor dá nisso. Quando quero dizer algo importante, eu <span
+                    class="code">deploy</span>.</p>
+            <div class="hint">role pra baixo ↓</div>
+        </section>
+
+        <section>
+            <article class="letter">
+                <h2 class="rv">Post #1: <em>Hello, World</em><br>(versão romântica)</h2>
+                <p class="rv d1">Todo programador começa um projeto novo com um "Hello, World". Eu poderia ter feito
+                    isso com você num café, mas decidi complicar um pouco, porque é assim que eu demonstro carinho.</p>
+                <p class="rv d1">Você disse que é romântica. Eu disse que sou, mas de um jeito diferente. Então acho que
+                    eu consigo
+                    ser um "romântico desenvolvedor": <span class="code">if (coração) { sorrir();
+                        }</span></p>
+                <p class="rv d2">Ainda estamos nos conhecendo, então esse blog vai nascer pequeno e crescer aos poucos.
+                    Um post de cada vez, sem pressa e sem bugs (pelo menos sem bugs graves).</p>
+                <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
+            </article>
+        </section>
+
+        <section>
+            <div class="photo">
+                <figure class="polaroid rv">
+                    <img src="img/foto.jpg" alt="Foto nossa"
+                        onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+                    <div class="ph">salve a sua foto como<br>img/foto.jpg</div>
+                    <figcaption>a gente, em 4:5</figcaption>
+                </figure>
+                <div class="rv d1">
+                    <h2>O primeiro <em style="color:var(--rose)">commit</em></h2>
+                    <p>Essa é a foto que abre o blog. Escolhi ela porque <strong>é a nossa primeira foto juntos e eu
+                            gosto muito
+                            de te ver sorrindo, e é esse sorriso que quebra o meu jeito sério de ser
+                        </strong>. Quando eu olho, lembro de como foi bom jantar contigo em um dia de jogo do flamengo,
+                        então sinta-se importante!</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="log">
+                <h2 class="rv">Histórico do <em style="color:var(--rose)">nosso</em> projeto</h2>
+                <p class="rv d1 log-note">Pra quem programa, isso é um histórico de commits. Pra você, é a nossa
+                    história em ordem.</p>
+                <ul class="commits">
+                    <li class="rv"><span class="hash">feat: nos conhecemos</span>
+                        <h3>O dia em que nos conhecemos</h3>
+                        <p>Começou na prolar mas conhecer de verdade foi após a feste do Nicolas.</p>
+                    </li>
+                    <li class="rv"><span class="hash">fix: tranquilidade</span>
+                        <h3>A primeira conversa</h3>
+                        <p>Eu sempre me mantive tranquilo. Seu sorriso e jeito de ser que resolveu isso.</p>
+                    </li>
+                    <li class="rv"><span class="hash">docs: este blog</span>
+                        <h3>Este blog</h3>
+                        <p>Escrevendo o que eu ainda não sei dizer em voz alta.</p>
+                    </li>
+                    <li class="rv todo"><span class="hash">próximo commit</span>
+                        <h3>O que a gente fizer a seguir</h3>
+                        <p>Você escolhe. Está tudo em aberto.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="next">
+            <h2 class="rv">Próximos posts</h2>
+            <p class="rv d1">Cada caixa abre quando o post estiver pronto. Enquanto isso, aperta o botão e me diz o que
+                apareceu.</p>
+
+            <div class="post-grid">
+                <!-- POST BLOQUEADO (ainda não escrito) -->
+                <div class="post locked rv" role="button" tabindex="0" aria-disabled="true">
+                    <span class="pn">Post #2</span>
+                    <h3>Ainda é surpresa</h3>
+                    <p>Estou escrevendo.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+                <div class="post locked rv d1" role="button" tabindex="0" aria-disabled="true">
+                    <span class="pn">Post #3</span>
+                    <h3>Ainda é surpresa</h3>
+                    <p>Estou escrevendo.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+                <div class="post locked rv d1" role="button" tabindex="0" aria-disabled="true">
+                    <span class="pn">Post #4</span>
+                    <h3>Ainda é surpresa</h3>
+                    <p>Estou escrevendo.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+                <div class="post locked rv d1" role="button" tabindex="0" aria-disabled="true">
+                    <span class="pn">Post #5</span>
+                    <h3>Ainda é surpresa</h3>
+                    <p>Estou escrevendo.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+
+                <!-- COMO LIBERAR UM POST: troque o <div class="post locked ..."> por um <a> assim:
+                <a class="post rv" href="posts/post-2.html">
+                    <span class="pn">Post #2</span>
+                    <h3>Título do post</h3>
+                    <p>Uma frase que dá vontade de abrir.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                -->
+            </div>
+            <div id="postmsg" role="status" aria-live="polite"></div>
+
+            <button class="cta rv d2" id="btn">Executar sentimentos</button>
+            <div id="msg" role="status" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

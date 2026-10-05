@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Recados</title>
+  <style>
+    body {
+      margin: 0;
+      background: #140a1f;
+      color: #f7ecf1;
+      font: 16px/1.6 system-ui, sans-serif;
+      padding: 6vh 6vw;
+      max-width: 680px;
+      margin-inline: auto
+    }
+
+    input,
+    button {
+      font: inherit;
+      padding: .7rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #b79cff55;
+      background: #ffffff0d;
+      color: inherit;
+      margin: .3rem .3rem .3rem 0
+    }
+
+    button {
+      background: #ff5d8f;
+      color: #2a0f26;
+      border: 0;
+      cursor: pointer
+    }
+
+    .r {
+      border: 1px solid #b79cff33;
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0
+    }
+
+    .r small {
+      color: #b9a6c4
+    }
+
+    .r p {
+      margin: .4rem 0 0;
+      white-space: pre-wrap
+    }
+
+    .x {
+      background: none;
+      color: #b9a6c4;
+      padding: 0;
+      margin: 0;
+      font-size: .8rem;
+      text-decoration: underline
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Recados</h1>
+  <div id="login"><input id="em" type="email" placeholder="seu e-mail" autocomplete="username"><input id="pw"
+      type="password" placeholder="senha" autocomplete="current-password"><button id="go">Entrar</button>
+    <p id="err"></p>
+  </div>
+  <div id="app" hidden><button id="out">Sair</button>
+    <div id="lista"></div>
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { firebaseConfig } from "./js/firebase-config.js";
+    const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app), $ = i => document.getElementById(i);
+    $("go").onclick = () => signInWithEmailAndPassword(auth, $("em").value, $("pw").value).catch(() => $("err").textContent = "E-mail ou senha incorretos.");
+    $("out").onclick = () => signOut(auth);
+    let unsub;
+    onAuthStateChanged(auth, u => {
+      $("login").hidden = !!u; $("app").hidden = !u;
+      if (unsub) { unsub(); unsub = null }
+      if (!u) return;
+      unsub = onSnapshot(query(collection(db, "recados"), orderBy("criadoEm", "desc")), snap => {
+        $("lista").replaceChildren(...snap.docs.map(d => {
+          const r = d.data(), el = document.createElement("div"); el.className = "r";
+          const h = document.createElement("small"); h.textContent = (r.humor || "") + "  " + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
+          const p = document.createElement("p"); p.textContent = r.mensagem;
+          const x = document.createElement("button"); x.className = "x"; x.textContent = "apagar"; x.onclick = () => deleteDoc(doc(db, "recados", d.id));
+          el.append(h, p, x); return el;
+        }));
+        if (!snap.size) $("lista").textContent = "Nenhum recado ainda.";
+      }, e => $("lista").textContent = "Sem permissão. Confira o e-mail nas regras do Firestore.");
+    });
+  </script>
+</body>
+
+</html>
