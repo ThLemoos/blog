@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Gerar segredo</title>
+    <style>
+        body {
+            margin: 0;
+            background: #140a1f;
+            color: #f7ecf1;
+            font: 16px/1.6 system-ui, sans-serif;
+            padding: 6vh 6vw;
+            max-width: 680px;
+            margin-inline: auto
+        }
+
+        label {
+            display: block;
+            margin: 1.2rem 0 .3rem
+        }
+
+        input,
+        textarea,
+        button {
+            font: inherit;
+            width: 100%;
+            box-sizing: border-box;
+            padding: .7rem 1rem;
+            border-radius: 10px;
+            border: 1px solid #b79cff55;
+            background: #ffffff0d;
+            color: inherit
+        }
+
+        button {
+            width: auto;
+            background: #ff5d8f;
+            color: #2a0f26;
+            border: 0;
+            cursor: pointer;
+            margin-top: 1.2rem
+        }
+
+        small {
+            color: #b9a6c4
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Gerar segredo</h1>
+    <p><small>Abra pelo Live Server (localhost). Use no seu computador; não precisa publicar esta página.</small></p>
+    <label for="r">Resposta da charada</label><input id="r" placeholder="ex.: flamengo">
+    <small>Maiúsculas, acentos e pontuação não importam.</small>
+    <label for="m">Mensagem que aparece quando ela acertar</label><textarea id="m" rows="5"></textarea>
+    <button id="go">Gerar</button>
+    <label for="o">Cole isto no js/charada.js, no lugar do bloco SEGREDO</label><textarea id="o" rows="9"
+        readonly></textarea>
+    <script>
+        const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const b64e = b => btoa(String.fromCharCode(...new Uint8Array(b)));
+        document.getElementById('go').onclick = async () => {
+            const o = document.getElementById('o'), r = document.getElementById('r').value, m = document.getElementById('m').value;
+            if (!norm(r) || !m.trim()) { o.value = 'Preencha a resposta e a mensagem.'; return; }
+            if (!crypto.subtle) { o.value = 'Abra por localhost ou https.'; return; }
+            const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+            const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(norm(r)), 'PBKDF2', false, ['deriveKey']);
+            const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 150000, hash: 'SHA-256' }, km, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+            const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(m));
+            o.value = 'const SEGREDO = ' + JSON.stringify({ salt: b64e(salt), iv: b64e(iv), dados: b64e(ct) }, null, 2) + ';';
+        };
+    </script>
+</body>
+
+</html>

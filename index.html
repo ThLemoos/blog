@@ -37,6 +37,7 @@
                 <p class="rv d2">Ainda estamos nos conhecendo, então esse blog vai nascer pequeno e crescer aos poucos.
                     Um post de cada vez, sem pressa e sem bugs (pelo menos sem bugs graves).</p>
                 <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
+                <div class="hint" style="text-align: center;">continue rolando ↓</div>
             </article>
         </section>
 
@@ -67,7 +68,7 @@
                 <ul class="commits">
                     <li class="rv"><span class="hash">feat: nos conhecemos</span>
                         <h3>O dia em que nos conhecemos</h3>
-                        <p>Começou na prolar mas conhecer de verdade foi após a feste do Nicolas.</p>
+                        <p>Começou na prolar mas conhecer de verdade foi após a festa do Nicolas.</p>
                     </li>
                     <li class="rv"><span class="hash">fix: tranquilidade</span>
                         <h3>A primeira conversa</h3>
@@ -87,8 +88,7 @@
 
         <section class="next">
             <h2 class="rv">Próximos posts</h2>
-            <p class="rv d1">Cada caixa abre quando o post estiver pronto. Enquanto isso, aperta o botão e me diz o que
-                apareceu.</p>
+            <p class="rv d1">Cada caixa abre quando o post estiver pronto.<br>Então, volte aqui sempre que puder.</p>
 
             <div class="post-grid">
                 <!-- POST BLOQUEADO (ainda não escrito) -->
@@ -128,15 +128,28 @@
             </div>
             <div id="postmsg" role="status" aria-live="polite"></div>
 
-            <button class="cta rv d2" id="btn">Executar sentimentos</button>
-            <div id="msg" role="status" aria-live="polite"></div>
+            <button class="cta rv d2" id="btn">Botão pra curioso</button>
         </section>
     </main>
+
+    <dialog id="charada" aria-labelledby="ch-titulo">
+        <button type="button" class="x" id="ch-fechar" aria-label="Fechar">×</button>
+        <h3 id="ch-titulo">Uma charada pra você</h3>
+        <p id="ch-pergunta"></p>
+        <form id="ch-form" autocomplete="off">
+            <input id="ch-resposta" type="text" placeholder="Sua resposta" aria-label="Sua resposta"
+                autocapitalize="none" spellcheck="false">
+            <button class="cta" id="ch-go" type="submit">Abrir</button>
+        </form>
+        <div id="ch-feedback" role="status" aria-live="polite"></div>
+        <div id="ch-segredo" hidden></div>
+    </dialog>
 
     <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/charada.js"></script>
 </body>
 
 </html>
