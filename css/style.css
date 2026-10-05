@@ -680,6 +680,7 @@ dialog#charada[open] {
 }
 
 #ch-pergunta {
+    white-space: pre-line;
     font-family: var(--serif);
     font-size: 1.2rem;
     line-height: 1.6;
@@ -763,5 +764,18 @@ dialog#charada[open] {
     dialog#charada[open],
     #ch-resposta.erro {
         animation: none
+    }
+}
+
+/* estabilidade no celular */
+#bg {
+    height: 100vh;
+    height: 100lvh
+}
+
+@media(max-width:760px) {
+    .rv {
+        filter: none;
+        transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1)
     }
 }
