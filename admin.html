@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>Recados</title>
+  <title>Painel</title>
   <style>
     body {
       margin: 0;
@@ -35,6 +35,11 @@
       cursor: pointer
     }
 
+    h2 {
+      font-weight: 400;
+      margin-top: 2.4rem
+    }
+
     .r {
       border: 1px solid #b79cff33;
       border-radius: 14px;
@@ -46,8 +51,16 @@
       color: #b9a6c4
     }
 
+    .r .q {
+      display: block;
+      margin-top: .9rem;
+      font-family: ui-monospace, monospace;
+      font-size: .78rem;
+      color: #b79cff
+    }
+
     .r p {
-      margin: .4rem 0 0;
+      margin: .2rem 0 0;
       white-space: pre-wrap
     }
 
@@ -55,7 +68,7 @@
       background: none;
       color: #b9a6c4;
       padding: 0;
-      margin: 0;
+      margin: .8rem 0 0;
       font-size: .8rem;
       text-decoration: underline
     }
@@ -63,13 +76,17 @@
 </head>
 
 <body>
-  <h1>Recados</h1>
+  <h1>Painel</h1>
   <div id="login"><input id="em" type="email" placeholder="seu e-mail" autocomplete="username"><input id="pw"
       type="password" placeholder="senha" autocomplete="current-password"><button id="go">Entrar</button>
     <p id="err"></p>
   </div>
-  <div id="app" hidden><button id="out">Sair</button>
-    <div id="lista"></div>
+  <div id="app" hidden>
+    <button id="out">Sair</button>
+    <h2>Respostas do Post #2</h2>
+    <div id="lista-r"></div>
+    <h2>Recados</h2>
+    <div id="lista-m"></div>
   </div>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -79,21 +96,33 @@
     const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app), $ = i => document.getElementById(i);
     $("go").onclick = () => signInWithEmailAndPassword(auth, $("em").value, $("pw").value).catch(() => $("err").textContent = "E-mail ou senha incorretos.");
     $("out").onclick = () => signOut(auth);
-    let unsub;
+
+    function ouvir(nome, destino) {
+      return onSnapshot(query(collection(db, nome), orderBy("criadoEm", "desc")), snap => {
+        destino.replaceChildren(...snap.docs.map(d => {
+          const r = d.data(), el = document.createElement("div"); el.className = "r";
+          const h = document.createElement("small");
+          h.textContent = (r.humor ? r.humor + "  " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
+          el.append(h);
+          if (Array.isArray(r.itens)) {
+            r.itens.forEach(it => {
+              const q = document.createElement("small"); q.className = "q"; q.textContent = it.pergunta;
+              const p = document.createElement("p"); p.textContent = it.resposta; el.append(q, p);
+            });
+          } else { const p = document.createElement("p"); p.textContent = r.mensagem || ""; el.append(p); }
+          const x = document.createElement("button"); x.className = "x"; x.textContent = "apagar";
+          x.onclick = () => confirm("Apagar?") && deleteDoc(doc(db, nome, d.id));
+          el.append(x); return el;
+        }));
+        if (!snap.size) destino.textContent = "Nada por aqui ainda.";
+      }, () => destino.textContent = "Sem permissão. Confira o e-mail nas regras do Firestore.");
+    }
+    let subs = [];
     onAuthStateChanged(auth, u => {
       $("login").hidden = !!u; $("app").hidden = !u;
-      if (unsub) { unsub(); unsub = null }
+      subs.forEach(f => f()); subs = [];
       if (!u) return;
-      unsub = onSnapshot(query(collection(db, "recados"), orderBy("criadoEm", "desc")), snap => {
-        $("lista").replaceChildren(...snap.docs.map(d => {
-          const r = d.data(), el = document.createElement("div"); el.className = "r";
-          const h = document.createElement("small"); h.textContent = (r.humor || "") + "  " + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
-          const p = document.createElement("p"); p.textContent = r.mensagem;
-          const x = document.createElement("button"); x.className = "x"; x.textContent = "apagar"; x.onclick = () => deleteDoc(doc(db, "recados", d.id));
-          el.append(h, p, x); return el;
-        }));
-        if (!snap.size) $("lista").textContent = "Nenhum recado ainda.";
-      }, e => $("lista").textContent = "Sem permissão. Confira o e-mail nas regras do Firestore.");
+      subs = [ouvir("respostas", $("lista-r")), ouvir("recados", $("lista-m"))];
     });
   </script>
 </body>

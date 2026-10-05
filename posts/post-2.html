@@ -1,28 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Post #2</title>
+    <title>Post #2 · Cinco perguntas</title>
     <meta name="theme-color" content="#140a1f">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/post2.css">
 </head>
+
 <body>
     <canvas id="bg" aria-hidden="true"></canvas>
     <main class="post-page">
         <article class="letter">
-            <a class="back" href="../index.html">← voltar ao blog</a>
-            <h2 class="rv">Post #2: <em>Título aqui</em></h2>
-            <p class="rv d1">Escreva o primeiro parágrafo aqui.</p>
-            <p class="rv d1">Cada &lt;p&gt; é um parágrafo. Pode usar <span class="code">código</span> para dar um toque de dev.</p>
+            <a class="back" href="../index.html">← Página Inicial</a>
+            <h2 class="rv">Post #2: <em>Cinco perguntas</em></h2>
+            <p class="rv d1">Vamos jogar um jogo!</p>
+            <p class="rv d1" id="nota" style="font-size:.95rem;color:var(--mute)">Quando você terminar, suas respostas são
+                enviadas pra mim. Só eu consigo ler.</p>
+
+            <div class="quiz rv d1" id="quiz">
+                <div class="bar"><i id="barra"></i></div>
+                <div class="qbox" id="qbox">
+                    <p class="qn" id="qn"></p>
+                    <h3 id="qt"></h3>
+                    <textarea id="resp" rows="3" maxlength="300" placeholder="Escreva aqui..."
+                        aria-label="Sua resposta"></textarea>
+                    <div class="acoes"><button type="button" class="cta" id="prox">Próxima</button><small id="dica">ou
+                            Ctrl + Enter</small></div>
+                </div>
+            </div>
+
+            <div class="result" id="res" hidden aria-live="polite">
+                <pre class="log" id="log"></pre>
+                <div class="perfil" id="perfil" hidden>
+                    <h3 id="ptitulo">Nossas respostas</h3>
+                    <p id="pdesc">Aqui estão as suas, e embaixo de cada uma, as minhas.</p>
+                    <ul class="troca" id="troca"></ul>
+                    <div class="acoes" id="acoes">
+                        <button type="button" class="cta" id="copiar">Copiar minhas respostas</button>
+                        <a class="cta" id="zap" href="#" target="_blank" rel="noopener" hidden>Mandar pra ele</a>
+                        <button type="button" class="cta ghost" id="refazer">Refazer</button>
+                    </div>
+                    <div id="aviso" role="status"></div>
+                </div>
+            </div>
+
+            <p class="rv d2">Depois me conta o que achou das minhas respostas.</p>
             <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
         </article>
     </main>
-    <footer>feito à mão · v0.1</footer>
+    <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="../js/main.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { firebaseConfig } from "../js/firebase-config.js";
+        const db = getFirestore(initializeApp(firebaseConfig));
+        window.salvarRespostas = itens => addDoc(collection(db, "respostas"), { post: 2, itens, criadoEm: serverTimestamp() });
+    </script>
+    <script src="../js/post2.js"></script>
 </body>
+
 </html>

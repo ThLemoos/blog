@@ -1,5 +1,5 @@
-// Cole aqui o objeto que o Firebase te dá em:
-// Configurações do projeto > Seus apps > Web (</>) > firebaseConfig
+// Copie este arquivo para js/firebase-config.js e preencha com os dados do Firebase.
+// js/firebase-config.js está no .gitignore e não vai pro GitHub.
 export const firebaseConfig = {
   apiKey: "COLE_AQUI",
   authDomain: "COLE_AQUI",
