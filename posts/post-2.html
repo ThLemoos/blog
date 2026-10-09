@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Post #2 · Cinco perguntas</title>
+    <title>Post #2 · Vamos jogar um jogo!</title>
     <meta name="theme-color" content="#140a1f">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/post2.css">
+    <link rel="stylesheet" href="../css/carta.css">
 </head>
 
 <body>
@@ -20,11 +21,17 @@
     <main class="post-page">
         <article class="letter">
             <a class="back" href="../index.html">← Página Inicial</a>
-            <h2 class="rv">Post #2: <em>Cinco perguntas</em></h2>
-            <p class="rv d1">Vamos jogar um jogo!</p>
-            <p class="rv d1" id="nota" style="font-size:.95rem;color:var(--mute)">Quando você terminar, suas respostas são
-                enviadas pra mim. Só eu consigo ler.</p>
-
+            <h2 class="rv">Post #2: <em>Vamos jogar um jogo!</em></h2>
+            <p class="rv d1">
+                As respostas escritas em cada pergunta serão enviadas para mim assim que você terminar.<br>
+                As suas respostas serão analisadas por um algoritmo de compatibilidade desenvolvido por mim.
+                Ele é rigoroso, não aceita suborno e nunca foi testado em produção. Se ele gostar do que lê, você ganha
+                uma coisa especial
+                no final.<br>
+            </p>
+            <p class="rv d1" style="text-align: center;">
+                <span class="code">Só eu tenho acesso às suas respostas.<br> Então capriche e boa sorte!</span>
+            </p>
             <div class="quiz rv d1" id="quiz">
                 <div class="bar"><i id="barra"></i></div>
                 <div class="qbox" id="qbox">
@@ -40,32 +47,32 @@
             <div class="result" id="res" hidden aria-live="polite">
                 <pre class="log" id="log"></pre>
                 <div class="perfil" id="perfil" hidden>
-                    <h3 id="ptitulo">Nossas respostas</h3>
-                    <p id="pdesc">Aqui estão as suas, e embaixo de cada uma, as minhas.</p>
+                    <h3 id="ptitulo">Suas respostas</h3>
+                    <p id="pdesc">O script terminou de ler. Aqui estão as suas respostas e, embaixo de cada uma, o que
+                        ele concluiu.</p>
                     <ul class="troca" id="troca"></ul>
-                    <div class="acoes" id="acoes">
-                        <button type="button" class="cta" id="copiar">Copiar minhas respostas</button>
-                        <a class="cta" id="zap" href="#" target="_blank" rel="noopener" hidden>Mandar pra ele</a>
-                        <button type="button" class="cta ghost" id="refazer">Refazer</button>
-                    </div>
                     <div id="aviso" role="status"></div>
+                    <div class="acoes"><a class="cta" id="zap" href="#" target="_blank" rel="noopener" hidden>Mandar pra
+                            ele</a></div>
+                    <div class="aprovada" id="aprovada" hidden>
+                        <h3>Você foi aprovada. ✅</h3>
+                        <p>O algoritmo leu tudo, não encontrou nenhum erro e carimbou: aprovada.<br>
+                            Agora é só clicar no botão abaixo e ler com calma. Não tem pressa.<br>
+                            Depois, se quiser reler, ela fica guardada na página inicial, na seção Surpresas.</p>
+                        <div class="acoes" id="acoes" hidden>
+                            <button type="button" class="cta" id="surpresa-btn">Desbloquear surpresa 🔓</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <p class="rv d2">Depois me conta o que achou das minhas respostas.</p>
             <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
         </article>
     </main>
     <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="../js/main.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { firebaseConfig } from "../js/firebase-config.js";
-        const db = getFirestore(initializeApp(firebaseConfig));
-        window.salvarRespostas = itens => addDoc(collection(db, "respostas"), { post: 2, itens, criadoEm: serverTimestamp() });
-    </script>
+    <script src="../js/carta.js"></script>
     <script src="../js/post2.js"></script>
 </body>
 

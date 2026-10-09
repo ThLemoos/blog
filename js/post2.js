@@ -1,35 +1,57 @@
 (function () {
     // ====== PERSONALIZE ======
-    const WHATSAPP = ""; // seu número com DDI e DDD, só dígitos. Ex.: "5521999999999". Vazio = esconde o botão.
-    // t = a sua pergunta pra ela | eu = a SUA resposta, que aparece no final (reescreva com as suas palavras!)
+    const WHATSAPP = "5521975930204"; // seu número com DDI e DDD, só dígitos. Vazio = esconde o botão.
+
+    // Suspense da "análise": 1 = ~50 segundos | 0.5 = metade | 2 = o dobro
+    const RITMO = 1;
+
+    // t = a sua pergunta pra ela | analise = o que o script "conclui" depois de ler a resposta dela
     const PERGUNTAS = [
         {
-            t: "Qual foi a sua primeira impressão de mim?",
-            eu: "Que o seu sorriso ia dar trabalho pro meu jeito sério. Eu estava certo."
+            t: "O que você mais gosta no que estamos construindo juntos?",
+            analise: "O script registrou isso e tentou fingir que não ficou feliz. Não conseguiu."
         },
         {
-            t: "O que te faz rir mais fácil?",
-            eu: "Piada ruim de programador. Eu sei que você vai ter que aguentar."
+            t: "Gosto do seu sonho de querer construir uma família. O quanto você gostaria de viver isso e o quanto tem se preparado pra isso?",
+            analise: "Pergunta séria. O script ficou em silêncio por uns segundos e anotou tudo."
         },
         {
-            t: "Um lugar que você sonha em conhecer?",
-            eu: "Ainda estou decidindo, mas aceito sugestões. E companhia."
+            t: "O quão disposta você está a se comprometer de verdade e abrir mão de algumas coisas pra gente dar certo?",
+            analise: "Resposta salva. O script não tem comentários, só respeito e uma xícara de café."
         },
         {
             t: "O que faz um dia ser bom pra você?",
-            eu: "Café, uma boa conversa e nenhum bug em produção."
+            analise: "O script comparou com o do criador dele: café, boa conversa e nenhum bug em produção."
         },
         {
             t: "Se a gente pudesse repetir um dia desde que nos conhecemos, qual seria?",
-            eu: "O jantar em dia de jogo do Flamengo. Repetiria até o placar."
+            analise: "O script encontrou esse dia nos logs e pediu para repetir."
+        },
+        {
+            t: "O que você mudaria ou acrescentaria nesse tempo que estamos nos conhecendo?",
+            analise: "Sinceridade é o tipo de dado preferido do script. Nenhum erro encontrado."
         }
     ];
+
+    // O que o script "está fazendo" a cada resposta (rotaciona se tiver mais perguntas que frases)
+    const FASES = [
+        "verificando sinceridade",
+        "medindo nível de carinho",
+        "procurando entrelinhas",
+        "checando coerência com as outras respostas",
+        "cruzando com os meus dados",
+        "calculando compatibilidade parcial"
+    ];
+
     // =========================
 
     const $ = id => document.getElementById(id);
     const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const caixa = $('resp');
     let i = 0, resp = [], trava = false, texto = '';
+    let sessao = 0; // cancela a análise, se preciso
+
+    const esperar = ms => new Promise(r => setTimeout(r, reduz ? 0 : ms));
 
     function mostrar() {
         $('qn').textContent = 'Pergunta ' + (i + 1) + ' de ' + PERGUNTAS.length;
@@ -56,59 +78,88 @@
         $('barra').style.width = '100%';
         setTimeout(() => {
             $('quiz').hidden = true; $('res').hidden = false; $('perfil').hidden = true; $('log').textContent = '';
-            const linhas = ['> lendo as suas respostas...', '> buscando as minhas...', '> compilando...', '> 0 erros, 0 warnings.'];
-            let n = 0;
-            (function passo() {
-                if (n < linhas.length) { $('log').textContent += linhas[n++] + '\n'; setTimeout(passo, reduz ? 0 : 650); }
-                else revelar();
-            })();
+            analisar();
         }, reduz ? 0 : 400);
+    }
+
+    // Suspense: o script "lê" e "analisa" cada resposta, uma por uma
+    async function analisar() {
+        const s = sessao;
+        const log = $('log');
+        const N = PERGUNTAS.length;
+        const linhas = [
+            ['> iniciando leitura das respostas...', 2200],
+            ['> lendo suas respostas...', 3200]
+        ];
+        PERGUNTAS.forEach((_, n) => {
+            linhas.push(['> [' + (n + 1) + '/' + N + '] lendo resposta ' + (n + 1) + '...', 2600]);
+            linhas.push(['> [' + (n + 1) + '/' + N + '] ' + FASES[n % FASES.length] + '...', 3000]);
+        });
+        linhas.push(['> cruzando tudo com o algoritmo de compatibilidade...', 3800]);
+        linhas.push(['> compilando...', 3400]);
+        linhas.push(['> 0 erros, 0 warnings.', 2400]);
+        linhas.push(['> análise concluída.', 1800]);
+
+        log.classList.add('rodando');
+        for (const [linha, ms] of linhas) {
+            if (s !== sessao) return;
+            log.textContent += linha + '\n';
+            await esperar(ms * RITMO);
+        }
+        if (s !== sessao) return;
+        log.classList.remove('rodando');
+        revelar();
     }
 
     function revelar() {
         const ul = $('troca'); ul.textContent = '';
         PERGUNTAS.forEach((q, n) => {
             const li = document.createElement('li');
+            li.className = 'surge'; li.style.animationDelay = (reduz ? 0 : n * 0.5) + 's';
             const h = document.createElement('span'); h.className = 'q'; h.textContent = (n + 1) + '. ' + q.t;
             const a = document.createElement('p'); const sa = document.createElement('small'); sa.textContent = 'Você'; a.append(sa, resp[n]);
-            const b = document.createElement('p'); b.className = 'eu'; const sb = document.createElement('small'); sb.textContent = 'Eu'; b.append(sb, q.eu);
-            li.append(h, a, b); ul.appendChild(li);
+            li.append(h, a);
+            if (q.analise) { const b = document.createElement('p'); b.className = 'eu'; const sb = document.createElement('small'); sb.textContent = 'Script'; b.append(sb, q.analise); li.append(b); }
+            ul.appendChild(li);
         });
         texto = 'Respondi o Post #2 do blog 💜\n\n' + PERGUNTAS.map((q, n) => (n + 1) + ') ' + q.t + '\n' + resp[n]).join('\n\n');
-        if (WHATSAPP) { const z = $('zap'); z.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto); z.hidden = false; }
         $('perfil').hidden = false;
         enviar();
+        aprovar((PERGUNTAS.length - 1) * 500 + 1400); // espera as respostas aparecerem
+    }
+
+    // Depois que ela leu as respostas: texto de aprovação e, só então, o botão da surpresa
+    async function aprovar(atraso) {
+        const s = sessao, box = $('aprovada'), acoes = $('acoes');
+        await esperar(atraso); if (s !== sessao) return;
+        box.hidden = false; void box.offsetWidth; box.classList.add('on');
+        box.scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'center' });
+        Carta.liberar(); // a carta fica guardada na seção "Cartas" da página inicial
+        await esperar(3800); if (s !== sessao) return;
+        acoes.hidden = false; void acoes.offsetWidth; acoes.classList.add('on');
     }
 
     async function enviar() {
-        if (!window.salvarRespostas) return;
         const itens = PERGUNTAS.map((q, n) => ({ pergunta: q.t, resposta: resp[n] }));
-        try { await window.salvarRespostas(itens); $('aviso').textContent = 'Suas respostas foram enviadas pra mim 💜'; }
-        catch (e) { console.error(e); $('aviso').textContent = 'Não consegui enviar. Use o botão de copiar e me mande.'; }
-    }
-
-    async function copiar() {
-        let ok = false;
-        try { await navigator.clipboard.writeText(texto); ok = true; }
-        catch (e) {
-            const t = document.createElement('textarea'); t.value = texto; t.style.cssText = 'position:fixed;opacity:0';
-            document.body.appendChild(t); t.select();
-            try { ok = document.execCommand('copy'); } catch (_) { }
-            t.remove();
+        $('aviso').textContent = 'Enviando suas respostas...';
+        try {
+            const V = '10.12.2', G = 'https://www.gstatic.com/firebasejs/' + V + '/';
+            const { firebaseConfig } = await import('./firebase-config.js');
+            const { initializeApp, getApps } = await import(G + 'firebase-app.js');
+            const { getFirestore, collection, addDoc, serverTimestamp } = await import(G + 'firebase-firestore.js');
+            const app = getApps()[0] || initializeApp(firebaseConfig);
+            await addDoc(collection(getFirestore(app), 'respostas'), { post: 2, itens, criadoEm: serverTimestamp() });
+            $('aviso').textContent = 'Suas respostas foram enviadas pra mim!';
+        } catch (e) {
+            console.error('Erro ao enviar respostas:', e);
+            $('aviso').textContent = 'Não consegui enviar (' + (e.code || e.message || e) + ')' + (WHATSAPP ? '. Use o botão abaixo pra me mandar as respostas pelo WhatsApp.' : '.');
+            if (WHATSAPP) { const z = $('zap'); z.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto); z.hidden = false; }
         }
-        $('aviso').textContent = ok ? 'Copiado! É só colar na nossa conversa.' : 'Não consegui copiar. Me conta o que respondeu por aqui mesmo.';
-    }
-
-    function refazer() {
-        i = 0; resp = []; trava = false; $('aviso').textContent = '';
-        $('res').hidden = true; $('quiz').hidden = false; $('barra').style.width = '0';
-        $('qbox').classList.remove('out'); mostrar();
     }
 
     $('prox').addEventListener('click', proxima);
     caixa.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); proxima(); } });
-    $('copiar').addEventListener('click', copiar);
-    $('refazer').addEventListener('click', refazer);
+    $('surpresa-btn').addEventListener('click', () => Carta.abrir($('surpresa-btn')));
     mostrar();
     caixa.blur(); // não abrir o teclado do celular logo ao carregar a página
 })();

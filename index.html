@@ -9,9 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/carta.css">
 </head>
 
 <body>
@@ -128,6 +129,21 @@
             </div>
             <div id="postmsg" role="status" aria-live="polite"></div>
 
+        </section>
+
+        <section class="next cartas" id="cartas">
+            <h2 class="rv"><em>&amp; surpresas</em></h2>
+            <p class="rv d1" id="cartas-txt">Aqui ficam guardadas as coisas que serão desbloqueadas.<br>Só vai ficar dispnível se você merecer.</p>
+            <div class="post-grid">
+                <div class="post locked rv" id="carta-card" role="button" tabindex="0" aria-disabled="true"
+                    data-msg="cartas-msg">
+                    <span class="pn">Surpresa #1</span>
+                    <h3>Ainda trancada</h3>
+                    <p>Ela abre depois que você terminar o Post #2.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+            </div>
+            <div id="cartas-msg" class="postmsg" role="status" aria-live="polite"></div>
             <button class="cta rv d2" id="btn">Botão pra curioso</button>
         </section>
     </main>
@@ -150,6 +166,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/charada.js"></script>
+    <script src="js/carta.js"></script>
+    <script>
+        // Seção Cartas: trancada até ela terminar o Post #2
+        (function () {
+            const card = document.getElementById('carta-card');
+            function destrancar() {
+                const novo = document.createElement('button');
+                novo.type = 'button'; novo.id = 'carta-card'; novo.className = 'post rv in';
+                novo.innerHTML = '<span class="pn">Carta #1</span><h3>Uma carta pra você 💌</h3><p>Leia com calma.</p><span class="mark" aria-hidden="true">Abrir</span>';
+                novo.addEventListener('click', () => Carta.abrir(novo));
+                document.getElementById('carta-card').replaceWith(novo);
+                document.getElementById('cartas-msg').textContent = '';
+                document.getElementById('cartas-txt').innerHTML = 'Você foi aprovada, então ela é toda sua.<br>Pode reler quantas vezes quiser.';
+            }
+            if (Carta.liberada()) destrancar();
+        })();
+    </script>
 </body>
 
 </html>

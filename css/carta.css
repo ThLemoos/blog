@@ -1,0 +1,239 @@
+.ghost {
+    background: none !important;
+    color: var(--ink) !important;
+    border: 1px solid rgba(183, 156, 255, .45) !important;
+    box-shadow: none !important
+}
+
+/* ===== MODAL DA CARTA ===== */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem calc(env(safe-area-inset-bottom, 0px) + 1rem);
+    background: rgba(10, 4, 18, .9);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity .4s ease
+}
+
+.modal[hidden] {
+    display: none
+}
+
+.modal.on {
+    opacity: 1
+}
+
+.modal-x {
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + .8rem);
+    right: .9rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    border: 1px solid rgba(183, 156, 255, .45);
+    background: rgba(255, 255, 255, .06);
+    color: var(--ink);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 5
+}
+
+.modal-x:focus-visible {
+    outline: 3px solid var(--lilac);
+    outline-offset: 3px
+}
+
+.modal-fim {
+    opacity: 0;
+    transition: opacity 1s ease;
+    font-size: .95rem;
+    padding: .8rem 1.5rem
+}
+
+.modal-fim.on {
+    opacity: 1
+}
+
+.cena {
+    position: relative;
+    width: min(94vw, 460px);
+    height: min(76vh, 620px);
+    perspective: 1200px;
+    --eh: clamp(190px, 52vw, 250px);
+    /* altura do envelope */
+    transform: translateY(24px) scale(.94);
+    opacity: 0;
+    transition: transform 1s ease, opacity 1s ease
+}
+
+.modal.on .cena {
+    transform: none;
+    opacity: 1
+}
+
+.env-back,
+.env-front,
+.flap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(50% - var(--eh) / 2);
+    height: var(--eh);
+    transition: opacity .9s ease, transform .9s ease
+}
+
+.env-back {
+    z-index: 1;
+    border-radius: 6px;
+    background: linear-gradient(160deg, #3a1d52, #2a1340);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .55)
+}
+
+.env-front {
+    z-index: 3;
+    border-radius: 6px;
+    background: linear-gradient(160deg, #54296f, #3d1d56);
+    clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%)
+}
+
+.flap {
+    z-index: 4;
+    height: calc(var(--eh) * .58);
+    background: linear-gradient(180deg, #6a3690, #58297a);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform .9s ease, z-index 0s, opacity .9s ease
+}
+
+.flap::after {
+    content: '♥';
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    transform: translateX(-50%);
+    color: var(--rose);
+    font-size: 1.6rem;
+    text-shadow: 0 0 14px rgba(255, 93, 143, .7);
+    transition: opacity .4s
+}
+
+.cena.abre .flap {
+    transform: rotateX(180deg);
+    z-index: 0;
+    transition: transform .9s ease, z-index 0s .45s, opacity .9s ease
+}
+
+.cena.abre .flap::after {
+    opacity: 0
+}
+
+.paper {
+    position: absolute;
+    z-index: 2;
+    left: 7%;
+    right: 7%;
+    top: calc(50% - var(--eh) / 2 + 14px);
+    height: calc(var(--eh) - 28px);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f6ecd9;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, .4);
+    transition: transform 1.4s cubic-bezier(.3, .7, .2, 1), top 1.5s cubic-bezier(.5, 0, .2, 1), height 1.5s cubic-bezier(.5, 0, .2, 1), left 1.5s ease, right 1.5s ease
+}
+
+.cena.sobe .paper {
+    transform: translateY(calc(var(--eh) * -.62))
+}
+
+.cena.lendo .env-back,
+.cena.lendo .env-front,
+.cena.lendo .flap {
+    opacity: 0;
+    transform: translateY(60px)
+}
+
+.cena.lendo .flap {
+    transform: rotateX(180deg) translateY(-60px)
+}
+
+.cena.lendo .paper {
+    transform: none;
+    top: 0;
+    height: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 20px 70px rgba(0, 0, 0, .6), 0 0 60px rgba(246, 217, 176, .12)
+}
+
+.paper-in {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    padding: 1.7rem 1.6rem 2.2rem;
+    background-image: repeating-linear-gradient(transparent 0, transparent calc(2.1rem - 1px), rgba(120, 90, 60, .2) calc(2.1rem - 1px), rgba(120, 90, 60, .2) 2.1rem);
+    background-attachment: local;
+    background-position: 0 .55rem
+}
+
+.carta {
+    font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+    font-weight: 500;
+    font-size: 1.65rem;
+    line-height: 2.1rem;
+    color: #3b2a35;
+    white-space: pre-wrap;
+    margin: 0 !important
+}
+
+.caret {
+    display: inline-block;
+    width: 2px;
+    height: 1.4rem;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: #3b2a35;
+    animation: piscar .9s steps(1) infinite
+}
+
+.caret.fim {
+    animation: piscar .9s steps(1) infinite, some 1s 2s forwards
+}
+
+@keyframes some {
+    to {
+        opacity: 0;
+        visibility: hidden
+    }
+}
+
+@keyframes piscar {
+    50% {
+        opacity: 0
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .modal,
+    .cena,
+    .env-back,
+    .env-front,
+    .flap,
+    .paper,
+    .modal-fim {
+        transition: none !important
+    }
+
+    .caret {
+        animation: none !important
+    }
+}

@@ -295,7 +295,8 @@ section {
     margin: 0 auto 2.2rem
 }
 
-button.cta {
+button.cta,
+a.cta {
     font: 500 1.05rem var(--sans);
     color: #2a0f26;
     background: linear-gradient(135deg, var(--gold), #ffb3c9);
@@ -307,7 +308,8 @@ button.cta {
     transition: transform .25s
 }
 
-button.cta:hover {
+button.cta:hover,
+a.cta:hover {
     transform: translateY(-3px) scale(1.04)
 }
 
@@ -544,6 +546,26 @@ a.post:focus-visible {
     color: var(--lilac)
 }
 
+button.post {
+    font: inherit;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid rgba(255, 93, 143, .45)
+}
+
+button.post:hover,
+button.post:focus-visible {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 50px rgba(255, 93, 143, .22);
+    border-color: var(--rose);
+    outline: none
+}
+
+.cartas {
+    min-height: 60vh
+}
+
 .post h3 {
     font-family: var(--serif);
     font-weight: 400;
@@ -603,7 +625,8 @@ a.post:focus-visible {
     }
 }
 
-#postmsg {
+#postmsg,
+.postmsg {
     min-height: 1.8em;
     margin-bottom: 1.6rem;
     font-family: var(--serif);
