@@ -2,7 +2,7 @@
 // Estratégia: REDE PRIMEIRO. Com internet, o app sempre busca a versão mais nova
 // (ignorando o cache do navegador); sem internet, usa a última cópia guardada.
 // Assim, tudo que você publicar no GitHub aparece no app instalado.
-const CACHE = 'nosso-blog-v1';
+const CACHE = 'nosso-blog-v2';
 const CORE = ['./', 'index.html', 'posts/post-2.html', 'css/style.css', 'css/carta.css', 'css/post2.css',
   'js/main.js', 'js/charada.js', 'js/carta.js', 'js/post2.js', 'js/pwa.js', 'img/foto.jpg',
   'manifest.webmanifest', 'img/icons/icon-192.png'];
@@ -51,4 +51,15 @@ self.addEventListener('fetch', e => {
       return res;
     })());
   }
+});
+
+// Clicar na notificação abre/foca o painel
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil((async () => {
+    const alvo = new URL('admin.html', self.registration.scope).href;
+    const lista = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const c of lista) if (c.url.startsWith(alvo) && 'focus' in c) return c.focus();
+    return self.clients.openWindow(alvo);
+  })());
 });

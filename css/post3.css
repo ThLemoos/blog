@@ -1,0 +1,344 @@
+/* Post #3: Wrapped em stories */
+#stories {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(120% 90% at 50% 0%, #2a1340 0%, #140a1f 70%);
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent
+}
+
+#stories[hidden] {
+    display: none
+}
+
+.st-bars {
+    position: absolute;
+    top: max(14px, env(safe-area-inset-top));
+    left: 14px;
+    right: 56px;
+    display: flex;
+    gap: 5px;
+    z-index: 3
+}
+
+.st-bars i {
+    flex: 1;
+    height: 3px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, .18);
+    overflow: hidden
+}
+
+.st-bars i::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    transition: width .35s ease
+}
+
+.st-bars i.on::after {
+    width: 100%
+}
+
+.st-x {
+    position: absolute;
+    top: max(4px, calc(env(safe-area-inset-top) - 6px));
+    right: 8px;
+    z-index: 4;
+    width: 44px;
+    height: 44px;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    opacity: .75
+}
+
+.st-x:hover,
+.st-x:focus-visible {
+    opacity: 1;
+    outline: none
+}
+
+.st-zona {
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    z-index: 2;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    outline: none
+}
+
+.st-prev {
+    left: 0;
+    width: 32%
+}
+
+.st-next {
+    right: 0;
+    width: 68%
+}
+
+.st-slide {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    padding: 88px 7vw 72px;
+    text-align: center;
+    pointer-events: none
+}
+
+.st-slide>* {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: stIn .7s cubic-bezier(.2, .8, .2, 1) forwards
+}
+
+.st-slide>*:nth-child(2) {
+    animation-delay: .12s
+}
+
+.st-slide>*:nth-child(3) {
+    animation-delay: .26s
+}
+
+.st-slide>*:nth-child(4) {
+    animation-delay: .4s
+}
+
+.st-slide>*:nth-child(5) {
+    animation-delay: .54s
+}
+
+.st-slide>*:nth-child(6) {
+    animation-delay: .68s
+}
+
+.st-slide>*:nth-child(7) {
+    animation-delay: .82s
+}
+
+@keyframes stIn {
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+.st-kicker {
+    font-family: var(--mono);
+    font-size: .85rem;
+    color: var(--lilac);
+    margin-bottom: 1.2rem
+}
+
+.st-big {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 8vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 1rem
+}
+
+.st-big em {
+    color: var(--rose);
+    font-style: italic
+}
+
+.st-num {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(5.5rem, 28vw, 9rem);
+    line-height: 1;
+    background: linear-gradient(135deg, var(--rose), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: .2rem 0 .6rem
+}
+
+.st-txt {
+    color: var(--mute);
+    font-size: 1.1rem;
+    line-height: 1.6
+}
+
+.st-txt b {
+    color: var(--ink);
+    font-weight: 500
+}
+
+.st-linha {
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 5vw, 1.6rem);
+    line-height: 1.4;
+    color: var(--ink);
+    margin: .5rem 0
+}
+
+.st-linha small {
+    display: block;
+    font-family: var(--mono);
+    font-size: .8rem;
+    color: var(--lilac);
+    margin-bottom: .15rem
+}
+
+.st-stat {
+    text-align: left;
+    padding: 1rem 1.2rem;
+    margin: .7rem 0;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(183, 156, 255, .3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem
+}
+
+.st-stat span {
+    color: var(--mute);
+    font-size: .98rem;
+    line-height: 1.4
+}
+
+.st-stat strong {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    color: var(--rose);
+    white-space: nowrap;
+    text-align: right
+}
+
+.st-stat strong small {
+    display: block;
+    font: 400 .72rem var(--mono);
+    color: var(--lilac)
+}
+
+.st-card {
+    text-align: left;
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 4.6vw, 1.4rem);
+    line-height: 1.45;
+    padding: 1rem 1.2rem;
+    margin: .7rem 0;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .05);
+    border-left: 3px solid var(--rose)
+}
+
+.st-log {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: clamp(.8rem, 3.3vw, .95rem);
+    line-height: 1.9;
+    padding: 1.1rem 1.2rem;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, .35);
+    border: 1px solid rgba(183, 156, 255, .3);
+    color: var(--ink)
+}
+
+.st-log div {
+    opacity: 0;
+    animation: stIn .5s ease forwards
+}
+
+.st-log b {
+    color: var(--lilac);
+    font-weight: 400
+}
+
+.st-log .ok {
+    color: var(--gold)
+}
+
+.st-polaroid {
+    width: min(58vw, 230px);
+    margin: 0 auto 1.2rem;
+    padding: 10px 10px 34px;
+    background: #fbf3ee;
+    border-radius: 6px;
+    transform: rotate(-3deg) !important;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .5)
+}
+
+.st-polaroid img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 3px
+}
+
+.st-botoes {
+    display: flex;
+    gap: .8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.4rem;
+    pointer-events: auto
+}
+
+.st-botoes .cta {
+    pointer-events: auto;
+    position: relative;
+    z-index: 5
+}
+
+.st-dica {
+    position: absolute;
+    bottom: max(22px, env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: .8rem;
+    color: var(--mute);
+    z-index: 1;
+    animation: stPisca 1.8s ease-in-out infinite;
+    pointer-events: none
+}
+
+@keyframes stPisca {
+
+    0%,
+    100% {
+        opacity: .35
+    }
+
+    50% {
+        opacity: .9
+    }
+}
+
+body.st-aberto {
+    overflow: hidden
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .st-slide>*,
+    .st-log div {
+        animation: none;
+        opacity: 1;
+        transform: none
+    }
+
+    .st-dica {
+        animation: none
+    }
+}

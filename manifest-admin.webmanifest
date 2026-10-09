@@ -1,0 +1,18 @@
+{
+  "name": "Painel do Blog",
+  "short_name": "Painel",
+  "description": "Respostas e recados do blog.",
+  "lang": "pt-BR",
+  "id": "./admin.html",
+  "start_url": "./admin.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#140a1f",
+  "theme_color": "#140a1f",
+  "icons": [
+    { "src": "img/icons/admin-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/admin-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icons/admin-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

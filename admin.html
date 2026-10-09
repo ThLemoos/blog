@@ -6,6 +6,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Painel</title>
+  <meta name="theme-color" content="#140a1f">
+  <link rel="manifest" href="manifest-admin.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="img/icons/admin-icon.svg">
+  <link rel="apple-touch-icon" href="img/icons/admin-apple-touch.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Painel">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
     body {
       margin: 0;
@@ -82,7 +90,7 @@
     <p id="err"></p>
   </div>
   <div id="app" hidden>
-    <button id="out">Sair</button>
+    <button id="out">Sair</button><button id="avisos" hidden>🔔 Ativar avisos</button>
     <h2>Respostas do Post #2</h2>
     <div id="lista-r"></div>
     <h2>Recados</h2>
@@ -97,8 +105,26 @@
     $("go").onclick = () => signInWithEmailAndPassword(auth, $("em").value, $("pw").value).catch(() => $("err").textContent = "E-mail ou senha incorretos.");
     $("out").onclick = () => signOut(auth);
 
+    // ===== avisos: título, selo no ícone e notificação (quando o app está aberto/em segundo plano) =====
+    const TITULO = document.title; let novas = 0;
+    function marcar() { document.title = novas ? `(${novas}) ${TITULO}` : TITULO; try { novas ? navigator.setAppBadge && navigator.setAppBadge(novas) : navigator.clearAppBadge && navigator.clearAppBadge(); } catch (e) { } }
+    async function avisar(nome) {
+      if (!document.hidden) return; // já está olhando: a lista já atualizou sozinha
+      novas++; marcar();
+      if (!("Notification" in window) || Notification.permission !== "granted") return;
+      const corpo = nome === "respostas" ? "Ela terminou o Post #2. Tem resposta nova!" : "Tem um recado novo.";
+      try { const reg = await navigator.serviceWorker.ready; reg.showNotification("Blog", { body: corpo, icon: "img/icons/admin-192.png", badge: "img/icons/admin-192.png", tag: "blog-" + nome }); }
+      catch (e) { try { new Notification("Blog", { body: corpo, icon: "img/icons/admin-192.png" }); } catch (_) { } }
+    }
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) { novas = 0; marcar(); } });
+    if ("Notification" in window && Notification.permission === "default") $("avisos").hidden = false;
+    $("avisos").onclick = async () => { await Notification.requestPermission(); $("avisos").hidden = true; };
+
     function ouvir(nome, destino) {
+      let primeira = true;
       return onSnapshot(query(collection(db, nome), orderBy("criadoEm", "desc")), snap => {
+        if (!primeira) snap.docChanges().forEach(c => { if (c.type === "added" && !c.doc.metadata.hasPendingWrites) avisar(nome); });
+        primeira = false;
         destino.replaceChildren(...snap.docs.map(d => {
           const r = d.data(), el = document.createElement("div"); el.className = "r";
           const h = document.createElement("small");
@@ -125,6 +151,7 @@
       subs = [ouvir("respostas", $("lista-r")), ouvir("recados", $("lista-m"))];
     });
   </script>
+  <script src="js/pwa.js"></script>
 </body>
 
 </html>
