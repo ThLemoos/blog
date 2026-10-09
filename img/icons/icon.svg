@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a1340"/><stop offset="1" stop-color="#140a1f"/></linearGradient>
+<linearGradient id="h" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7fa5"/><stop offset="1" stop-color="#ff4d85"/></linearGradient>
+<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff5d8f" stop-opacity=".35"/><stop offset="1" stop-color="#ff5d8f" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="512" height="512" rx="112" fill="url(#bg)"/>
+<circle cx="256" cy="256" r="230" fill="url(#glow)"/>
+<path d="M256 410 C120 320 90 230 90 175 C90 125 130 95 175 95 C212 95 242 115 256 148 C270 115 300 95 337 95 C382 95 422 125 422 175 C422 230 392 320 256 410 Z" fill="url(#h)"/>
+<g fill="none" stroke="#140a1f" stroke-width="17" stroke-linecap="round" stroke-linejoin="round">
+<path d="M212 205 L172 245 L212 285"/><path d="M300 205 L340 245 L300 285"/><path d="M270 196 L242 294" stroke="#f6d9b0"/>
+</g>
+<g fill="#f6d9b0"><circle cx="392" cy="88" r="6"/><circle cx="118" cy="400" r="5" fill="#b79cff"/><circle cx="420" cy="380" r="4" fill="#b79cff"/></g>
+</svg>
