@@ -94,7 +94,7 @@ document.querySelectorAll('.post.locked').forEach(c => {
     const go = () => {
         c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
         const m = document.getElementById(c.dataset.msg || 'postmsg');
-        if (m) m.textContent = c.dataset.msg ? 'Essa carta só abre depois que você terminar o Post #2.' : 'Esse ainda está sendo escrito. Volta daqui uns dias.';
+        if (m) m.textContent = c.dataset.msg ? 'Essa surpresa só abre depois que você terminar o Post #2.' : 'Esse ainda está sendo escrito. Volta daqui uns dias.';
     };
     c.addEventListener('click', go);
     c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
