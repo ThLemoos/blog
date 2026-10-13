@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Post #3 · Nosso primeiro mês, Wrapped</title>
+    <title>Post #3 · Coisas simples</title>
     <meta name="theme-color" content="#140a1f">
     <link rel="manifest" href="../manifest.webmanifest">
     <link rel="icon" href="../favicon.ico" sizes="48x48">
@@ -28,34 +28,84 @@
     <main class="post-page">
         <article class="letter">
             <a class="back" href="../index.html">← Página Inicial</a>
-            <h2 class="rv">Post #3: <em>Nosso primeiro mês</em><br>(Wrapped)</h2>
+            <h2 class="rv">Post #3: <em>Coisas simples, porém importantes</em></h2>
             <p class="rv d1">
-                Todo fim de ciclo, os aplicativos te mostram um resumo do que aconteceu. Eu achei justo que a gente
-                também tivesse o nosso.
-            </p>
-            <p class="rv d1">
-                Rodei um script nos nossos primeiros dias e ele gerou um relatório. Não é um relatório sério, mas é
-                verdadeiro.
+                Esse post não tem charada, nem algoritmo, nem teste. É só uma lista de coisas simples que eu reparo em
+                você e que eu gosto muito.
             </p>
             <p class="rv d1" style="text-align:center">
-                <span class="code">Toque na tela pra avançar.<br>Leva menos de dois minutos.</span>
+                <span class="code">Toque em cada cartão pra abrir.<br>No final, algo vai ser desbloqueado.</span>
             </p>
-            <div class="acoes rv d2" style="text-align:center;margin-top:1.8rem">
-                <button type="button" class="cta" id="comecar">Ver o meu Wrapped ▶</button>
+
+            <div class="notas rv d1" id="notas">
+                <button type="button" class="nota" aria-expanded="false" aria-controls="n1">
+                    <span class="nota-ico" aria-hidden="true"></span>
+                    <span class="nota-t">Estar com você</span>
+                    <span class="nota-mais" aria-hidden="true">+</span>
+                </button>
+                <div class="nota-c" id="n1" role="region">
+                    <div>
+                        <p>Eu gosto de estar com você. Parece óbvio, mas não é: com muita gente eu fico olhando o
+                            relógio. Com você, eu esqueço que ele existe.</p>
+                    </div>
+                </div>
+
+                <button type="button" class="nota" aria-expanded="false" aria-controls="n2">
+                    <span class="nota-ico" aria-hidden="true"></span>
+                    <span class="nota-t">Como eu me sinto</span>
+                    <span class="nota-mais" aria-hidden="true">+</span>
+                </button>
+                <div class="nota-c" id="n2" role="region">
+                    <div>
+                        <p>Você me faz bem. Perto de você eu não vejo a hora passar. É uma sensação boa de
+                            verdade, e eu nem sempre consigo explicar.</p>
+                    </div>
+                </div>
+
+                <button type="button" class="nota" aria-expanded="false" aria-controls="n3">
+                    <span class="nota-ico" aria-hidden="true"></span>
+                    <span class="nota-t">O seu cheiro</span>
+                    <span class="nota-mais" aria-hidden="true">+</span>
+                </button>
+                <div class="nota-c" id="n3" role="region">
+                    <div>
+                        <p>Você sabe que eu sempre reparei no seu cheiro. E voltar pra casa com seu cheiro é sempre bom demais!</p>
+                    </div>
+                </div>
+
+                <button type="button" class="nota" aria-expanded="false" aria-controls="n4">
+                    <span class="nota-ico" aria-hidden="true"></span>
+                    <span class="nota-t">O seu olhar</span>
+                    <span class="nota-mais" aria-hidden="true">+</span>
+                </button>
+                <div class="nota-c" id="n4" role="region">
+                    <div>
+                        <p>Eu gosto de te olhar nos olhos. É onde eu vejo sinceridade e as reações que você tem quando te falo ou te faço sentir algo. Além disso, você tem um jeito de
+                            me olhar que me quebra totalmente.</p>
+                    </div>
+                </div>
             </div>
+
+            <p class="nota-cont" id="nota-cont" aria-live="polite">Abertos: 0 de 4</p>
+
+            <div class="fim" id="fim" hidden aria-live="polite">
+                <p>Era só isso mesmo. Simples e tudo verdade.</p>
+                <div class="surpresa-aviso">
+                    <span class="surpresa-ico" aria-hidden="true">🎁</span>
+                    <div>
+                        <b>Dito isso, você desbloqueou uma surpresa.</b>
+                        <span>Ela vai ficar guardada na página inicial também.</span>
+                    </div>
+                </div>
+                <div class="acoes" style="text-align:center">
+                    <a class="cta" href="../index.html#cartas">Ver a surpresa</a>
+                </div>
+            </div>
+
             <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
         </article>
     </main>
     <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
-
-    <div id="stories" role="dialog" aria-modal="true" aria-label="Nosso primeiro mês" hidden>
-        <div class="st-bars" id="st-bars" aria-hidden="true"></div>
-        <button type="button" class="st-x" id="st-x" aria-label="Fechar">×</button>
-        <div class="st-slide" id="st-slide" aria-live="polite"></div>
-        <button type="button" class="st-zona st-prev" id="st-prev" aria-label="Voltar"></button>
-        <button type="button" class="st-zona st-next" id="st-next" aria-label="Avançar"></button>
-        <div class="st-dica" id="st-dica">toque pra avançar →</div>
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="../js/main.js"></script>

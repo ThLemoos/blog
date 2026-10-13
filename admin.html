@@ -91,7 +91,7 @@
   </div>
   <div id="app" hidden>
     <button id="out">Sair</button><button id="avisos" hidden>🔔 Ativar avisos</button>
-    <h2>Respostas do Post #2</h2>
+    <h2>Respostas e versões dela</h2>
     <div id="lista-r"></div>
     <h2>Recados</h2>
     <div id="lista-m"></div>
@@ -108,11 +108,12 @@
     // ===== avisos: título, selo no ícone e notificação (quando o app está aberto/em segundo plano) =====
     const TITULO = document.title; let novas = 0;
     function marcar() { document.title = novas ? `(${novas}) ${TITULO}` : TITULO; try { novas ? navigator.setAppBadge && navigator.setAppBadge(novas) : navigator.clearAppBadge && navigator.clearAppBadge(); } catch (e) { } }
-    async function avisar(nome) {
+    async function avisar(nome, dados) {
       if (!document.hidden) return; // já está olhando: a lista já atualizou sozinha
       novas++; marcar();
       if (!("Notification" in window) || Notification.permission !== "granted") return;
-      const corpo = nome === "respostas" ? "Ela terminou o Post #2. Tem resposta nova!" : "Tem um recado novo.";
+      const corpo = nome !== "respostas" ? "Tem um recado novo."
+        : (dados && dados.post === 3 ? "Ela escreveu a versão dela de um momento 📖" : "Ela terminou o Post #2. Tem resposta nova!");
       try { const reg = await navigator.serviceWorker.ready; reg.showNotification("Blog", { body: corpo, icon: "img/icons/admin-192.png", badge: "img/icons/admin-192.png", tag: "blog-" + nome }); }
       catch (e) { try { new Notification("Blog", { body: corpo, icon: "img/icons/admin-192.png" }); } catch (_) { } }
     }
@@ -123,12 +124,12 @@
     function ouvir(nome, destino) {
       let primeira = true;
       return onSnapshot(query(collection(db, nome), orderBy("criadoEm", "desc")), snap => {
-        if (!primeira) snap.docChanges().forEach(c => { if (c.type === "added" && !c.doc.metadata.hasPendingWrites) avisar(nome); });
+        if (!primeira) snap.docChanges().forEach(c => { if (c.type === "added" && !c.doc.metadata.hasPendingWrites) avisar(nome, c.doc.data()); });
         primeira = false;
         destino.replaceChildren(...snap.docs.map(d => {
           const r = d.data(), el = document.createElement("div"); el.className = "r";
           const h = document.createElement("small");
-          h.textContent = (r.humor ? r.humor + "  " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
+          h.textContent = (r.humor ? r.humor + "  " : "") + (r.post === 3 ? "📖 Versão dela · " : r.post ? "Post #" + r.post + " · " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
           el.append(h);
           if (Array.isArray(r.itens)) {
             r.itens.forEach(it => {

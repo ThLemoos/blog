@@ -1,19 +1,14 @@
-// ====== PERSONALIZE AQUI ======
-const NOME = "branquinha";            // o nome dela
-const EU = "Thiago Lemos";        // o seu nome
-// ==============================
+const NOME = "branquinha";            
+const EU = "Thiago Lemos";        
+
 document.querySelectorAll('[data-nome]').forEach(e => e.textContent = NOME);
 document.querySelectorAll('[data-eu]').forEach(e => e.textContent = EU);
 
-// revelar ao rolar: entra e sai, funcionando subindo e descendo
-// Um observador só ADICIONA (quando entra na tela) e outro só REMOVE (quando já está bem longe).
-// Antes, o mesmo observador fazia os dois e, ao parar a rolagem em certos pontos, o elemento
-// ficava entrando e saindo sem parar (era isso que "pulava").
 const ioIn = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { rootMargin: '0px 0px -12% 0px' });
 const ioOut = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) e.target.classList.remove('in'); }), { rootMargin: '300px 0px 300px 0px' });
 document.querySelectorAll('.rv').forEach(el => { ioIn.observe(el); ioOut.observe(el); });
 
-// ====== THREE.JS: coração de partículas ======
+// three.js: coração de partículas
 (function () {
     if (typeof THREE === 'undefined') return;
     const canvas = document.getElementById('bg');
@@ -67,13 +62,12 @@ document.querySelectorAll('.rv').forEach(el => { ioIn.observe(el); ioOut.observe
         requestAnimationFrame(loop);
         const t = (now - t0) / 1000;
         const dt = Math.min((now - last) / 1000, .1); last = now;
-        if (!still) spin += dt * .9; // giro contínuo (rad/s): mude o .4 para girar mais rápido ou mais devagar
+        if (!still) spin += dt * .9; 
         scroll += (target - scroll) * .06;
-        const beat = 1 + Math.sin(t * .9) * .015; // respiração suave
+        const beat = 1 + Math.sin(t * .9) * .015;
         const s = still ? 1 : beat;
         const vh = Math.max(0, scrollY) / (canvas.clientHeight || innerHeight);
         sx += (mx - sx) * .05; sy += (my - sy) * .05;
-        // ao rolar: coração gira, sobe, diminui e fica mais suave; ao subir, volta
         group.rotation.y = spin + scroll * Math.PI * 2 + sx * .4;
         group.rotation.x = sy * .2;
         group.position.y = Math.min(vh, 3) * 5;
@@ -94,7 +88,7 @@ document.querySelectorAll('.post.locked').forEach(c => {
     const go = () => {
         c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
         const m = document.getElementById(c.dataset.msg || 'postmsg');
-        if (m) m.textContent = c.dataset.msg ? 'Essa surpresa só abre depois que você terminar o Post #2.' : 'Esse ainda está sendo escrito. Volta daqui uns dias.';
+        if (m) m.textContent = c.dataset.aviso || (c.dataset.msg ? 'Essa surpresa só abre depois que você terminar o Post #2.' : 'Esse ainda está sendo escrito. Volta daqui uns dias.');
     };
     c.addEventListener('click', go);
     c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
