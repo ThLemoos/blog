@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Post #4 · Uma história que eu não esperava escrever</title>
+    <meta name="theme-color" content="#140a1f">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="../img/icons/icon.svg">
+    <link rel="apple-touch-icon" href="../img/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Nosso Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/post4.css">
+</head>
+
+<body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+
+    <!-- barra de "carregamento" da história -->
+    <div class="carrega" aria-hidden="true">
+        <div class="carrega-barra" id="carrega-barra"></div>
+        <span class="carrega-txt" id="carrega-txt">lendo… 0%</span>
+    </div>
+
+    <main class="post-page">
+        <article class="letter historia">
+            <a class="back" href="../index.html">← Página Inicial</a>
+
+            <h2 class="rv">Post #4: <em>Uma história que eu não esperava escrever</em></h2>
+            <p class="rv d1">
+                Hoje eu vou te contar uma história. Ela tem
+                começo, meio e um final do jeito que você gosta.
+            </p>
+            <p class="rv d1" style="text-align:center">
+                <span class="code">Role devagar. Cada capítulo aparece no seu tempo.</span>
+            </p>
+
+            <!-- CAPÍTULO 1 -->
+            <section class="cap" aria-labelledby="c1">
+                <span class="cap-n rv">capítulo 1</span>
+                <h3 class="rv" id="c1">Era uma vez um cara sério</h3>
+                <p class="rv">Eu sempre fui um cara que gostava de tudo no lugar. Dias organizados, rotina previsível e
+                    a
+                    certeza de que sabia exatamente o que vinha pela frente.</p>
+                <p class="rv">Sempre fui sério, de poucas palavras, e demonstro carinho de um jeito meio complicado.
+                    Quando tenho algo importante pra dizer, eu escrevo ou escrevia um código.</p>
+                <p class="rv">Mas uma pessoa nova de 1.57m não estava na lista de tarefas. Nem no planejamento. Nem na
+                    próxima
+                    <i>sprint</i>.
+                </p>
+            </section>
+
+            <!-- CAPÍTULO 2 -->
+            <section class="cap" aria-labelledby="c2">
+                <span class="cap-n rv">capítulo 2</span>
+                <h3 class="rv" id="c2">E então chegou você</h3>
+                <p class="rv">Sem aviso e sem pedir licença, você chegou.</p>
+                <p class="rv">Eu não esperava me sentir tão bem. Não esperava que a cabeça, que vivia e vive a mil,
+                    ficasse
+                    tranquila de um jeito bom. Mas ficou. Ao seu lado, eu descobri o que é sentir paz de verdade em
+                    alguém.</p>
+                <p class="rv destaque">Tem gente que cansa a gente.<br>E tem gente que descansa.<br><em>Você é a
+                        segunda.</em></p>
+            </section>
+
+            <!-- CAPÍTULO 3 -->
+            <section class="cap" aria-labelledby="c3">
+                <span class="cap-n rv">capítulo 3</span>
+                <h3 class="rv" id="c3">Os dias ficaram melhores</h3>
+                <p class="rv">Foi aí que os meus dias mudaram. Nada de grande aconteceu. A mudança foi pequena, mas
+                    aparece em todos os horários. <span class="code">Toque pra ver.</span></p>
+
+                <div class="dia rv" id="dia" data-periodo="manha">
+                    <div class="dia-ceu" aria-hidden="true">
+                        <span class="astro" id="astro"></span>
+                        <span class="nuvem n1"></span><span class="nuvem n2"></span>
+                        <span class="estrela e1"></span><span class="estrela e2"></span><span class="estrela e3"></span>
+                    </div>
+                    <div class="dia-abas" role="tablist" aria-label="Momentos do dia">
+                        <button type="button" role="tab" id="aba-manha" aria-selected="true" aria-controls="painel-dia"
+                            data-p="manha">Manhã</button>
+                        <button type="button" role="tab" id="aba-tarde" aria-selected="false" aria-controls="painel-dia"
+                            data-p="tarde" tabindex="-1">Tarde</button>
+                        <button type="button" role="tab" id="aba-noite" aria-selected="false" aria-controls="painel-dia"
+                            data-p="noite" tabindex="-1">Noite</button>
+                    </div>
+                    <p class="dia-txt" id="painel-dia" role="tabpanel" aria-live="polite" aria-labelledby="aba-manha">
+                    </p>
+                </div>
+
+                <p class="rv">Você não mudou meu mundo e nem minha forma de pensar. Mas mudou a forma como me sinto
+                    dentro dele. E isso deixou
+                    os dias mais tranquilos.</p>
+            </section>
+
+            <!-- CAPÍTULO 4 -->
+            <section class="cap" aria-labelledby="c4">
+                <span class="cap-n rv">capítulo 4</span>
+                <h3 class="rv" id="c4">E você tem uma alegria incomparável</h3>
+                <p class="rv">Mas calma, que essa história não é só de silêncio. Porque você também é alegre. Você é
+                    espoleta. Entra num lugar e o clima muda. Ri, canta, dança e transforma qualquer momento comum numa
+                    pequena festa.</p>
+                <p class="rv">E eu, um cara sério, que achava que já tinha tudo o que precisava, descobri que faltava
+                    exatamente isso: <em class="rosa">uma paz que faz barulho</em>. Uma calma animada.</p>
+                <p class="rv">É esse seu jeito todo que me faz se sentir completo com você. (anota isso aí!)</p>
+            </section>
+
+            <!-- CAPÍTULO 5 -->
+            <section class="cap" aria-labelledby="c5">
+                <span class="cap-n rv">capítulo 5</span>
+                <h3 class="rv" id="c5">Você, por inteira</h3>
+                <p class="rv">E tem uma coisa que eu sei bem: não quero uma versão editada sua. Nem só a parte
+                    tranquila, nem só a parte animada.</p>
+
+                <div class="anel-box rv" id="anel-box">
+                    <div class="anel" role="img" aria-label="Sandy, 100% completa">
+                        <svg viewBox="0 0 120 120" aria-hidden="true">
+                            <circle class="anel-fundo" cx="60" cy="60" r="52" />
+                            <circle class="anel-valor" id="anel-valor" cx="60" cy="60" r="52" />
+                        </svg>
+                        <div class="anel-num"><span class="anel-txt"><b id="anel-num">0</b><small>%</small></span></div>
+                    </div>
+                    <div class="anel-info">
+                        <span class="code">Sandy · versão completa</span>
+                        <ul class="chips" id="chips">
+                            <li>calma</li>
+                            <li>alegre</li>
+                            <li>espoleta</li>
+                            <li>que canta</li>
+                            <li>que dança</li>
+                            <li>que dá esporro</li>
+                            <li>que é brabinha</li>
+                            <li>que é minha</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="rv">Eu gosto da Sandy 100% completa. Com tudo o que você é, do jeito que você é.</p>
+            </section>
+
+            <!-- CAPÍTULO 6 -->
+            <section class="cap" aria-labelledby="c6">
+                <span class="cap-n rv">capítulo final</span>
+                <h3 class="rv" id="c6">Talvez você já tenha percebido</h3>
+                
+                <p class="rv"><b class="ouro">Sandy</b>, Você me conquista a cada dia, e não é com nada grandioso. É com o seu jeito todo de ser.
+                    E você me deu uma coisa que eu não esperava: <em class="rosa">certeza</em>. Certeza de futuro.
+                    Quando eu penso nele, o que eu sinto é tranquilidade, e você está nele.</p>
+                <p class="rv">Não sei tudo o que vem nos próximos capítulos. Mas sei que quero que você esteja neles.
+                </p>
+                  <p class="rv">
+                        Você não sabe ainda, mas um dos motivos pra eu querer continuar crescendo pessoalmente e espiritualmente
+                        é você!
+                    </p>
+            </section>
+
+            <!-- FINAL 
+            <section class="cap final" aria-labelledby="c7">
+                <span class="cap-n rv">capítulo final</span>
+                <h3 class="rv" id="c7">A festa</h3>
+                <p class="rv">Eu sei que você gosta de cantar e dançar nas épocas de festa. Então esse final eu deixei
+                    pra você. Hoje a pista é sua.</p>
+
+                <div class="palco rv" id="palco">
+                    <div class="luzes" id="luzes" aria-hidden="true"></div>
+                    <div class="holofote" aria-hidden="true"></div>
+                    <div class="notas-voando" id="notas-voando" aria-hidden="true"></div>
+
+                    <button type="button" class="boneca-btn" id="boneca"
+                        aria-label="Boneca dançando. Toque pra soltar confete.">
+                        <svg class="boneca" viewBox="0 0 200 290" aria-hidden="true">
+                            <ellipse class="sombra" cx="100" cy="276" rx="52" ry="7" />
+                            <g class="g-giro">
+                                <g class="g-pulo">
+                                    
+                                    <g class="g-coques">
+                                        <circle cx="62" cy="54" r="16" fill="#4a2430" />
+                                        <circle cx="138" cy="54" r="16" fill="#4a2430" />
+                                        <circle cx="62" cy="54" r="6" fill="#ff5d8f" />
+                                        <circle cx="138" cy="54" r="6" fill="#ff5d8f" />
+                                    </g>
+                                    <circle cx="100" cy="86" r="41" fill="#4a2430" />
+
+                                   
+                                    <g class="perna pl">
+                                        <rect x="82" y="212" width="11" height="48" rx="5.5" fill="#ffe3d3" />
+                                        <ellipse cx="85" cy="264" rx="13" ry="7" fill="#b79cff" />
+                                    </g>
+                                    <g class="perna pr">
+                                        <rect x="107" y="212" width="11" height="48" rx="5.5" fill="#ffe3d3" />
+                                        <ellipse cx="115" cy="264" rx="13" ry="7" fill="#b79cff" />
+                                    </g>
+
+                                    <g class="braco bl">
+                                        <line x1="74" y1="140" x2="62" y2="186" stroke="#ffe3d3" stroke-width="10"
+                                            stroke-linecap="round" />
+                                        <circle cx="61" cy="190" r="7" fill="#ffe3d3" />
+                                    </g>
+                                    <g class="braco br">
+                                        <line x1="126" y1="140" x2="138" y2="186" stroke="#ffe3d3" stroke-width="10"
+                                            stroke-linecap="round" />
+                                        <circle cx="139" cy="190" r="7" fill="#ffe3d3" />
+                                    </g>
+
+                                   
+                                    <g class="g-saia">
+                                        <path d="M80 134 Q100 126 120 134 L127 156 L146 226 Q100 244 54 226 L73 156 Z"
+                                            fill="#ff5d8f" />
+                                        <path d="M73 156 Q100 168 127 156" fill="none" stroke="#f6d9b0" stroke-width="5"
+                                            stroke-linecap="round" />
+                                        <path d="M54 226 Q100 244 146 226" fill="none" stroke="#f6d9b0" stroke-width="6"
+                                            stroke-linecap="round" />
+                                        <circle cx="86" cy="188" r="3.2" fill="#f6d9b0" />
+                                        <circle cx="114" cy="196" r="3.2" fill="#f6d9b0" />
+                                        <circle cx="100" cy="208" r="3.2" fill="#f6d9b0" />
+                                        <circle cx="72" cy="214" r="3.2" fill="#f6d9b0" />
+                                        <circle cx="128" cy="214" r="3.2" fill="#f6d9b0" />
+                                    </g>
+                                    <circle cx="76" cy="138" r="10" fill="#ff5d8f" />
+                                    <circle cx="124" cy="138" r="10" fill="#ff5d8f" />
+
+                                  
+                                    <rect x="93" y="118" width="14" height="18" rx="6" fill="#ffe3d3" />
+                                    <g class="g-cabeca">
+                                        <circle cx="100" cy="90" r="36" fill="#ffe3d3" />
+                                        
+                                        <path d="M63 90 C58 48 142 48 137 90 C130 72 118 66 100 68 C82 66 70 72 63 90 Z"
+                                            fill="#4a2430" />
+                                       
+                                        <g class="olhos">
+                                            <ellipse cx="85" cy="95" rx="4.2" ry="5.4" fill="#3a1a28" />
+                                            <ellipse cx="115" cy="95" rx="4.2" ry="5.4" fill="#3a1a28" />
+                                            <circle cx="86.4" cy="93" r="1.5" fill="#fff" />
+                                            <circle cx="116.4" cy="93" r="1.5" fill="#fff" />
+                                        </g>
+                                        <ellipse cx="76" cy="108" rx="7" ry="4.5" fill="#ff8fb0" opacity=".55" />
+                                        <ellipse cx="124" cy="108" rx="7" ry="4.5" fill="#ff8fb0" opacity=".55" />
+                                        <g class="boca">
+                                            <ellipse cx="100" cy="109" rx="6.5" ry="5.5" fill="#8a2a48" />
+                                            <ellipse cx="100" cy="111.5" rx="3.6" ry="2.2" fill="#ff8fb0" />
+                                        </g>
+                                      
+                                        <path d="M70 66 Q100 52 130 66" fill="none" stroke="#f6d9b0" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path class="estrela-tiara"
+                                            d="M100 40 L104 51 L116 51 L106.5 58 L110 70 L100 63 L90 70 L93.5 58 L84 51 L96 51 Z"
+                                            fill="#f6d9b0" />
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                    <div class="chao" aria-hidden="true"></div>
+                </div>
+
+                <div class="palco-acoes rv">
+                    <button type="button" class="cta" id="btn-musica" aria-pressed="false">🎵 Tocar uma
+                        musiquinha</button>
+                    <p class="palco-dica">Toque na boneca pra soltar confete.</p>
+                </div>-->
+
+                <p class="rv">Eu sei que você gosta de festa, de cantar e de dançar. Então o final dessa história eu
+                    deixei pra você: hoje o céu é todo seu.</p>
+
+                <div class="show rv" id="show">
+                    <canvas id="fogos" role="img" aria-label="Fogos de artifício formando o nome Sandy"></canvas>
+                </div>
+
+                <div class="palco-acoes rv">
+                    <p class="palco-dica">Toque no céu pra soltar mais fogos.</p>
+                </div>
+
+                <p class="rv sig fim-sig">Com carinho,<br>— <span data-eu>Thiago Lemos</span></p>
+                <p class="rv fim-fim"><span class="code">fim(); // ou melhor: continua()</span></p>
+                <p class="rv" style="text-align:center;margin-top:1.4rem">
+                    <a class="cta" href="../index.html">Voltar pro início</a>
+                </p>
+            </section>
+        </article>
+    </main>
+    <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/post4.js"></script>
+    <script src="../js/pwa.js"></script>
+</body>
+
+</html>

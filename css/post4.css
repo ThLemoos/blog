@@ -1,0 +1,900 @@
+/* Post #4: Uma história que eu não esperava escrever */
+
+/* ---------- barra de leitura ---------- */
+.carrega {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 20;
+    height: 3px;
+    background: rgba(255, 255, 255, .06);
+    pointer-events: none
+}
+
+.carrega-barra {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    transform-origin: left;
+    transform: scaleX(0);
+    box-shadow: 0 0 12px rgba(255, 93, 143, .7)
+}
+
+.carrega-txt {
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    right: 12px;
+    font: 400 .7rem var(--mono);
+    color: var(--lilac);
+    background: rgba(20, 10, 31, .65);
+    border: 1px solid rgba(183, 156, 255, .25);
+    padding: .15rem .55rem;
+    border-radius: 999px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px)
+}
+
+.carrega-txt.ok {
+    color: var(--gold);
+    border-color: rgba(246, 217, 176, .5)
+}
+
+/* ---------- capítulos ---------- */
+.historia {
+    max-width: 60ch
+}
+
+.letter .cap {
+    min-height: 0;
+    display: block;
+    padding: 12vh 0 2vh
+}
+
+.cap-n {
+    display: block;
+    font: 400 .78rem var(--mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: .6rem
+}
+
+.letter .cap h3 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.9rem, 6.2vw, 2.7rem);
+    line-height: 1.12;
+    margin-bottom: 1.5rem;
+    color: var(--ink)
+}
+
+.letter .destaque {
+    text-align: center;
+    font-size: clamp(1.3rem, 4.8vw, 1.7rem);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--gold);
+    margin: 2rem 0
+}
+
+.letter .destaque em {
+    color: var(--rose);
+    font-weight: 600
+}
+
+.rosa {
+    color: var(--rose);
+    font-style: italic
+}
+
+.ouro {
+    color: var(--gold);
+    font-weight: 600
+}
+
+/* ---------- dia: manhã / tarde / noite ---------- */
+.dia {
+    --c1: #f7c9a4;
+    --c2: #c79bd8;
+    --ax: 20%;
+    --ay: 56%;
+    --as: 46px;
+    --astro: #fff0b8;
+    --astro-glow: rgba(255, 224, 140, .75);
+    --nuvem: .55;
+    --estrela: 0;
+    margin: 1.8rem 0 2rem;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(183, 156, 255, .35);
+    background: rgba(255, 255, 255, .04)
+}
+
+.dia[data-periodo="tarde"] {
+    --c1: #ffb27a;
+    --c2: #ff5d8f;
+    --ax: 50%;
+    --ay: 24%;
+    --as: 58px;
+    --astro: #fff6d6;
+    --astro-glow: rgba(255, 200, 120, .8)
+}
+
+.dia[data-periodo="noite"] {
+    --c1: #1d1242;
+    --c2: #4a2a82;
+    --ax: 78%;
+    --ay: 34%;
+    --as: 40px;
+    --astro: #f4ecff;
+    --astro-glow: rgba(200, 185, 255, .55);
+    --nuvem: 0;
+    --estrela: 1
+}
+
+.dia-ceu {
+    position: relative;
+    height: 150px;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--c1), var(--c2));
+    transition: background .6s
+}
+
+.astro {
+    position: absolute;
+    left: var(--ax);
+    top: var(--ay);
+    width: var(--as);
+    height: var(--as);
+    margin: calc(var(--as) / -2) 0 0 calc(var(--as) / -2);
+    border-radius: 50%;
+    background: var(--astro);
+    box-shadow: 0 0 40px 10px var(--astro-glow);
+    transition: left .8s cubic-bezier(.3, .8, .3, 1), top .8s cubic-bezier(.3, .8, .3, 1), width .6s, height .6s, margin .6s, background .6s, box-shadow .6s
+}
+
+.dia[data-periodo="noite"] .astro {
+    box-shadow: inset -9px -3px 0 0 #c9bde8, 0 0 30px 6px var(--astro-glow)
+}
+
+.nuvem {
+    position: absolute;
+    height: 16px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, .8);
+    opacity: var(--nuvem);
+    transition: opacity .6s
+}
+
+.nuvem::before {
+    content: "";
+    position: absolute;
+    left: 18%;
+    top: -9px;
+    width: 40%;
+    height: 20px;
+    border-radius: 50%;
+    background: inherit
+}
+
+.nuvem.n1 {
+    width: 70px;
+    left: 62%;
+    top: 40px
+}
+
+.nuvem.n2 {
+    width: 54px;
+    left: 8%;
+    top: 100px
+}
+
+.estrela {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: var(--estrela);
+    transition: opacity .8s;
+    animation: pisca 2.4s ease-in-out infinite
+}
+
+.estrela.e1 {
+    left: 14%;
+    top: 26px
+}
+
+.estrela.e2 {
+    left: 38%;
+    top: 78px;
+    animation-delay: .8s
+}
+
+.estrela.e3 {
+    left: 60%;
+    top: 20px;
+    animation-delay: 1.5s
+}
+
+@keyframes pisca {
+    50% {
+        transform: scale(1.8);
+        filter: brightness(1.4)
+    }
+}
+
+.dia-abas {
+    display: flex;
+    gap: .5rem;
+    padding: .8rem .8rem 0
+}
+
+.dia-abas button {
+    flex: 1;
+    min-height: 44px;
+    font: 500 .95rem var(--sans);
+    color: var(--mute);
+    background: transparent;
+    border: 1px solid rgba(183, 156, 255, .3);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color .25s, background .25s, border-color .25s
+}
+
+.dia-abas button[aria-selected="true"] {
+    color: #2a0f26;
+    background: linear-gradient(135deg, var(--gold), #ffb3c9);
+    border-color: transparent
+}
+
+.dia-abas button:focus-visible {
+    outline: 2px solid var(--lilac);
+    outline-offset: 2px
+}
+
+.letter .dia-txt {
+    margin: 0;
+    padding: 1.1rem 1.3rem 1.4rem;
+    min-height: 8.6em;
+    font-size: clamp(1.05rem, 4vw, 1.2rem);
+    line-height: 1.7
+}
+
+.dia-txt.troca {
+    animation: troca .5s ease both
+}
+
+@keyframes troca {
+    from {
+        opacity: 0;
+        transform: translateY(8px)
+    }
+}
+
+/* ---------- anel 100% ---------- */
+.anel-box {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin: 1.6rem 0 2rem;
+    padding: 1.4rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(183, 156, 255, .35)
+}
+
+.anel {
+    position: relative;
+    flex: none;
+    width: 128px;
+    height: 128px
+}
+
+.anel svg {
+    overflow: visible;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg)
+}
+
+.anel circle {
+    fill: none;
+    stroke-width: 9
+}
+
+.anel-fundo {
+    stroke: rgba(255, 255, 255, .09)
+}
+
+.anel-valor {
+    stroke: var(--rose);
+    stroke-linecap: round;
+    stroke-dasharray: 326.73;
+    stroke-dashoffset: 326.73;
+    filter: drop-shadow(0 0 6px rgba(255, 93, 143, .7));
+    transition: stroke-dashoffset 2s cubic-bezier(.3, .7, .2, 1)
+}
+
+.anel-box.on .anel-valor {
+    stroke-dashoffset: 0
+}
+
+.anel-num {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--serif);
+    color: var(--gold)
+}
+
+.anel-txt {
+    line-height: 1;
+    white-space: nowrap
+}
+
+.anel-num b {
+    font-size: 2.3rem;
+    font-weight: 600
+}
+
+.anel-num small {
+    font-size: 1rem;
+    margin-left: 2px
+}
+
+.chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: .9rem
+}
+
+.chips li {
+    font: 400 .85rem var(--sans);
+    color: var(--ink);
+    padding: .3rem .8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 93, 143, .5);
+    background: rgba(255, 93, 143, .1);
+    opacity: 0;
+    transform: translateY(8px) scale(.9);
+    transition: opacity .5s, transform .5s
+}
+
+.anel-box.on .chips li {
+    opacity: 1;
+    transform: none
+}
+
+.anel-box.on .chips li:nth-child(1) {
+    transition-delay: .5s
+}
+
+.anel-box.on .chips li:nth-child(2) {
+    transition-delay: .75s
+}
+
+.anel-box.on .chips li:nth-child(3) {
+    transition-delay: 1s
+}
+
+.anel-box.on .chips li:nth-child(4) {
+    transition-delay: 1.25s
+}
+
+.anel-box.on .chips li:nth-child(5) {
+    transition-delay: 1.5s
+}
+
+/* ---------- palco da boneca ---------- */
+.palco {
+    --b: 1.2s;
+    position: relative;
+    width: min(100%, 400px);
+    height: 400px;
+    margin: 2rem auto .6rem;
+    display: grid;
+    place-items: end center
+}
+
+.luzes {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 44px
+}
+
+.luzes::before {
+    content: "";
+    position: absolute;
+    left: 2%;
+    right: 2%;
+    top: -14px;
+    height: 34px;
+    border-bottom: 1.5px solid rgba(247, 236, 241, .35);
+    border-radius: 0 0 50% 50%
+}
+
+.luz {
+    position: absolute;
+    width: 10px;
+    height: 14px;
+    margin-left: -5px;
+    border-radius: 50% 50% 55% 55%;
+    background: var(--cor);
+    box-shadow: 0 0 12px 3px var(--cor);
+    animation: luz 1.6s ease-in-out infinite;
+    animation-delay: var(--d)
+}
+
+@keyframes luz {
+
+    0%,
+    100% {
+        opacity: .35
+    }
+
+    50% {
+        opacity: 1
+    }
+}
+
+.holofote {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    width: 340px;
+    height: 360px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at 50% 55%, rgba(255, 93, 143, .28), rgba(183, 156, 255, .12) 45%, transparent 70%);
+    animation: holo var(--b) ease-in-out infinite alternate
+}
+
+@keyframes holo {
+    to {
+        opacity: .6
+    }
+}
+
+.chao {
+    position: absolute;
+    left: 50%;
+    bottom: 6px;
+    width: 280px;
+    height: 24px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(246, 217, 176, .35), rgba(255, 93, 143, .12) 55%, transparent 72%)
+}
+
+.boneca-btn {
+    position: relative;
+    z-index: 2;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent
+}
+
+.boneca-btn:focus-visible {
+    outline: 2px solid var(--lilac);
+    outline-offset: 6px;
+    border-radius: 24px
+}
+
+.boneca {
+    display: block;
+    height: 350px;
+    width: auto;
+    overflow: visible;
+    filter: drop-shadow(0 10px 24px rgba(255, 93, 143, .35))
+}
+
+/* animações (só rodam quando o palco está na tela) */
+.boneca * {
+    transform-box: view-box
+}
+
+.palco:not(.on) .boneca *,
+.palco:not(.on) .holofote,
+.palco:not(.on) .luz {
+    animation-play-state: paused !important
+}
+
+.sombra {
+    fill: rgba(0, 0, 0, .35);
+    transform-origin: 100px 276px;
+    animation: sombra var(--b) ease-in-out infinite
+}
+
+.g-giro {
+    transform-origin: 100px 150px;
+    animation: giro calc(var(--b) * 4) ease-in-out infinite
+}
+
+.g-pulo {
+    transform-origin: 100px 262px;
+    animation: pulo var(--b) ease-in-out infinite
+}
+
+.braco.bl {
+    transform-origin: 74px 140px;
+    animation: braco-e var(--b) ease-in-out infinite
+}
+
+.braco.br {
+    transform-origin: 126px 140px;
+    animation: braco-d var(--b) ease-in-out infinite
+}
+
+.perna.pl {
+    transform-origin: 87px 214px;
+    animation: perna-e var(--b) ease-in-out infinite
+}
+
+.perna.pr {
+    transform-origin: 113px 214px;
+    animation: perna-d var(--b) ease-in-out infinite
+}
+
+.g-saia {
+    transform-origin: 100px 134px;
+    animation: saia var(--b) ease-in-out infinite
+}
+
+.g-cabeca {
+    transform-origin: 100px 128px;
+    animation: cabeca var(--b) ease-in-out infinite
+}
+
+.g-coques {
+    transform-origin: 100px 90px;
+    animation: coques var(--b) ease-in-out infinite
+}
+
+.olhos {
+    transform-origin: 100px 95px;
+    animation: pisca-olho 4s infinite
+}
+
+.boca {
+    transform-origin: 100px 109px;
+    animation: canta calc(var(--b) / 2) ease-in-out infinite alternate
+}
+
+.estrela-tiara {
+    transform-origin: 100px 56px;
+    animation: brilha calc(var(--b) / 2) ease-in-out infinite alternate
+}
+
+@keyframes pulo {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg)
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(3deg)
+    }
+}
+
+@keyframes giro {
+
+    0%,
+    68% {
+        transform: scaleX(1)
+    }
+
+    76% {
+        transform: scaleX(.04)
+    }
+
+    84% {
+        transform: scaleX(-1)
+    }
+
+    92% {
+        transform: scaleX(.04)
+    }
+
+    100% {
+        transform: scaleX(1)
+    }
+}
+
+@keyframes braco-e {
+
+    0%,
+    100% {
+        transform: rotate(14deg)
+    }
+
+    50% {
+        transform: rotate(150deg)
+    }
+}
+
+@keyframes braco-d {
+
+    0%,
+    100% {
+        transform: rotate(-150deg)
+    }
+
+    50% {
+        transform: rotate(-14deg)
+    }
+}
+
+@keyframes perna-e {
+
+    0%,
+    100% {
+        transform: rotate(9deg)
+    }
+
+    50% {
+        transform: rotate(-9deg)
+    }
+}
+
+@keyframes perna-d {
+
+    0%,
+    100% {
+        transform: rotate(9deg)
+    }
+
+    50% {
+        transform: rotate(-9deg)
+    }
+}
+
+@keyframes saia {
+
+    0%,
+    100% {
+        transform: skewX(-4deg)
+    }
+
+    50% {
+        transform: skewX(4deg)
+    }
+}
+
+@keyframes cabeca {
+
+    0%,
+    100% {
+        transform: rotate(6deg)
+    }
+
+    50% {
+        transform: rotate(-6deg)
+    }
+}
+
+@keyframes coques {
+
+    0%,
+    100% {
+        transform: rotate(-4deg) translateY(0)
+    }
+
+    50% {
+        transform: rotate(4deg) translateY(-3px)
+    }
+}
+
+@keyframes pisca-olho {
+
+    0%,
+    93%,
+    100% {
+        transform: scaleY(1)
+    }
+
+    96% {
+        transform: scaleY(.1)
+    }
+}
+
+@keyframes canta {
+    from {
+        transform: scaleY(.35)
+    }
+
+    to {
+        transform: scaleY(1)
+    }
+}
+
+@keyframes brilha {
+    from {
+        transform: scale(.9) rotate(-6deg)
+    }
+
+    to {
+        transform: scale(1.15) rotate(6deg)
+    }
+}
+
+@keyframes sombra {
+
+    0%,
+    100% {
+        transform: scaleX(1);
+        opacity: 1
+    }
+
+    50% {
+        transform: scaleX(.8);
+        opacity: .6
+    }
+}
+
+/* notas musicais subindo */
+.notas-voando {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 3
+}
+
+.nota-v {
+    position: absolute;
+    bottom: 40%;
+    left: var(--x);
+    font-size: var(--s);
+    color: var(--cor);
+    text-shadow: 0 0 10px var(--cor);
+    opacity: 0;
+    animation: sobe 2.8s ease-out forwards
+}
+
+@keyframes sobe {
+    0% {
+        transform: translate(0, 0) rotate(0);
+        opacity: 0
+    }
+
+    15% {
+        opacity: 1
+    }
+
+    100% {
+        transform: translate(var(--dx), -200px) rotate(var(--r));
+        opacity: 0
+    }
+}
+
+.confete {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 9px;
+    height: 14px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 4
+}
+
+.palco-acoes {
+    text-align: center;
+    margin-top: 1rem
+}
+
+.palco-dica {
+    font: 400 .82rem var(--mono) !important;
+    color: var(--mute) !important;
+    margin: 1rem 0 0 !important
+}
+
+button.cta[aria-pressed="true"] {
+    background: linear-gradient(135deg, #ffb3c9, var(--lilac))
+}
+
+.letter .fim-sig {
+    text-align: right;
+    margin-top: 3rem
+}
+
+.letter .fim-fim {
+    text-align: center;
+    margin-top: 1.6rem
+}
+
+a.cta {
+    text-decoration: none;
+    display: inline-block
+}
+
+@media(max-width:560px) {
+    .anel-box {
+        flex-direction: column;
+        text-align: center
+    }
+
+    .chips {
+        justify-content: center
+    }
+
+    .palco {
+        height: 370px
+    }
+
+    .boneca {
+        height: 320px
+    }
+
+    .holofote {
+        width: 300px;
+        height: 330px
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .boneca *,
+    .holofote,
+    .luz,
+    .estrela,
+    .nota-v {
+        animation: none !important
+    }
+
+    .anel-valor,
+    .chips li,
+    .astro,
+    .dia-ceu {
+        transition: none
+    }
+
+    .dia-txt.troca {
+        animation: none
+    }
+}
+
+.anel-box.on .chips li:nth-child(6) {
+    transition-delay: 1.75s
+}
+
+.anel-box.on .chips li:nth-child(7) {
+    transition-delay: 2.00s
+}
+
+.anel-box.on .chips li:nth-child(8) {
+    transition-delay: 2.25s
+}
+
+/* ---------- final: fogos de artifício ---------- */
+.show {
+    position: relative;
+    margin: 1.8rem 0 1rem;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(183, 156, 255, .35);
+    background: #0e0718;
+    box-shadow: 0 0 60px rgba(255, 93, 143, .15)
+}
+
+.show canvas {
+    display: block;
+    width: 100%;
+    height: 380px;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent
+}
+
+@media(max-width:560px) {
+    .show canvas {
+        height: 340px
+    }
+}

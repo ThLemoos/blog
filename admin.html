@@ -113,7 +113,8 @@
       novas++; marcar();
       if (!("Notification" in window) || Notification.permission !== "granted") return;
       const corpo = nome !== "respostas" ? "Tem um recado novo."
-        : (dados && dados.post === 3 ? "Ela escreveu a versão dela de um momento 📖" : "Ela terminou o Post #2. Tem resposta nova!");
+        : (dados && dados.post === 4 ? "Ela respondeu o Post #4 (passando a limpo)"
+          : dados && dados.post === 3 ? "Ela escreveu a versão dela de um momento 📖" : "Ela terminou o Post #2. Tem resposta nova!");
       try { const reg = await navigator.serviceWorker.ready; reg.showNotification("Blog", { body: corpo, icon: "img/icons/admin-192.png", badge: "img/icons/admin-192.png", tag: "blog-" + nome }); }
       catch (e) { try { new Notification("Blog", { body: corpo, icon: "img/icons/admin-192.png" }); } catch (_) { } }
     }
