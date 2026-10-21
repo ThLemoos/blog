@@ -23,7 +23,7 @@
     const TEXTOS = {
         manha: 'O dia começa melhor só de saber que você existe nele. Nem precisa acontecer nada: saber já ajuda.',
         tarde: 'Quando o dia aperta, basta lembrar de você e a respiração desacelera. Os problemas continuam do mesmo tamanho, mas eu fica maior que eles.',
-        noite: 'E no fim do dia, o melhor lugar pra chegar é perto de você. O dia acaba, mas a tranquilidade fica. Por isso que eu as vezes eu vou te ver nem que seja por 10 minutos ou sem que seja aprenas uma carona até em casa depois do trabalho.'
+        noite: 'E no fim do dia, o melhor lugar pra chegar é perto de você. O dia acaba, mas a tranquilidade fica. Por isso que as vezes eu vou te ver nem que seja por 10 minutos ou sem que seja apenas uma carona até em casa depois do trabalho.'
     };
     const dia = $('dia'), painel = $('painel-dia');
     const abas = [...dia.querySelectorAll('[role="tab"]')];
