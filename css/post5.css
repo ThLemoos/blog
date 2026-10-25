@@ -1,0 +1,474 @@
+/* Post #5: Você não se vê como eu te vejo (vídeo de fundo + créditos) */
+
+.p5-body {
+    --escuro: .62;
+    /* quão escuro o vídeo fica durante os créditos (0 a 1) */
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    background: #07030e;
+    overscroll-behavior: none
+}
+
+/* ---------- vídeo de fundo ---------- */
+.p5-video {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* "cover" preenche a tela (ótimo pra vídeo em pé no celular).
+                         Se o vídeo for deitado e estiver cortando demais, troque por: contain */
+    background: #07030e
+}
+
+.p5-escuro {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2.4s ease;
+    background:
+        radial-gradient(120% 90% at 50% 50%, rgba(10, 4, 20, calc(var(--escuro) * .8)) 0%, rgba(10, 4, 20, var(--escuro)) 70%, rgba(7, 3, 14, calc(var(--escuro) + .18)) 100%)
+}
+
+.creditos-on .p5-escuro {
+    opacity: 1
+}
+
+/* ---------- textos em comum ---------- */
+.c-tag {
+    display: block;
+    font: 400 .78rem var(--mono);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: .5rem
+}
+
+/* ---------- créditos ---------- */
+.p5-creditos {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    overflow: hidden;
+    pointer-events: none;
+    touch-action: none;
+    opacity: 0;
+    transition: opacity 1.6s ease;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 82%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 82%, transparent 100%)
+}
+
+.creditos-on .p5-creditos {
+    opacity: 1;
+    pointer-events: auto
+}
+
+.p5-creditos.sai {
+    opacity: 0 !important;
+    pointer-events: none !important
+}
+
+.p5-roll {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: 0 8vw;
+    text-align: center;
+    transform: translate3d(0, 100vh, 0);
+    will-change: transform;
+    text-shadow: 0 2px 22px rgba(0, 0, 0, .85), 0 0 6px rgba(0, 0, 0, .6)
+}
+
+.p5-roll p {
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 4.4vw, 1.4rem);
+    line-height: 1.75;
+    color: #f7ecf1;
+    margin: 0 0 1.4rem
+}
+
+.p5-roll h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.9rem, 7vw, 2.6rem);
+    line-height: 1.12;
+    color: var(--gold);
+    margin: 5.5rem 0 1.8rem
+}
+
+.p5-roll .c-tag {
+    margin-top: 2.4rem
+}
+
+.c-abre {
+    margin-bottom: 3rem
+}
+
+.p5-roll h1,
+.p5-capa h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.1rem, 9vw, 3.2rem);
+    line-height: 1.1;
+    color: #fff
+}
+
+.p5-roll h1 em,
+.p5-capa h1 em {
+    color: var(--rose);
+    font-weight: 600
+}
+
+.p5-roll .c-frase {
+    font-style: italic;
+    font-size: clamp(1.3rem, 5.2vw, 1.7rem);
+    color: var(--gold);
+    margin: 2.6rem 0
+}
+
+.p5-roll .c-frase em {
+    color: var(--rose);
+    font-weight: 600
+}
+
+.p5-roll .c-sig {
+    margin: 4.5rem 0 0;
+    padding-bottom: 1rem;
+    color: var(--gold);
+    font-style: italic
+}
+
+/* ---------- final: a vez dela ---------- */
+.p5-fim {
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: max(16px, env(safe-area-inset-top)) 5vw max(16px, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 1.4s ease
+}
+
+.p5-fim[hidden] {
+    display: none
+}
+
+.p5-fim.on {
+    opacity: 1
+}
+
+.p5-fim-card {
+    width: 100%;
+    max-width: 34rem;
+    margin: auto;
+    padding: 1.7rem 1.4rem 1.5rem;
+    border-radius: 22px;
+    border: 1px solid rgba(183, 156, 255, .38);
+    background: rgba(18, 8, 30, .78);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, .55)
+}
+
+.p5-fim-card h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.8rem, 6.5vw, 2.4rem);
+    line-height: 1.12;
+    color: var(--ink);
+    margin-bottom: 1rem
+}
+
+.p5-fim-card>p {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #f0e0ea;
+    margin-bottom: 1.3rem
+}
+
+.p5-campo {
+    display: block;
+    margin: 0 0 .45rem;
+    font: 500 1rem var(--sans);
+    color: var(--gold)
+}
+
+.p5-campo+textarea+.p5-campo {
+    margin-top: 1.2rem
+}
+
+.p5-fim-card textarea {
+    width: 100%;
+    resize: vertical;
+    font: 400 1rem var(--sans);
+    color: var(--ink);
+    background: rgba(20, 10, 31, .7);
+    border: 1px solid rgba(183, 156, 255, .4);
+    border-radius: 12px;
+    padding: .8rem .9rem
+}
+
+.p5-fim-card textarea:focus {
+    outline: 2px solid var(--lilac);
+    outline-offset: 2px
+}
+
+.p5-fim-card .cta {
+    margin-top: 1.4rem
+}
+
+.p5-fim-card .p5-status {
+    margin: 1rem 0 0;
+    min-height: 1.6em;
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--gold)
+}
+
+.p5-fim-card .p5-rodape {
+    margin: 1.2rem 0 0;
+    font-family: var(--sans);
+    font-size: .9rem;
+    color: var(--mute)
+}
+
+.p5-link {
+    font: 400 .85rem var(--mono);
+    color: var(--lilac);
+    background: none;
+    border: 0;
+    border-bottom: 1px dashed rgba(183, 156, 255, .5);
+    padding: 0 0 2px;
+    margin: 0 .35rem;
+    cursor: pointer;
+    text-decoration: none
+}
+
+.p5-link:hover,
+.p5-link:focus-visible {
+    color: var(--gold);
+    outline: none
+}
+
+/* ---------- controles ---------- */
+.p5-voltar {
+    position: fixed;
+    z-index: 20;
+    top: max(14px, env(safe-area-inset-top));
+    left: max(14px, env(safe-area-inset-left));
+    padding: .35rem .8rem;
+    font-size: .88rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 999px;
+    background: rgba(18, 8, 30, .5);
+    border: 1px solid rgba(255, 255, 255, .15);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px)
+}
+
+.p5-voltar[hidden],
+.p5-ctrl[hidden],
+.p5-play[hidden] {
+    display: none
+}
+
+.p5-ctrl {
+    position: fixed;
+    z-index: 20;
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+    display: flex;
+    gap: .5rem
+}
+
+.p5-ctrl button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.05rem;
+    line-height: 1;
+    color: var(--ink);
+    cursor: pointer;
+    background: rgba(18, 8, 30, .55);
+    border: 1px solid rgba(255, 255, 255, .2);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px)
+}
+
+.p5-ctrl button:hover,
+.p5-ctrl button:focus-visible {
+    border-color: var(--gold);
+    outline: none
+}
+
+/* botão de play central */
+.p5-play {
+    position: fixed;
+    z-index: 30;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .9rem;
+    background: none;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, .8);
+    animation: p5-surge 1s ease both
+}
+
+.p5-play-ico {
+    display: grid;
+    place-items: center;
+    width: 92px;
+    height: 92px;
+    padding-left: 7px;
+    font-size: 2.2rem;
+    border-radius: 50%;
+    background: rgba(18, 8, 30, .45);
+    border: 2px solid var(--gold);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 40px rgba(255, 93, 143, .45);
+    animation: p5-pulsa 2s ease-in-out infinite
+}
+
+.p5-play-txt {
+    font: 500 1.05rem var(--sans);
+    line-height: 1.4;
+    text-align: center
+}
+
+.p5-play-txt small {
+    font: 400 .85rem var(--mono);
+    color: var(--gold)
+}
+
+@keyframes p5-pulsa {
+
+    0%,
+    100% {
+        scale: 1
+    }
+
+    50% {
+        scale: 1.07
+    }
+}
+
+@keyframes p5-surge {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/* ---------- cortinas ---------- */
+.p5-cortinas {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    overflow: hidden;
+    pointer-events: auto
+}
+
+.p5-cortinas.aberta {
+    pointer-events: none;
+    visibility: hidden;
+    transition: visibility 0s 2s
+}
+
+.p5-cortina {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50.5%;
+    background: repeating-linear-gradient(90deg, #6e0f2e 0 16px, #a3173f 16px 32px, #6e0f2e 32px 46px);
+    box-shadow: inset 0 0 70px rgba(0, 0, 0, .55);
+    transition: transform 1.9s cubic-bezier(.65, .05, .3, 1)
+}
+
+.p5-cortina.e {
+    left: 0
+}
+
+.p5-cortina.d {
+    right: 0
+}
+
+.p5-cortinas.aberta .p5-cortina.e {
+    transform: translateX(-103%)
+}
+
+.p5-cortinas.aberta .p5-cortina.d {
+    transform: translateX(103%)
+}
+
+.p5-capa {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    width: min(90vw, 30rem);
+    text-align: center;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, .7);
+    transition: opacity .6s ease
+}
+
+.p5-capa .c-tag {
+    color: var(--gold)
+}
+
+.p5-capa h1 {
+    margin-bottom: 2.2rem
+}
+
+.p5-capa h1 em {
+    color: #ffd6e2
+}
+
+.p5-capa .cta {
+    animation: p5-pulsa 1.9s ease-in-out infinite
+}
+
+.p5-cortinas.aberta .p5-capa {
+    opacity: 0;
+    pointer-events: none
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .p5-cortina,
+    .p5-escuro,
+    .p5-creditos,
+    .p5-fim {
+        transition-duration: .01s
+    }
+
+    .p5-play,
+    .p5-play-ico,
+    .p5-capa .cta {
+        animation: none
+    }
+}

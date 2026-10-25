@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Post #5 · Você não se vê como eu te vejo</title>
+    <meta name="theme-color" content="#140a1f">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="../img/icons/icon.svg">
+    <link rel="apple-touch-icon" href="../img/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Nosso Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/post5.css">
+</head>
+
+<body class="p5-body">
+
+    <!--
+        >>> AQUI ENTRA O VÍDEO (fica de fundo da página inteira) <<<
+        Salve o arquivo em:  videos/video1.mp4   (pasta "videos" na raiz do projeto)
+        Para uma capa enquanto carrega, coloque videos/capa.jpg e acrescente poster="../videos/capa.jpg".
+    -->
+    <video id="video" class="p5-video" playsinline loop preload="auto" aria-label="Vídeo da Sandy cantando e dançando">
+        <source src="../videos/video1.mp4" type="video/mp4">
+    </video>
+    <div class="p5-escuro" id="escuro" aria-hidden="true"></div>
+
+    <!-- créditos: o texto sobe sobre o vídeo -->
+    <div class="p5-creditos" id="creditos">
+        <div class="p5-roll" id="roll">
+            <div class="c-abre">
+                <span class="c-tag">post #5</span>
+                <h1>Você não se vê<br><em>como eu te vejo</em></h1>
+            </div>
+
+            <p>Esse vídeo mostra um pouco de você. Você cantando e dançando, sem pose e sem ensaio.
+                Ele mostra o seu lado verdadeiro e que eu não quero que esconda.</p>
+            <p>O post 5 é simples: esse vídeo e o que ele faz eu enxergar em você.</p>
+
+            <h2>O que eu vejo</h2>
+
+            <span class="c-tag">o sorriso</span>
+            <p>Não é sorriso de foto. É o de quem está bem onde está, e dá pra perceber a diferença.
+                Não é sorriso de ocasião e sim um sorriso verdadeiro.</p>
+
+            <span class="c-tag">a alegria</span>
+            <p>Tem alegria que depende do dia, do lugar, de quem está por perto. A sua parece fazer parte
+                de quem você é, e é isso que a torna incomparável.</p>
+
+            <span class="c-tag">a energia</span>
+            <p>Sua energia é surreal. Eu sou de poucas palavras e tenho a cabeça meio acelerada, e perto
+                da você ela desacelera. Você não me cansa. Na verdade você melhora meu dia.</p>
+
+            <h2>O que você não vê</h2>
+            <p>Ninguém se vê de fora. Mas eu te vejo e você traz paz pra quem está com você, o ambiente muda e o dia
+                de quem está perto fica mais tranquilo.</p>
+            <p class="c-frase">Eu queria que você soubesse que isso é visível.<br>
+                <em>Não é impressão minha. É o que acontece.</em>
+            </p>
+            <p>E não digo isso como elogio de ocasião. Digo como quem presta atenção em você.</p>
+
+            <h2>Obrigado</h2>
+            <p>Obrigado por me deixar ver essa parte sua, sem filtro. Eu sei que não é pouca coisa
+                mostrar a alguém o seu jeito mais solto, e não trato isso como pouca coisa.</p>
+            <p>Guardo esse vídeo como guardo o que é importante: com cuidado.</p>
+
+            <p class="c-sig">Com carinho,<br>— Thiago Lemos</p>
+        </div>
+    </div>
+
+    <!-- depois dos créditos: a vez dela -->
+    <section class="p5-fim" id="fim" hidden aria-labelledby="fim-t">
+
+            <p class="p5-rodape">
+                <button type="button" class="p5-link" id="rever">rever os créditos</button>
+                <span aria-hidden="true">·</span>
+                <a class="p5-link" href="../index.html">voltar pro início</a>
+            </p>
+        </div>
+    </section>
+
+    <a class="p5-voltar" id="voltar" href="../index.html" hidden>← Página Inicial</a>
+
+    <div class="p5-ctrl" id="ctrl" hidden>
+        <button type="button" id="pausa" aria-label="Pausar">⏸</button>
+        <button type="button" id="pular" aria-label="Ir para o final" title="Ir para o final">⏭</button>
+    </div>
+
+    <!-- botão de play (aparece quando as cortinas abrem) -->
+    <button type="button" class="p5-play" id="play" hidden>
+        <span class="p5-play-ico" aria-hidden="true">▶</span>
+        <span class="p5-play-txt">Toque pra assistir<br><small>ligue o som</small></span>
+    </button>
+
+    <!-- cortinas -->
+    <div class="p5-cortinas" id="cortinas">
+        <div class="p5-cortina e" aria-hidden="true"></div>
+        <div class="p5-cortina d" aria-hidden="true"></div>
+        <div class="p5-capa" id="capa">
+            <span class="c-tag">post #5</span>
+            <h1>Você não se vê<br><em>como eu te vejo</em></h1>
+            <button type="button" class="cta" id="abrir">Abrir as cortinas</button>
+        </div>
+    </div>
+
+    <script src="../js/post5.js"></script>
+    <script src="../js/pwa.js"></script>
+</body>
+
+</html>

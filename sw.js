@@ -2,7 +2,7 @@
 // Estratégia: REDE PRIMEIRO. Com internet, o app sempre busca a versão mais nova
 // (ignorando o cache do navegador); sem internet, usa a última cópia guardada.
 // Assim, tudo que você publicar no GitHub aparece no app instalado.
-const CACHE = 'nosso-blog-v2';
+const CACHE = 'nosso-blog-v3';
 const CORE = ['./', 'index.html', 'posts/post-2.html', 'css/style.css', 'css/carta.css', 'css/post2.css',
   'js/main.js', 'js/charada.js', 'js/carta.js', 'js/post2.js', 'js/pwa.js', 'img/foto.jpg',
   'manifest.webmanifest', 'img/icons/icon-192.png'];
@@ -23,6 +23,8 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
+  // vídeos: deixa o navegador cuidar (pedidos Range/206 não podem ir pro cache)
+  if (req.headers.has('range') || /\.(mp4|webm|mov|m4v)$/i.test(url.pathname)) return;
   const mesmaOrigem = url.origin === self.location.origin;
   // Firebase / Google APIs: nunca interceptar (dados ao vivo)
   if (!mesmaOrigem && !/(fonts\.(googleapis|gstatic)\.com|cdnjs\.cloudflare\.com)$/.test(url.hostname)) return;
