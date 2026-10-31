@@ -1,17 +1,28 @@
 /* Post #6: Cápsula do tempo */
 
+/* ---------- CORREÇÃO MOBILE ----------
+   Raios, luz e brilhos passam da largura da tela e esticavam a página
+   (arrastava pro lado e o celular dava zoom out). "clip" corta o excesso
+   sem criar uma segunda barra de rolagem. */
 html:has(.p6) {
-    background: #0d0618
+    background: #0d0618;
+    overflow-x: clip;
+    max-width: 100%
 }
 
 .p6 {
     background: radial-gradient(120% 70% at 50% 0%, #2c1450 0%, #170a28 55%, #0d0618 100%) fixed;
-    min-height: 100vh
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: clip;
+    max-width: 100%;
+    position: relative
 }
 
 #estrelas {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
@@ -21,6 +32,7 @@ html:has(.p6) {
 .p6-main {
     position: relative;
     z-index: 1;
+    width: 100%;
     max-width: 42rem;
     margin: 0 auto;
     padding: max(7vh, 40px) clamp(20px, 7vw, 56px) 8vh
@@ -44,7 +56,8 @@ html:has(.p6) {
     font-weight: 300;
     font-size: clamp(2.2rem, 9vw, 3.4rem);
     line-height: 1.1;
-    color: #fff
+    color: #fff;
+    overflow-wrap: anywhere
 }
 
 .p6-hero h1 em {
@@ -86,7 +99,7 @@ html:has(.p6) {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 120%;
+    width: min(120%, 100vw);
     aspect-ratio: 1;
     translate: -50% -50%;
     border-radius: 50%;
@@ -114,7 +127,7 @@ html:has(.p6) {
     z-index: 1;
     left: 50%;
     top: 50%;
-    width: 200%;
+    width: min(200%, 100vw);
     aspect-ratio: 1;
     translate: -50% -50%;
     border-radius: 50%;
@@ -190,7 +203,7 @@ html:has(.p6) {
 
 @keyframes p6-pulso {
     50% {
-        scale: 1.35;
+        scale: 1.15;
         opacity: 1
     }
 }
@@ -307,11 +320,13 @@ html:has(.p6) {
 .p6-contagem {
     display: flex;
     justify-content: center;
-    gap: .6rem
+    gap: .6rem;
+    max-width: 100%
 }
 
 .p6-contagem div {
-    min-width: 4.1rem;
+    flex: 0 1 4.1rem;
+    min-width: 0;
     padding: .7rem .4rem .55rem;
     border-radius: 14px;
     background: rgba(255, 255, 255, .05);
@@ -345,7 +360,11 @@ html:has(.p6) {
 /* anula a regra global "section" do style.css (tela cheia + margens laterais) */
 .p6-sec {
     display: block;
+    width: 100%;
+    min-width: 0;
     min-height: 0;
+    margin-left: 0;
+    margin-right: 0;
     padding: 9vh 0 0
 }
 
@@ -356,7 +375,8 @@ html:has(.p6) {
     font-size: clamp(1.8rem, 6.4vw, 2.5rem);
     line-height: 1.14;
     color: var(--ink);
-    margin-bottom: 1.2rem
+    margin-bottom: 1.2rem;
+    overflow-wrap: anywhere
 }
 
 .p6-sec h2 em {
@@ -369,12 +389,13 @@ html:has(.p6) {
     font-size: clamp(1.1rem, 4vw, 1.3rem);
     line-height: 1.8;
     color: #f0e0ea;
-    margin-bottom: 1.2rem
+    margin-bottom: 1.2rem;
+    overflow-wrap: break-word
 }
 
 .p6-slots {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: .9rem;
     margin: 2rem 0 0
 }
@@ -424,6 +445,8 @@ html:has(.p6) {
 
 /* ---------- formulário ---------- */
 .p6-form {
+    box-sizing: border-box;
+    width: 100%;
     margin: 1.6rem 0 0;
     padding: 1.5rem 1.3rem 1.7rem;
     border-radius: 20px;
@@ -450,7 +473,10 @@ html:has(.p6) {
 }
 
 .p6-form textarea {
+    display: block;
+    box-sizing: border-box;
     width: 100%;
+    max-width: 100%;
     resize: vertical;
     font: 400 1rem var(--sans);
     color: var(--ink);
@@ -478,6 +504,7 @@ html:has(.p6) {
 }
 
 .p6-pos {
+    box-sizing: border-box;
     margin-top: 1.4rem;
     padding: 1.1rem 1.2rem;
     text-align: center;
@@ -497,6 +524,7 @@ html:has(.p6) {
 
 /* ---------- cartas (aberta) ---------- */
 .p6-carta {
+    box-sizing: border-box;
     margin: 2rem 0;
     padding: 1.6rem 1.4rem 1.3rem;
     border-radius: 6px 20px 20px 20px;
@@ -524,7 +552,8 @@ html:has(.p6) {
     font-size: clamp(1.08rem, 3.9vw, 1.25rem);
     line-height: 1.85;
     color: #f7ecf1;
-    margin-bottom: 1.1rem
+    margin-bottom: 1.1rem;
+    overflow-wrap: anywhere
 }
 
 .p6-carta .p6-pergunta {
@@ -563,8 +592,11 @@ html:has(.p6) {
     bottom: max(12px, env(safe-area-inset-bottom));
     translate: -50% 0;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     gap: .35rem;
+    max-width: calc(100% - 24px);
     padding: .35rem .5rem .35rem .9rem;
     border-radius: 999px;
     background: rgba(18, 8, 30, .88);
