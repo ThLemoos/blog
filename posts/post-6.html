@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Post #6 · Cápsula do tempo</title>
+    <meta name="theme-color" content="#140a1f">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="../img/icons/icon.svg">
+    <link rel="apple-touch-icon" href="../img/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Nosso Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/post6.css">
+    <link rel="stylesheet" href="../css/surpresa3.css">
+</head>
+
+<body class="p6">
+    <canvas id="estrelas" aria-hidden="true"></canvas>
+
+    <main class="p6-main">
+        <a class="back" href="../index.html">← Página Inicial</a>
+
+        <!-- ============ A CÁPSULA ============ -->
+        <header class="p6-hero">
+            <span class="p6-tag">post #6</span>
+            <h1>Cápsula <em>do tempo</em></h1>
+
+            <div class="p6-cena" id="cena">
+                <div class="p6-luz" aria-hidden="true"></div>
+                <div class="p6-raios" aria-hidden="true"></div>
+                <svg class="p6-capsula" id="capsula" viewBox="0 0 320 170" role="img"
+                    aria-label="Uma cápsula do tempo dourada e rosa">
+                    <defs>
+                        <linearGradient id="gE" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#f6d9b0" />
+                            <stop offset=".55" stop-color="#d9a77a" />
+                            <stop offset="1" stop-color="#8d5a47" />
+                        </linearGradient>
+                        <linearGradient id="gD" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#ff9fbd" />
+                            <stop offset=".55" stop-color="#ff5d8f" />
+                            <stop offset="1" stop-color="#8a2352" />
+                        </linearGradient>
+                        <radialGradient id="gMiolo" cx=".5" cy=".5" r=".5">
+                            <stop offset="0" stop-color="#fff6d6" />
+                            <stop offset=".45" stop-color="#ffd1a3" stop-opacity=".9" />
+                            <stop offset="1" stop-color="#ff5d8f" stop-opacity="0" />
+                        </radialGradient>
+                    </defs>
+                    <!-- o que está dentro (só aparece quando abre) -->
+                    <circle class="miolo" cx="160" cy="85" r="64" fill="url(#gMiolo)" />
+                    <!-- carta dentro da cápsula (entra na hora de selar) -->
+                    <g class="carta-dentro">
+                        <rect x="132" y="68" width="56" height="38" rx="4" fill="#fff3e0" />
+                        <path d="M132 72 L160 92 L188 72" fill="none" stroke="#d9a77a" stroke-width="2.4" />
+                    </g>
+                    <g class="metade e">
+                        <path d="M164 25 H82 A60 60 0 0 0 82 145 H164 Z" fill="url(#gE)" />
+                        <path d="M164 25 H82 A60 60 0 0 0 82 145 H164 Z" fill="none" stroke="rgba(255,255,255,.35)"
+                            stroke-width="1.5" />
+                        <ellipse cx="96" cy="50" rx="34" ry="9" fill="rgba(255,255,255,.4)"
+                            transform="rotate(-18 96 50)" />
+                    </g>
+                    <g class="metade d">
+                        <path d="M156 25 H238 A60 60 0 0 1 238 145 H156 Z" fill="url(#gD)" />
+                        <path d="M156 25 H238 A60 60 0 0 1 238 145 H156 Z" fill="none" stroke="rgba(255,255,255,.35)"
+                            stroke-width="1.5" />
+                        <ellipse cx="224" cy="50" rx="34" ry="9" fill="rgba(255,255,255,.35)"
+                            transform="rotate(18 224 50)" />
+                    </g>
+                    <g class="selo">
+                        <rect x="150" y="22" width="20" height="126" rx="4" fill="#f6d9b0" />
+                        <rect x="150" y="22" width="20" height="126" rx="4" fill="none" stroke="rgba(0,0,0,.18)" />
+                        <circle cx="160" cy="85" r="19" fill="#2a0f26" stroke="#f6d9b0" stroke-width="3" />
+                        <g class="cadeado" fill="none" stroke="#f6d9b0" stroke-width="3" stroke-linecap="round">
+                            <rect x="151" y="85" width="18" height="13" rx="3" fill="#f6d9b0" stroke="none" />
+                            <path d="M154 85 V80 a6 6 0 0 1 12 0 V85" />
+                        </g>
+                    </g>
+                </svg>
+                <div class="p6-brilhos" id="brilhos" aria-hidden="true"></div>
+            </div>
+
+            <p class="p6-sub" id="sub">Fechada até <b id="data-abre"></b>.</p>
+
+            <div class="p6-contagem" id="contagem" role="timer" aria-label="Tempo até a cápsula abrir">
+                <div><b id="c-d">0</b><small>dias</small></div>
+                <div><b id="c-h">00</b><small>horas</small></div>
+                <div><b id="c-m">00</b><small>min</small></div>
+                <div><b id="c-s">00</b><small>seg</small></div>
+            </div>
+        </header>
+
+        <!-- ============ FECHADA: o que vai dentro e a vez dela ============ -->
+        <div id="fechada">
+            <section class="p6-sec">
+                <span class="p6-tag">como funciona</span>
+                <h2>Algumas coisas valem mais quando a gente espera</h2>
+                <p>Dessa vez vai ser diferente. Eu escrevi uma mensagem pra você do futuro e como eu espero que tudo
+                    tenha acontecido como o previsto.
+                    Você escreve uma pra mim. As duas
+                    ficam guardadas aqui dentro,
+                    e a cápsula só abre no dia marcado.</p>
+                <p>Até lá, nenhum de nós lê o que o outro escreveu. É um jeito de dizer que a gente quer ter
+                    algo pra abrir juntos lá na frente.</p>
+
+                <div class="p6-slots">
+                    <div class="p6-slot cheio">
+                        <span class="p6-slot-ico" aria-hidden="true">✉</span>
+                        <b>Thiago</b>
+                        <small>mensagem selada</small>
+                    </div>
+                    <div class="p6-slot" id="slot-ela">
+                        <span class="p6-slot-ico" aria-hidden="true">✉</span>
+                        <b>Sandy</b>
+                        <small id="slot-ela-txt">esperando a sua</small>
+                    </div>
+                </div>
+            </section>
+
+            <section class="p6-sec" id="escrever">
+                <span class="p6-tag">a sua vez</span>
+                <h2>Escreva pra mim, <em>pro futuro</em></h2>
+                <p>Escreva como se fosse abrir daqui a pouco tempo e ler com um sorriso. Escreva com vontade porque te
+                    garanto que vai ser
+                    algo impactante.
+                </p>
+
+                <div class="p6-form" id="form">
+                    <label class="p6-campo" for="q1">Como você está hoje?</label>
+                    <textarea id="q1" rows="3" maxlength="600"
+                        placeholder="Como é a Sandy de hoje, e como você se imagina daqui a pouco tempo?"></textarea>
+
+                    <label class="p6-campo" for="q2">O que você espera que tenha acontecido até lá?</label>
+                    <textarea id="q2" rows="3" maxlength="600"
+                        placeholder="Como você se imagina em relação a nós dois daqui até o dia da abertura?"></textarea>
+
+                    <label class="p6-campo" for="q3">Uma coisa que você quer que eu lembre desse momento.</label>
+                    <textarea id="q3" rows="3" maxlength="600" placeholder="Aqui você pode se inspirar."></textarea>
+
+                    <button type="button" class="cta" id="selar">Selar minha mensagem</button>
+                    <p class="p6-status" id="status" role="status"></p>
+                </div>
+
+                <p class="p6-pos" id="pos" hidden>
+                    Sua mensagem está lá dentro. Agora é esperar. Eu vou estar aqui no dia.<br>
+                    <button type="button" class="p6-reabrir" id="reabrir">🎁 Abrir minha surpresa de hoje</button>
+                </p>
+            </section>
+        </div>
+
+        <!-- ============ ABERTA ============ -->
+        <div id="aberta" hidden>
+            <section class="p6-sec">
+                <span class="p6-tag">chegou o dia</span>
+                <h2>Hoje <em>a gente abre</em></h2>
+                <p>A cápsula esperou até agora. Leia primeiro a minha. Depois, a sua.</p>
+
+                <article class="p6-carta" id="carta-thiago">
+                    <span class="p6-tag">de Thiago, pra você</span>
+                    <div id="texto-thiago"></div>
+                    <p class="p6-assina">— Thiago Lemos</p>
+                </article>
+
+                <article class="p6-carta ela" id="carta-ela">
+                    <span class="p6-tag">de você, pra mim</span>
+                    <div id="texto-ela"></div>
+                    <p class="p6-assina">— Sandy</p>
+                </article>
+
+                <p class="p6-fecho">E agora a gente decide o que vai dentro da próxima.</p>
+            </section>
+        </div>
+
+        <p class="p6-fim"><a class="cta" href="../index.html">Voltar pro início</a></p>
+    </main>
+
+    <!-- só aparece com ?demo=... pra você ver cada momento -->
+    <nav class="p6-demo" id="demo" hidden aria-label="Pré-visualização">
+        <span>prévia:</span>
+        <a href="?demo=trancada">trancada</a>
+        <a href="?demo=selada">selada</a>
+        <a href="?demo=aberta">aberta</a>
+        <a href="?demo=surpresa">surpresa</a>
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../js/surpresa3.js"></script>
+    <script src="../js/post6.js"></script>
+    <script src="../js/pwa.js"></script>
+</body>
+
+</html>

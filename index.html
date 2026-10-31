@@ -21,6 +21,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/carta.css">
+    <link rel="stylesheet" href="css/surpresa3.css">
     <link rel="stylesheet" href="css/segredo.css">
 </head>
 
@@ -121,11 +122,17 @@
                 <a class="post rv d1" href="posts/post-5.html">
                     <span class="pn">Post #5</span>
                     <h3>Você não se vê como eu te vejo</h3>
-                    <p>O que eu enxergo em você.</p>
+                    <p>Um vídeo seu e o que eu enxergo nele.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <a class="post rv" href="posts/post-6.html">
+                    <span class="pn">Post #6</span>
+                    <h3>Cápsula do tempo</h3>
+                    <p>Algumas coisas valem mais quando a gente espera.</p>
                     <span class="mark" aria-hidden="true">Abrir</span>
                 </a>
                 <div class="post locked rv d1" role="button" tabindex="0" aria-disabled="true">
-                    <span class="pn">Post #6</span>
+                    <span class="pn">Post #7</span>
                     <h3>Ainda é surpresa</h3>
                     <p>Estou escrevendo.</p>
                     <span class="mark" aria-hidden="true">🔒</span>
@@ -163,6 +170,13 @@
                     <p>Ela abre depois que você terminar o Post #3.</p>
                     <span class="mark" aria-hidden="true">🔒</span>
                 </div>
+                <div class="post locked rv" id="surpresa3-card" role="button" tabindex="0" aria-disabled="true"
+                    data-msg="cartas-msg" data-aviso="Essa surpresa ainda está trancada.">
+                    <span class="pn">Surpresa #3</span>
+                    <h3>Ainda trancada</h3>
+                    <p>Ela abre quando for a hora.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
             </div>
             <div id="cartas-msg" class="postmsg" role="status" aria-live="polite"></div>
             <button class="cta rv d2" id="btn">Botão pra curioso</button>
@@ -189,6 +203,7 @@
     <script src="js/charada.js"></script>
     <script src="js/carta.js"></script>
     <script src="js/segredo.js"></script>
+    <script src="js/surpresa3.js"></script>
     <script>
         // Seção Cartas: trancada até ela terminar o Post #2
         (function () {
@@ -216,6 +231,21 @@
                 document.getElementById('cartas-msg').textContent = '';
             }
             if (Segredo.liberada()) destrancar();
+        })();
+
+        // Surpresa #3 ("Pra hoje"): destrancada quando ela sela a cápsula no Post #6
+        (function () {
+            function destrancar() {
+                const velho = document.getElementById('surpresa3-card');
+                if (!velho) return;
+                const novo = document.createElement('button');
+                novo.type = 'button'; novo.id = 'surpresa3-card'; novo.className = 'post rv in';
+                novo.innerHTML = '<span class="pn">Surpresa #3</span><h3>Mais uma carta virtual</h3><p>Leia com calma.</p><span class="mark" aria-hidden="true">Abrir</span>';
+                novo.addEventListener('click', () => Surpresa3.abrir(novo));
+                velho.replaceWith(novo);
+                document.getElementById('cartas-msg').textContent = '';
+            }
+            if (Surpresa3.liberada()) destrancar();
         })();
     </script>
     <script src="js/pwa.js"></script>

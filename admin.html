@@ -113,15 +113,22 @@
       novas++; marcar();
       if (!("Notification" in window) || Notification.permission !== "granted") return;
       const corpo = nome !== "respostas" ? "Tem um recado novo."
-        : (dados && dados.post === 5 ? "Ela respondeu o Post #5 (o vídeo) 🎥"
-          : dados && dados.post === 4 ? "Ela respondeu o Post #4 (passando a limpo)"
-            : dados && dados.post === 3 ? "Ela escreveu a versão dela de um momento 📖" : "Ela terminou o Post #2. Tem resposta nova!");
+        : (dados && dados.post === 6 ? (dados.itens && dados.itens[0] && String(dados.itens[0].pergunta).startsWith("Surpresa #3") ? "Ela respondeu a Surpresa #3 🎁" : "Ela selou a cápsula do tempo ⏳")
+          : dados && dados.post === 5 ? "Ela respondeu o Post #5 (o vídeo) 🎥"
+            : dados && dados.post === 4 ? "Ela respondeu o Post #4 (passando a limpo)"
+              : dados && dados.post === 3 ? "Ela escreveu a versão dela de um momento 📖" : "Ela terminou o Post #2. Tem resposta nova!");
       try { const reg = await navigator.serviceWorker.ready; reg.showNotification("Blog", { body: corpo, icon: "img/icons/admin-192.png", badge: "img/icons/admin-192.png", tag: "blog-" + nome }); }
       catch (e) { try { new Notification("Blog", { body: corpo, icon: "img/icons/admin-192.png" }); } catch (_) { } }
     }
     document.addEventListener("visibilitychange", () => { if (!document.hidden) { novas = 0; marcar(); } });
     if ("Notification" in window && Notification.permission === "default") $("avisos").hidden = false;
     $("avisos").onclick = async () => { await Notification.requestPermission(); $("avisos").hidden = true; };
+
+    // Cápsula do tempo (Post #6): a mensagem dela fica ESCONDIDA aqui até a data de abertura.
+    // Mantenha esta data igual à ABRE_EM do js/post6.js.
+    const CAPSULA_ABRE = new Date("2027-01-01T09:00:00-03:00");
+    const ehCapsula = r => r.post === 6 && Array.isArray(r.itens) && !(r.itens[0] && String(r.itens[0].pergunta).startsWith("Surpresa #3"));
+    const capsulaSelada = r => ehCapsula(r) && Date.now() < CAPSULA_ABRE.getTime();
 
     function ouvir(nome, destino) {
       let primeira = true;
@@ -131,9 +138,13 @@
         destino.replaceChildren(...snap.docs.map(d => {
           const r = d.data(), el = document.createElement("div"); el.className = "r";
           const h = document.createElement("small");
-          h.textContent = (r.humor ? r.humor + "  " : "") + (r.post === 3 ? "📖 Versão dela · " : r.post === 5 ? "🎥 Resposta ao vídeo · " : r.post ? "Post #" + r.post + " · " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
+          h.textContent = (r.humor ? r.humor + "  " : "") + (r.post === 3 ? "📖 Versão dela · " : r.post === 5 ? "🎥 Resposta ao vídeo · " : r.post === 6 ? ((r.itens && r.itens[0] && String(r.itens[0].pergunta).startsWith("Surpresa #3")) ? "🎁 Surpresa #3 · " : "⏳ Cápsula do tempo · ") : r.post ? "Post #" + r.post + " · " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
           el.append(h);
-          if (Array.isArray(r.itens)) {
+          if (nome === "respostas" && capsulaSelada(r)) {
+            const p = document.createElement("p");
+            p.textContent = "🔒 Mensagem selada. Ela só aparece aqui depois de " + CAPSULA_ABRE.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" }) + ".";
+            p.style.opacity = ".7"; p.style.fontStyle = "italic"; el.append(p);
+          } else if (Array.isArray(r.itens)) {
             r.itens.forEach(it => {
               const q = document.createElement("small"); q.className = "q"; q.textContent = it.pergunta;
               const p = document.createElement("p"); p.textContent = it.resposta; el.append(q, p);

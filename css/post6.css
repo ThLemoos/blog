@@ -1,0 +1,610 @@
+/* Post #6: Cápsula do tempo */
+
+html:has(.p6) {
+    background: #0d0618
+}
+
+.p6 {
+    background: radial-gradient(120% 70% at 50% 0%, #2c1450 0%, #170a28 55%, #0d0618 100%) fixed;
+    min-height: 100vh
+}
+
+#estrelas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none
+}
+
+.p6-main {
+    position: relative;
+    z-index: 1;
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: max(7vh, 40px) clamp(20px, 7vw, 56px) 8vh
+}
+
+.p6-tag {
+    display: block;
+    font: 400 .78rem var(--mono);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: .6rem
+}
+
+.p6-hero {
+    text-align: center
+}
+
+.p6-hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.2rem, 9vw, 3.4rem);
+    line-height: 1.1;
+    color: #fff
+}
+
+.p6-hero h1 em {
+    color: var(--rose);
+    font-weight: 600
+}
+
+/* ---------- cena da cápsula ---------- */
+.p6-cena {
+    position: relative;
+    width: min(100%, 360px);
+    margin: 1.4rem auto .6rem
+}
+
+.p6-capsula {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 18px 34px rgba(0, 0, 0, .55));
+    animation: p6-flutua 5s ease-in-out infinite
+}
+
+@keyframes p6-flutua {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-4deg)
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(-1deg)
+    }
+}
+
+.p6-luz {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 120%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 93, 143, .35), rgba(183, 156, 255, .12) 45%, transparent 70%);
+    opacity: .55;
+    animation: p6-respira 4s ease-in-out infinite
+}
+
+@keyframes p6-respira {
+
+    0%,
+    100% {
+        scale: .92;
+        opacity: .45
+    }
+
+    50% {
+        scale: 1.05;
+        opacity: .75
+    }
+}
+
+.p6-raios {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    width: 200%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    background: repeating-conic-gradient(from 0deg, rgba(255, 236, 190, .5) 0 4deg, transparent 4deg 18deg);
+    -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 62%);
+    mask-image: radial-gradient(circle, #000 0%, transparent 62%)
+}
+
+.p6-capsula .metade,
+.p6-capsula .selo,
+.p6-capsula .miolo,
+.p6-capsula .carta-dentro {
+    transition: transform 2s cubic-bezier(.6, .05, .25, 1), opacity 1.4s ease
+}
+
+.p6-capsula .miolo {
+    opacity: 0;
+    transform-origin: 160px 85px;
+    transform: scale(.4)
+}
+
+.p6-capsula .carta-dentro {
+    opacity: 0;
+    transform: translateY(-120px) scale(.7);
+    transform-origin: 160px 85px
+}
+
+.p6-capsula .selo {
+    transform-origin: 160px 85px
+}
+
+.p6-capsula .cadeado {
+    transition: opacity .6s
+}
+
+/* já selada: a carta está lá dentro, oculta pelas metades */
+.selada .p6-capsula .carta-dentro {
+    opacity: 1;
+    transform: none
+}
+
+.selada .p6-sub b {
+    color: var(--gold)
+}
+
+/* aplicando o selo (animação de selar) */
+.selando .p6-capsula .carta-dentro {
+    animation: p6-entra 1.5s cubic-bezier(.5, 0, .3, 1) forwards
+}
+
+@keyframes p6-entra {
+    0% {
+        opacity: 1;
+        transform: translateY(-130px) scale(.7) rotate(-8deg)
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(8px) scale(1)
+    }
+
+    100% {
+        opacity: 1;
+        transform: none
+    }
+}
+
+.selando .p6-luz {
+    animation: p6-pulso 1.6s ease 1.4s
+}
+
+@keyframes p6-pulso {
+    50% {
+        scale: 1.35;
+        opacity: 1
+    }
+}
+
+/* aberta */
+.aberta .p6-capsula {
+    animation: p6-flutua-aberta 6s ease-in-out infinite
+}
+
+@keyframes p6-flutua-aberta {
+
+    0%,
+    100% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(-6px)
+    }
+}
+
+.aberta .p6-capsula .metade.e {
+    transform: translateX(-34px) rotate(-5deg)
+}
+
+.aberta .p6-capsula .metade.d {
+    transform: translateX(34px) rotate(5deg)
+}
+
+.aberta .p6-capsula .selo {
+    transform: scale(.2);
+    opacity: 0
+}
+
+.aberta .p6-capsula .miolo {
+    opacity: 1;
+    transform: scale(1);
+    animation: p6-miolo 3s ease-in-out infinite
+}
+
+.aberta .p6-capsula .carta-dentro {
+    opacity: 1;
+    transform: translateY(-34px) scale(1.15)
+}
+
+@keyframes p6-miolo {
+
+    0%,
+    100% {
+        opacity: .85
+    }
+
+    50% {
+        opacity: 1
+    }
+}
+
+.aberta .p6-raios {
+    opacity: .8;
+    animation: p6-gira 40s linear infinite, p6-surge 2.4s ease both
+}
+
+@keyframes p6-gira {
+    to {
+        rotate: 360deg
+    }
+}
+
+@keyframes p6-surge {
+    from {
+        opacity: 0
+    }
+}
+
+.aberta .p6-luz {
+    opacity: .9;
+    background: radial-gradient(circle, rgba(255, 220, 150, .55), rgba(255, 93, 143, .2) 45%, transparent 70%)
+}
+
+/* brilhos que sobem */
+.p6-brilhos {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    overflow: visible
+}
+
+.p6-brilho {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px 2px rgba(246, 217, 176, .8)
+}
+
+/* ---------- subtítulo e contagem ---------- */
+.p6-sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    color: var(--mute);
+    margin: 1.2rem 0 1.4rem
+}
+
+.p6-sub b {
+    color: var(--gold);
+    font-weight: 600
+}
+
+.p6-contagem {
+    display: flex;
+    justify-content: center;
+    gap: .6rem
+}
+
+.p6-contagem div {
+    min-width: 4.1rem;
+    padding: .7rem .4rem .55rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(246, 217, 176, .22);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px)
+}
+
+.p6-contagem b {
+    display: block;
+    font: 300 clamp(1.7rem, 7.4vw, 2.3rem) var(--serif);
+    line-height: 1.1;
+    color: var(--gold);
+    font-variant-numeric: tabular-nums
+}
+
+.p6-contagem small {
+    display: block;
+    margin-top: .15rem;
+    font: 400 .66rem var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--mute)
+}
+
+.aberta .p6-contagem {
+    display: none
+}
+
+/* ---------- seções ---------- */
+/* anula a regra global "section" do style.css (tela cheia + margens laterais) */
+.p6-sec {
+    display: block;
+    min-height: 0;
+    padding: 9vh 0 0
+}
+
+.p6-sec h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.8rem, 6.4vw, 2.5rem);
+    line-height: 1.14;
+    color: var(--ink);
+    margin-bottom: 1.2rem
+}
+
+.p6-sec h2 em {
+    color: var(--rose);
+    font-weight: 600
+}
+
+.p6-sec>p {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    line-height: 1.8;
+    color: #f0e0ea;
+    margin-bottom: 1.2rem
+}
+
+.p6-slots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .9rem;
+    margin: 2rem 0 0
+}
+
+.p6-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .25rem;
+    padding: 1.3rem .8rem;
+    text-align: center;
+    border-radius: 18px;
+    border: 1.5px dashed rgba(183, 156, 255, .45);
+    color: var(--mute);
+    transition: border-color .6s, background .6s
+}
+
+.p6-slot-ico {
+    font-size: 1.8rem;
+    opacity: .6
+}
+
+.p6-slot b {
+    font: 500 1.05rem var(--sans);
+    color: var(--ink)
+}
+
+.p6-slot small {
+    font: 400 .72rem var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase
+}
+
+.p6-slot.cheio {
+    border: 1.5px solid rgba(246, 217, 176, .55);
+    background: rgba(246, 217, 176, .07)
+}
+
+.p6-slot.cheio .p6-slot-ico {
+    opacity: 1;
+    color: var(--gold)
+}
+
+.p6-slot.cheio small {
+    color: var(--gold)
+}
+
+/* ---------- formulário ---------- */
+.p6-form {
+    margin: 1.6rem 0 0;
+    padding: 1.5rem 1.3rem 1.7rem;
+    border-radius: 20px;
+    border: 1px solid rgba(183, 156, 255, .35);
+    background: rgba(255, 255, 255, .035);
+    transition: opacity .8s, transform .8s
+}
+
+.p6-form.some {
+    opacity: 0;
+    transform: translateY(14px);
+    pointer-events: none
+}
+
+.p6-campo {
+    display: block;
+    margin: 1.2rem 0 .45rem;
+    font: 500 1rem var(--sans);
+    color: var(--gold)
+}
+
+.p6-campo:first-child {
+    margin-top: 0
+}
+
+.p6-form textarea {
+    width: 100%;
+    resize: vertical;
+    font: 400 1rem var(--sans);
+    color: var(--ink);
+    background: rgba(20, 10, 31, .7);
+    border: 1px solid rgba(183, 156, 255, .4);
+    border-radius: 12px;
+    padding: .8rem .9rem
+}
+
+.p6-form textarea:focus {
+    outline: 2px solid var(--lilac);
+    outline-offset: 2px
+}
+
+.p6-form .cta {
+    margin-top: 1.5rem
+}
+
+.p6-status {
+    margin-top: 1rem;
+    min-height: 1.5em;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--gold)
+}
+
+.p6-pos {
+    margin-top: 1.4rem;
+    padding: 1.1rem 1.2rem;
+    text-align: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--gold);
+    border-radius: 16px;
+    border: 1px solid rgba(246, 217, 176, .4);
+    background: rgba(246, 217, 176, .06)
+}
+
+.p6-pos:not([hidden]) {
+    animation: p6-surge 1.2s ease both
+}
+
+/* ---------- cartas (aberta) ---------- */
+.p6-carta {
+    margin: 2rem 0;
+    padding: 1.6rem 1.4rem 1.3rem;
+    border-radius: 6px 20px 20px 20px;
+    background: linear-gradient(160deg, rgba(255, 243, 224, .1), rgba(255, 255, 255, .04));
+    border: 1px solid rgba(246, 217, 176, .38);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+    animation: p6-surge 1.2s ease both
+}
+
+.p6-carta.ela {
+    border-color: rgba(255, 93, 143, .45);
+    animation-delay: .5s
+}
+
+.p6-carta .p6-tag {
+    color: var(--gold)
+}
+
+.p6-carta.ela .p6-tag {
+    color: var(--rose)
+}
+
+.p6-carta p {
+    font-family: var(--serif);
+    font-size: clamp(1.08rem, 3.9vw, 1.25rem);
+    line-height: 1.85;
+    color: #f7ecf1;
+    margin-bottom: 1.1rem
+}
+
+.p6-carta .p6-pergunta {
+    font: 400 .72rem var(--mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin: 1.2rem 0 .3rem
+}
+
+.p6-carta .p6-assina {
+    margin: 1.4rem 0 0;
+    font-style: italic;
+    color: var(--gold)
+}
+
+.p6-fecho {
+    text-align: center;
+    margin-top: 2.4rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--rose)
+}
+
+.p6-fim {
+    text-align: center;
+    margin-top: 3.4rem
+}
+
+/* ---------- prévia ---------- */
+.p6-demo {
+    position: fixed;
+    z-index: 50;
+    left: 50%;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    translate: -50% 0;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .35rem .5rem .35rem .9rem;
+    border-radius: 999px;
+    background: rgba(18, 8, 30, .88);
+    border: 1px solid rgba(255, 255, 255, .2);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font: 400 .72rem var(--mono);
+    color: var(--mute)
+}
+
+.p6-demo[hidden] {
+    display: none
+}
+
+.p6-demo a {
+    padding: .35rem .7rem;
+    border-radius: 999px;
+    color: var(--ink);
+    text-decoration: none
+}
+
+.p6-demo a.on {
+    background: linear-gradient(135deg, var(--gold), #ffb3c9);
+    color: #2a0f26
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .p6-capsula,
+    .p6-luz,
+    .aberta .p6-raios,
+    .aberta .p6-capsula,
+    .aberta .p6-capsula .miolo {
+        animation: none
+    }
+
+    .p6-capsula .metade,
+    .p6-capsula .selo,
+    .p6-capsula .miolo,
+    .p6-capsula .carta-dentro {
+        transition-duration: .01s
+    }
+}
