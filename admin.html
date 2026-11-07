@@ -113,7 +113,7 @@
       novas++; marcar();
       if (!("Notification" in window) || Notification.permission !== "granted") return;
       const corpo = nome !== "respostas" ? "Tem um recado novo."
-        : (dados && dados.post === 6 ? (dados.itens && dados.itens[0] && String(dados.itens[0].pergunta).startsWith("Surpresa #3") ? "Ela respondeu a Surpresa #3 🎁" : "Ela selou a cápsula do tempo ⏳")
+        : (dados && dados.post === 7 ? "Ela respondeu o Post #7 (Que horas são aí?) 🕰️" : dados && dados.post === 6 ? (dados.itens && dados.itens[0] && String(dados.itens[0].pergunta).startsWith("Surpresa #3") ? "Ela respondeu a Surpresa #3 🎁" : "Ela selou a cápsula do tempo ⏳")
           : dados && dados.post === 5 ? "Ela respondeu o Post #5 (o vídeo) 🎥"
             : dados && dados.post === 4 ? "Ela respondeu o Post #4 (passando a limpo)"
               : dados && dados.post === 3 ? "Ela escreveu a versão dela de um momento 📖" : "Ela terminou o Post #2. Tem resposta nova!");
@@ -138,7 +138,7 @@
         destino.replaceChildren(...snap.docs.map(d => {
           const r = d.data(), el = document.createElement("div"); el.className = "r";
           const h = document.createElement("small");
-          h.textContent = (r.humor ? r.humor + "  " : "") + (r.post === 3 ? "📖 Versão dela · " : r.post === 5 ? "🎥 Resposta ao vídeo · " : r.post === 6 ? ((r.itens && r.itens[0] && String(r.itens[0].pergunta).startsWith("Surpresa #3")) ? "🎁 Surpresa #3 · " : "⏳ Cápsula do tempo · ") : r.post ? "Post #" + r.post + " · " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
+          h.textContent = (r.humor ? r.humor + "  " : "") + (r.post === 7 ? "🕰️ Que horas são aí? · " : r.post === 3 ? "📖 Versão dela · " : r.post === 5 ? "🎥 Resposta ao vídeo · " : r.post === 6 ? ((r.itens && r.itens[0] && String(r.itens[0].pergunta).startsWith("Surpresa #3")) ? "🎁 Surpresa #3 · " : "⏳ Cápsula do tempo · ") : r.post ? "Post #" + r.post + " · " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
           el.append(h);
           if (nome === "respostas" && capsulaSelada(r)) {
             const p = document.createElement("p");

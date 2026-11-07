@@ -1,0 +1,482 @@
+/* Post #7: Que horas são aí? */
+
+html:has(.p7) {
+    overflow-x: clip;
+    max-width: 100%
+}
+
+.p7 {
+    overflow-x: clip;
+    max-width: 100%
+}
+
+/* ---------- relógio do dia ---------- */
+.dial-wrap {
+    position: relative;
+    width: min(320px, 80vw);
+    aspect-ratio: 1;
+    margin: 2.6rem auto 1.2rem
+}
+
+.dial {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    display: block
+}
+
+.dial .trilho {
+    fill: none;
+    stroke: rgba(255, 255, 255, .06);
+    stroke-width: 12
+}
+
+.dial .tick {
+    font: 400 6.5px var(--mono);
+    fill: var(--mute);
+    letter-spacing: .06em
+}
+
+.dial .arc {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 12;
+    stroke-linecap: round;
+    opacity: .22;
+    transition: opacity .6s, stroke-width .3s
+}
+
+.dial .arc.agora {
+    opacity: .7;
+    animation: p7pulso 2.6s ease-in-out infinite
+}
+
+.dial .arc.visto {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px currentColor);
+    animation: none
+}
+
+.dial .arc.sel {
+    stroke-width: 15
+}
+
+.dial .halo {
+    fill: rgba(255, 255, 255, .22);
+    animation: p7halo 2.4s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center
+}
+
+.dial .marcador {
+    fill: #fff;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, .9))
+}
+
+@keyframes p7pulso {
+    50% {
+        opacity: .4
+    }
+}
+
+@keyframes p7halo {
+    50% {
+        transform: scale(1.5);
+        opacity: .4
+    }
+}
+
+.dial-centro {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    text-align: center
+}
+
+.dial-centro b {
+    font: 300 clamp(2.4rem, 12vw, 3.4rem)/1 var(--mono);
+    color: #fff;
+    letter-spacing: -.03em;
+    text-shadow: 0 0 30px rgba(255, 93, 143, .35)
+}
+
+.dial-centro small {
+    margin-top: .45rem;
+    font: italic 400 1.1rem var(--serif);
+    color: var(--gold)
+}
+
+.letter .progresso {
+    text-align: center;
+    font: 400 .82rem var(--mono);
+    color: var(--mute);
+    margin: 0 0 2rem;
+    letter-spacing: .04em
+}
+
+.letter .progresso b {
+    color: var(--rose);
+    font-weight: 400
+}
+
+/* ---------- cartão da janela ---------- */
+.janela {
+    --c: var(--gold);
+    margin: 0 0 1rem;
+    padding: 1.7rem 1.4rem .6rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(183, 156, 255, .28);
+    border-top: 2px solid var(--c);
+    box-shadow: 0 -18px 60px -30px var(--c);
+    position: relative;
+    overflow: hidden;
+    transition: border-color .4s, box-shadow .4s
+}
+
+.janela[data-j="manha"] {
+    --c: #f6d9b0
+}
+
+.janela[data-j="meio"] {
+    --c: #ffb3c9
+}
+
+.janela[data-j="tarde"] {
+    --c: #ff9a6b
+}
+
+.janela[data-j="noite"] {
+    --c: #b79cff
+}
+
+.janela[data-j="madrugada"] {
+    --c: #7c8cff
+}
+
+.janela .tag {
+    font: 400 .78rem var(--mono) !important;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--c) !important;
+    margin: 0 0 .6rem !important
+}
+
+.janela h3 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    line-height: 1.15;
+    color: #fff;
+    margin: 0 0 1.4rem
+}
+
+.janela p.rv:last-child {
+    margin-bottom: 1.2rem
+}
+
+/* a janela secreta: céu de madrugada */
+.janela.secreta {
+    background:
+        radial-gradient(1.5px 1.5px at 12% 20%, #fff, transparent 60%),
+        radial-gradient(1px 1px at 82% 12%, #fff, transparent 60%),
+        radial-gradient(1.5px 1.5px at 66% 38%, #cfd6ff, transparent 60%),
+        radial-gradient(1px 1px at 28% 55%, #fff, transparent 60%),
+        radial-gradient(1.5px 1.5px at 90% 70%, #fff, transparent 60%),
+        radial-gradient(1px 1px at 8% 86%, #cfd6ff, transparent 60%),
+        radial-gradient(1px 1px at 52% 92%, #fff, transparent 60%),
+        linear-gradient(180deg, #0f1236, #1d1850 90%);
+    border-color: rgba(124, 140, 255, .5);
+    animation: p7cintila 5s ease-in-out infinite
+}
+
+@keyframes p7cintila {
+    50% {
+        box-shadow: 0 -18px 70px -24px var(--c), inset 0 0 60px rgba(124, 140, 255, .12)
+    }
+}
+
+/* nota depois de ler uma janela */
+.nota {
+    margin: 0 0 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 14px;
+    background: rgba(255, 93, 143, .09);
+    border: 1px dashed rgba(255, 93, 143, .5);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .5s, transform .5s
+}
+
+.nota.on {
+    opacity: 1;
+    transform: none
+}
+
+.letter .nota p {
+    font: 400 1rem/1.6 var(--sans);
+    color: var(--ink);
+    margin: 0
+}
+
+.cta.peq {
+    margin-top: .9rem;
+    padding: .7rem 1.5rem;
+    font-size: .95rem
+}
+
+/* ---------- as outras horas ---------- */
+.letter .sub {
+    font: 400 .8rem var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--lilac);
+    margin: 2.4rem 0 1rem
+}
+
+.horas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .7rem
+}
+
+.hora {
+    --c: var(--lilac);
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    text-align: left;
+    min-height: 68px;
+    padding: .85rem 1rem;
+    font: inherit;
+    color: var(--ink);
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(183, 156, 255, .3);
+    border-left: 3px solid var(--c);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform .15s, background .25s, border-color .25s
+}
+
+.hora:active {
+    transform: scale(.97)
+}
+
+.hora:focus-visible {
+    outline: 3px solid var(--lilac);
+    outline-offset: 3px
+}
+
+.hora .h-nome {
+    font: 400 1.1rem var(--serif)
+}
+
+.hora .h-sub {
+    font: 400 .74rem/1.35 var(--mono);
+    color: var(--mute)
+}
+
+.hora.agora {
+    background: rgba(255, 255, 255, .09);
+    border-color: var(--c)
+}
+
+.hora.agora .h-sub {
+    color: var(--c)
+}
+
+.hora.vista .h-sub {
+    color: var(--c)
+}
+
+.hora.sel {
+    background: rgba(255, 255, 255, .1);
+    border-color: var(--c)
+}
+
+.hora.trancada {
+    opacity: .6;
+    border-left-color: rgba(183, 156, 255, .3)
+}
+
+.hora.misterio {
+    border-style: dashed;
+    border-left-style: dashed
+}
+
+.hora.misterio .h-nome {
+    letter-spacing: .3em
+}
+
+.hora.treme {
+    animation: p7treme .4s
+}
+
+@keyframes p7treme {
+
+    20%,
+    60% {
+        transform: translateX(-5px)
+    }
+
+    40%,
+    80% {
+        transform: translateX(5px)
+    }
+}
+
+.letter .aviso-hora {
+    min-height: 3.2em;
+    margin: 1rem 0 0;
+    font: italic 400 1.05rem/1.5 var(--serif);
+    color: var(--gold)
+}
+
+/* ---------- final ---------- */
+.final {
+    margin: 3rem 0 1rem;
+    padding: 2rem 1.4rem 1.6rem;
+    border-radius: 22px;
+    background: linear-gradient(160deg, rgba(255, 93, 143, .12), rgba(183, 156, 255, .1));
+    border: 1px solid rgba(255, 93, 143, .45);
+    box-shadow: 0 0 80px -30px var(--rose)
+}
+
+.final.entra {
+    animation: p7entra 1s cubic-bezier(.2, .8, .2, 1)
+}
+
+@keyframes p7entra {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.98)
+    }
+}
+
+.final .kicker {
+    font: 400 .78rem var(--mono) !important;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--rose) !important;
+    margin: 0 0 .6rem !important
+}
+
+.final h3 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    line-height: 1.15;
+    color: #fff;
+    margin: 0 0 1.4rem
+}
+
+.pergunta label {
+    display: block;
+    font: 400 clamp(1.25rem, 4.2vw, 1.6rem)/1.35 var(--serif);
+    color: var(--gold);
+    margin: 1.6rem 0 1rem
+}
+
+#fr {
+    width: 100%;
+    font: 1.1rem/1.6 var(--serif);
+    color: var(--ink);
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(183, 156, 255, .35);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    resize: vertical;
+    margin-bottom: 1.1rem
+}
+
+#fr::placeholder {
+    color: var(--mute)
+}
+
+#fr:focus-visible {
+    outline: 3px solid var(--lilac);
+    outline-offset: 3px
+}
+
+#fr.erro {
+    animation: p7treme .45s;
+    border-color: var(--rose)
+}
+
+.pergunta .acoes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .9rem
+}
+
+#fdica {
+    color: var(--mute);
+    font-size: .8rem
+}
+
+@media(hover:none) {
+    #fdica {
+        display: none
+    }
+}
+
+#fstatus {
+    min-height: 1.6em;
+    margin-top: .9rem;
+    color: var(--gold);
+    font-size: .95rem
+}
+
+.letter .final #fstatus {
+    font: italic 400 1rem/1.5 var(--serif);
+    margin-bottom: 0
+}
+
+.enviado blockquote {
+    margin: .6rem 0 1.4rem;
+    padding: .2rem 0 .2rem 1.1rem;
+    border-left: 3px solid var(--rose);
+    font: italic 400 1.2rem/1.65 var(--serif);
+    color: #f0e0ea;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere
+}
+
+.letter .enviado .fecho {
+    color: var(--gold);
+    font-style: italic
+}
+
+@media(min-width:700px) {
+    .horas {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+
+    .janela,
+    .final {
+        padding-left: 2rem;
+        padding-right: 2rem
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .dial .arc.agora,
+    .dial .halo,
+    .janela.secreta,
+    .final.entra,
+    .hora.treme {
+        animation: none
+    }
+
+    .nota {
+        transition: none
+    }
+}
