@@ -1,14 +1,3 @@
-/* Post #7: Que horas são aí?
-   Um post que muda conforme a hora em que ela abre.
-   4 janelas do dia + 1 janela secreta (madrugada) + um final que só abre depois que ela leu as 4.
-
-   TESTAR (você, no seu celular/PC):
-     posts/post-7.html?hora=9         -> simula 09:00 (manhã)
-     posts/post-7.html?hora=14:30     -> simula 14:30 (meio do dia)
-     posts/post-7.html?hora=2         -> simula 02:00 (madrugada secreta)
-     posts/post-7.html?demo=final     -> mostra o final já liberado
-     posts/post-7.html?reset          -> apaga o progresso guardado neste aparelho
-   Em qualquer modo de teste (?hora ou ?demo) NADA é gravado no aparelho nem enviado ao Firestore. */
 (function () {
     'use strict';
 
