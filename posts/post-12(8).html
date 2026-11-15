@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Post #8 · Uma charada</title>
+    <meta name="theme-color" content="#140a1f">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="../img/icons/icon.svg">
+    <link rel="apple-touch-icon" href="../img/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Nosso Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/noite.css">
+</head>
+
+<body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <main class="post-page pn-page">
+        <article class="letter">
+            <a class="back" href="../index.html">← Página Inicial</a>
+            <h2 class="rv">Post #8: <em>Uma charada</em></h2>
+
+            <!-- antes da data de abertura -->
+            <section id="p8-cedo" hidden>
+                <p class="rv d1">Esse post ainda não abriu. Volta daqui uns dias.</p>
+            </section>
+
+            <div id="p8-corpo">
+                <!-- a charada -->
+                <section class="n-card" id="p8-charada">
+                    <p class="n-kicker">dessa vez tem resposta certa</p>
+                    <h3>Acerte e eu te conto uma coisa.</h3>
+                    <p class="n-q" id="p8-pergunta"></p>
+                    <form class="n-form" id="p8-form" autocomplete="off">
+                        <input class="n-input" id="p8-resp" type="text" placeholder="Sua resposta" aria-label="Sua resposta"
+                            autocapitalize="none" spellcheck="false">
+                        <button class="cta" id="p8-go" type="submit">Descobrir</button>
+                    </form>
+                    <p class="n-status" id="p8-status" role="status" aria-live="polite"></p>
+                </section>
+
+                <!-- o convite (só aparece depois de acertar) -->
+                <section id="p8-convite" hidden aria-label="Convite"></section>
+            </div>
+
+            <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
+        </article>
+    </main>
+    <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/noite-dados.js"></script>
+    <script src="../js/noite-core.js"></script>
+    <script src="../js/post8.js"></script>
+    <script src="../js/pwa.js"></script>
+</body>
+
+</html>

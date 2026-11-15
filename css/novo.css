@@ -1,0 +1,33 @@
+/* Selo "NOVO" nos cards da página inicial (some depois que ela abre o post) */
+.post .novo {
+    position: absolute;
+    top: -11px;
+    right: 14px;
+    z-index: 2;
+    font: 500 .72rem/1 var(--mono);
+    letter-spacing: .12em;
+    color: #2a0f26;
+    background: linear-gradient(135deg, var(--gold, #f6d9b0), var(--rose, #ff5d8f));
+    padding: .42rem .7rem;
+    border-radius: 999px;
+    box-shadow: 0 0 0 0 rgba(255, 93, 143, .6), 0 6px 18px rgba(255, 93, 143, .35);
+    animation: novo-pulsa 2.2s ease-out infinite;
+    pointer-events: none
+}
+
+@keyframes novo-pulsa {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 93, 143, .6), 0 6px 18px rgba(255, 93, 143, .35)
+    }
+
+    70%,
+    100% {
+        box-shadow: 0 0 0 12px rgba(255, 93, 143, 0), 0 6px 18px rgba(255, 93, 143, .35)
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .post .novo {
+        animation: none
+    }
+}

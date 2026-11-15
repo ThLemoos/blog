@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Gerar a noite</title>
+    <style>
+        body { margin: 0; background: #140a1f; color: #f7ecf1; font: 16px/1.6 system-ui, sans-serif; padding: 6vh 6vw; max-width: 760px; margin-inline: auto }
+        h1 { font-weight: 400 } h2 { font-weight: 400; margin-top: 2.6rem; border-top: 1px solid #b79cff33; padding-top: 1.4rem }
+        label { display: block; margin: 1.1rem 0 .3rem }
+        input, textarea, button { font: inherit; width: 100%; box-sizing: border-box; padding: .7rem 1rem; border-radius: 10px; border: 1px solid #b79cff55; background: #ffffff0d; color: inherit }
+        textarea { font-size: .95rem }
+        button { width: auto; background: #ff5d8f; color: #2a0f26; border: 0; cursor: pointer; margin: 1.2rem .6rem 0 0 }
+        small { color: #b9a6c4; display: block }
+        .duas { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem } code { color: #f6d9b0 }
+    </style>
+</head>
+
+<body>
+    <h1>Gerar a noite (Posts #8, #9 e #10)</h1>
+    <p><small>Abra pelo Live Server (localhost). Use no seu computador; não precisa publicar esta página.
+        Tudo que identifica o local e o que vai acontecer é <b>criptografado</b>: quem abrir o código-fonte do blog não vê nada.
+        Os valores abaixo já são um exemplo que funciona; troque pelos reais.</small></p>
+
+    <h2>1. Quando o Post #8 aparece</h2>
+    <label for="abre">Data e hora em que o card do Post #8 destranca sozinho na página inicial</label>
+    <input id="abre" type="datetime-local" value="2026-12-01T09:00">
+    <small>Deixe vazio para ficar liberado assim que você publicar.</small>
+
+    <h2>2. A charada</h2>
+    <label for="perg">Pergunta</label>
+    <textarea id="perg" rows="5">Foi onde tudo começou, sem ninguém perceber.
+Você chegava e eu já estava lá, entre café, crachá e olhares escondidos.
+Que lugar é esse?</textarea>
+    <label for="dica">Dica (aparece depois de 2 erros)</label>
+    <input id="dica" value="Era onde a gente trabalhava.">
+    <label for="resp">Respostas aceitas (separe por vírgula)</label>
+    <input id="resp" value="prolar, na prolar">
+    <small>Maiúsculas, acentos e pontuação não importam. Cada resposta gera uma cópia criptografada.</small>
+
+    <h2>3. O local e o convite</h2>
+    <div class="duas">
+        <div><label for="local">Nome do local</label><input id="local" value="Restaurante Exemplo"></div>
+        <div><label for="end">Endereço</label><input id="end" value="Rua das Flores, 123 · Centro"></div>
+    </div>
+    <label for="maps">Link do Google Maps</label>
+    <input id="maps" value="https://maps.google.com/?q=-23.5505,-46.6333">
+    <div class="duas">
+        <div><label for="coord">Coordenadas (cole do Google Maps)</label><input id="coord" value="-23.5505, -46.6333"></div>
+        <div><label for="raio">Raio de chegada (metros)</label><input id="raio" type="number" value="150"></div>
+    </div>
+    <small>No Google Maps: clique com o botão direito no ponto do restaurante e clique nos números que aparecem para copiar.
+        O raio de 150 m funciona bem em shopping ou rua movimentada. Se for um lugar isolado, pode diminuir.</small>
+    <label for="quando">Data e hora do jantar</label>
+    <input id="quando" type="datetime-local" value="2026-12-12T20:00">
+    <label for="traje">Traje</label>
+    <input id="traje" value="Bem bonita (como se isso fosse difícil pra você)">
+    <label for="conv">Texto do convite (um parágrafo por linha)</label>
+    <textarea id="conv" rows="5">Eu queria te chamar pra sair. Só nós dois, com calma, sem pressa e sem celular em cima da mesa.
+Fica bem bonita e me encontra lá.</textarea>
+
+    <h2>4. A página da chegada (Post #9)</h2>
+    <label for="p9t">Título</label>
+    <input id="p9t" value="Você chegou. Senta que o cardápio já está na mesa.">
+    <label for="p9i">Introdução</label>
+    <textarea id="p9i" rows="3">Eu escrevi o cardápio, mas não vou te contar o que tem em cada prato. Só deixei pistas. Lê com calma e depois vem sentar comigo.</textarea>
+    <label for="p9l">Pratos (um por linha, no formato <code>rótulo | título | texto</code>)</label>
+    <textarea id="p9l" rows="8">Entrada | Conversa sem pressa | Risadas incluídas. O celular fica virado pra baixo.
+Prato principal | Uma pergunta ensaiada | Eu venho guardando ela desde que comecei a escrever esse blog.
+Acompanhamento | Coisas pequenas | Algumas cabem na mão e outra cabe no braço. Não é pra comer.
+Sobremesa | Ainda não decidida | Depende de uma resposta sua. Só peço que seja sincera.</textarea>
+    <label for="p9f">Fecho</label>
+    <input id="p9f" value="Respira fundo e vem. Eu já estou nervoso.">
+    <label for="manual">Palavra de reserva (você fala pra ela no local, caso o GPS não funcione)</label>
+    <input id="manual" value="branquinha">
+    <small>Não use a mesma palavra da charada. Pode escrever num cartão deixado na mesa.</small>
+
+    <h2>5. A página final (Post #10)</h2>
+    <label for="fin">Palavra opcional para abrir a página final (plano B, se a internet falhar na hora de liberar pelo painel)</label>
+    <input id="fin" value="">
+    <small>Deixe vazio para só liberar pelo painel.</small>
+
+    <button id="go">Gerar</button><button id="baixar" type="button" style="background:#f6d9b0">Baixar noite-dados.js</button>
+    <label for="o">Resultado: salve como <code>js/noite-dados.js</code> (substitui o arquivo atual)</label>
+    <textarea id="o" rows="12" readonly></textarea>
+
+    <script>
+        const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const b64e = b => btoa(String.fromCharCode(...new Uint8Array(b)));
+        const $ = id => document.getElementById(id);
+        async function cifrar(texto, senha) {
+            const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+            const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(norm(senha)), 'PBKDF2', false, ['deriveKey']);
+            const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 150000, hash: 'SHA-256' }, km, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+            const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(texto));
+            return { salt: b64e(salt), iv: b64e(iv), dados: b64e(ct) };
+        }
+        const aleatoria = n => Array.from(crypto.getRandomValues(new Uint8Array(n)), b => 'abcdefghijkmnpqrstuvwxyz23456789'[b % 32]).join('');
+        const iso = v => v ? new Date(v).toISOString() : null; // datetime-local usa o fuso deste computador
+
+        $('go').onclick = async () => {
+            const o = $('o');
+            try {
+                if (!crypto.subtle) throw 'Abra por localhost ou https.';
+                const respostas = $('resp').value.split(',').map(s => s.trim()).filter(s => norm(s));
+                if (!respostas.length) throw 'Informe ao menos uma resposta da charada.';
+                if (!norm($('manual').value)) throw 'Informe a palavra de reserva.';
+                const n = $('coord').value.match(/-?\d+(?:[.,]\d+)?/g);
+                if (!n || n.length < 2) throw 'Coordenadas inválidas. Cole no formato: -23.5505, -46.6333';
+                const lat = parseFloat(n[0].replace(',', '.')), lng = parseFloat(n[1].replace(',', '.'));
+                if (!$('quando').value) throw 'Informe a data e hora do jantar.';
+                const chaveGps = aleatoria(20);
+
+                const convite = {
+                    local: $('local').value.trim(), endereco: $('end').value.trim(), mapsUrl: $('maps').value.trim(),
+                    lat, lng, raio: parseInt($('raio').value, 10) || 150, quando: iso($('quando').value),
+                    traje: $('traje').value.trim(), convite: $('conv').value.split('\n').map(s => s.trim()).filter(Boolean), chaveGps
+                };
+                const itens = $('p9l').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+                    const [rotulo, titulo, ...resto] = l.split('|').map(s => s.trim());
+                    return { rotulo: rotulo || '', titulo: titulo || '', texto: resto.join(' | ') };
+                });
+                const noite = JSON.stringify({ titulo: $('p9t').value.trim(), intro: $('p9i').value.trim(), itens, fecho: $('p9f').value.trim() });
+
+                const conviteTxt = JSON.stringify(convite);
+                const dados = {
+                    abreEm: $('abre').value ? iso($('abre').value) : null,
+                    charada: { pergunta: $('perg').value.trim(), dica: $('dica').value.trim() },
+                    convite: await Promise.all(respostas.map(r => cifrar(conviteTxt, r))),
+                    noiteGps: [await cifrar(noite, chaveGps)],
+                    noiteManual: await cifrar(noite, $('manual').value),
+                    finalHash: null
+                };
+                if (norm($('fin').value)) {
+                    const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(norm($('fin').value)));
+                    dados.finalHash = Array.from(new Uint8Array(h), b => b.toString(16).padStart(2, '0')).join('');
+                }
+                o.value = '// Gerado em gerar-noite.html. Tudo que é secreto está criptografado.\nwindow.NOITE = ' + JSON.stringify(dados, null, 2) + ';\n';
+            } catch (e) { o.value = String(e); }
+        };
+        $('baixar').onclick = () => {
+            if (!$('o').value.startsWith('//')) { $('o').value = 'Clique em Gerar primeiro.'; return; }
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([$('o').value], { type: 'text/javascript' }));
+            a.download = 'noite-dados.js'; a.click();
+        };
+    </script>
+</body>
+
+</html>

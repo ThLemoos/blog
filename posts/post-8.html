@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Post #12 · O que essa foto me diz</title>
+    <meta name="theme-color" content="#140a1f">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="../img/icons/icon.svg">
+    <link rel="apple-touch-icon" href="../img/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Nosso Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/post8.css">
+</head>
+
+<body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <div class="p12-bg" id="p12-bg" aria-hidden="true"></div>
+    <canvas id="p12-fx" aria-hidden="true"></canvas>
+
+    <main class="post-page p12">
+        <article class="letter">
+            <a class="back" href="../index.html">← Página Inicial</a>
+            <h2 class="rv">Post #8: <em>Uma simples foto</em></h2>
+
+            <!-- a foto -->
+            <section class="p12-palco" id="palco" aria-label="Foto">
+                <div class="raios" aria-hidden="true"></div>
+                <figure class="polaroid" id="polaroid">
+                    <div class="foto-wrap" id="foto-wrap">
+                        <div class="foto-in" id="foto-in">
+                            <img id="foto" src="../img/sandy.jpeg" alt="Foto da Sandy sorrindo" decoding="async">
+                            <span class="sorriso-glow" aria-hidden="true"></span>
+                        </div>
+                        <div class="sem-foto-msg"><br><b>foto</b></div>
+                        <span class="vig" aria-hidden="true"></span>
+                        <span class="leak" aria-hidden="true"></span>
+                        <span class="flash" aria-hidden="true"></span>
+                    </div>
+                    <figcaption>Sandy</figcaption>
+                </figure>
+            </section>
+
+            <!-- o texto, escrito ao vivo -->
+            <section class="p12-texto" id="texto" aria-live="polite" aria-label="Texto">
+                <p class="p12-p" id="p12-p"></p>
+                <div class="p12-dots" id="dots" aria-hidden="true"></div>
+                <p class="p12-dica" id="dica">toque no texto pra avançar</p>
+            </section>
+
+            <div class="p12-fim" id="fim" hidden>
+                <p class="sig-fim">— <span data-eu>Thiago Lemos</span></p>
+                <div class="p12-acoes">
+                    <button class="cta" id="de-novo" type="button">↻ Ver de novo</button>
+                    <button class="cta ghost" id="ler-tudo" type="button" aria-expanded="false">Ler tudo de uma
+                        vez</button>
+                </div>
+                <div class="p12-tudo" id="tudo" hidden></div>
+            </div>
+        </article>
+    </main>
+    <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/post8.js"></script>
+    <script src="../js/pwa.js"></script>
+</body>
+
+</html>

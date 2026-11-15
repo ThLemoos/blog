@@ -93,13 +93,28 @@
     <button id="out">Sair</button><button id="avisos" hidden>🔔 Ativar avisos</button>
     <h2>Respostas e versões dela</h2>
     <div id="lista-r"></div>
+    <h2>A noite do jantar</h2>
+    <div class="r">
+      <b>Página final (Post #10)</b><br><small id="fin-st">carregando…</small><br>
+      <button id="fin-tg" disabled>…</button>
+      <small style="display:block;margin-top:.4rem">Quando você libera, a página abre sozinha no celular dela (se estiver com o Post #10 aberto).</small>
+    </div>
+    <div class="r">
+      <b>Fotos e vídeos da noite</b><br>
+      <input id="up-f" type="file" accept="image/*,video/*" multiple>
+      <input id="up-l" type="text" placeholder="legenda (opcional, vale pra todos desse envio)">
+      <button id="up-go">Enviar</button>
+      <p id="up-st"></p>
+      <div id="lista-mem"></div>
+    </div>
     <h2>Recados</h2>
     <div id="lista-m"></div>
   </div>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc, setDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getStorage, ref as sref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
     import { firebaseConfig } from "./js/firebase-config.js";
     const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app), $ = i => document.getElementById(i);
     $("go").onclick = () => signInWithEmailAndPassword(auth, $("em").value, $("pw").value).catch(() => $("err").textContent = "E-mail ou senha incorretos.");
@@ -113,7 +128,7 @@
       novas++; marcar();
       if (!("Notification" in window) || Notification.permission !== "granted") return;
       const corpo = nome !== "respostas" ? "Tem um recado novo."
-        : (dados && dados.post === 7 ? "Ela respondeu o Post #7 (Que horas são aí?) 🕰️" : dados && dados.post === 6 ? (dados.itens && dados.itens[0] && String(dados.itens[0].pergunta).startsWith("Surpresa #3") ? "Ela respondeu a Surpresa #3 🎁" : "Ela selou a cápsula do tempo ⏳")
+        : (dados && dados.post === 10 ? "Ela deixou uma lembrança da noite 🌙" : dados && dados.post === 9 ? "Ela chegou no lugar! 📍" : dados && dados.post === 8 ? "Ela aceitou o convite 💌" : dados && dados.post === 7 ? "Ela respondeu o Post #7 (Que horas são aí?) 🕰️" : dados && dados.post === 6 ? (dados.itens && dados.itens[0] && String(dados.itens[0].pergunta).startsWith("Surpresa #3") ? "Ela respondeu a Surpresa #3 🎁" : "Ela selou a cápsula do tempo ⏳")
           : dados && dados.post === 5 ? "Ela respondeu o Post #5 (o vídeo) 🎥"
             : dados && dados.post === 4 ? "Ela respondeu o Post #4 (passando a limpo)"
               : dados && dados.post === 3 ? "Ela escreveu a versão dela de um momento 📖" : "Ela terminou o Post #2. Tem resposta nova!");
@@ -138,7 +153,7 @@
         destino.replaceChildren(...snap.docs.map(d => {
           const r = d.data(), el = document.createElement("div"); el.className = "r";
           const h = document.createElement("small");
-          h.textContent = (r.humor ? r.humor + "  " : "") + (r.post === 7 ? "🕰️ Que horas são aí? · " : r.post === 3 ? "📖 Versão dela · " : r.post === 5 ? "🎥 Resposta ao vídeo · " : r.post === 6 ? ((r.itens && r.itens[0] && String(r.itens[0].pergunta).startsWith("Surpresa #3")) ? "🎁 Surpresa #3 · " : "⏳ Cápsula do tempo · ") : r.post ? "Post #" + r.post + " · " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
+          h.textContent = (r.humor ? r.humor + "  " : "") + (r.post === 10 ? "🌙 Lembrança da noite · " : r.post === 9 ? "📍 Chegada · " : r.post === 8 ? "💌 Convite · " : r.post === 7 ? "🕰️ Que horas são aí? · " : r.post === 3 ? "📖 Versão dela · " : r.post === 5 ? "🎥 Resposta ao vídeo · " : r.post === 6 ? ((r.itens && r.itens[0] && String(r.itens[0].pergunta).startsWith("Surpresa #3")) ? "🎁 Surpresa #3 · " : "⏳ Cápsula do tempo · ") : r.post ? "Post #" + r.post + " · " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
           el.append(h);
           if (nome === "respostas" && capsulaSelada(r)) {
             const p = document.createElement("p");
@@ -157,12 +172,65 @@
         if (!snap.size) destino.textContent = "Nada por aqui ainda.";
       }, () => destino.textContent = "Sem permissão. Confira o e-mail nas regras do Firestore.");
     }
+    // ===== A noite do jantar: liberar o Post #10 e subir fotos/vídeos =====
+    const estadoRef = doc(db, "noite", "estado");
+    let finalLiberado = false;
+    function desenharFinal() {
+      $("fin-st").textContent = finalLiberado ? "✅ Liberada: ela já consegue abrir." : "🔒 Trancada.";
+      $("fin-tg").textContent = finalLiberado ? "Trancar de novo" : "Liberar agora";
+      $("fin-tg").disabled = false;
+    }
+    $("fin-tg").onclick = async () => {
+      $("fin-tg").disabled = true;
+      try { await setDoc(estadoRef, { final: !finalLiberado, atualizadoEm: serverTimestamp() }, { merge: true }); }
+      catch (e) { $("fin-st").textContent = "Não consegui salvar (" + (e.code || e.message) + "). Confira as regras do Firestore (coleção noite)."; $("fin-tg").disabled = false; }
+    };
+
+    const storage = getStorage(app);
+    $("up-go").onclick = async () => {
+      const files = [...$("up-f").files], st = $("up-st");
+      if (!files.length) { st.textContent = "Escolha as fotos ou vídeos primeiro."; return; }
+      $("up-go").disabled = true;
+      let ok = 0;
+      for (const [i, f] of files.entries()) {
+        const tipo = f.type.startsWith("video") ? "video" : "imagem";
+        const caminho = "memorias/" + Date.now() + "-" + f.name.replace(/[^\w.\-]+/g, "_");
+        try {
+          const task = uploadBytesResumable(sref(storage, caminho), f);
+          await new Promise((res, rej) => {
+            task.on("state_changed", s => { st.textContent = "Enviando " + (i + 1) + " de " + files.length + "… " + Math.round(s.bytesTransferred / s.totalBytes * 100) + "%"; }, rej, res);
+          });
+          const url = await getDownloadURL(task.snapshot.ref);
+          await addDoc(collection(db, "memorias"), { url, tipo, caminho, legenda: $("up-l").value.trim(), criadoEm: serverTimestamp() });
+          ok++;
+        } catch (e) { st.textContent = "Erro em " + f.name + ": " + (e.code || e.message) + ". Veja as regras do Storage (e se o Storage está ativo no projeto)."; break; }
+      }
+      if (ok === files.length) { st.textContent = "Pronto: " + ok + " arquivo(s) enviado(s). Já aparecem no Post #10."; $("up-f").value = ""; $("up-l").value = ""; }
+      $("up-go").disabled = false;
+    };
+
+    function ouvirNoite() {
+      const u1 = onSnapshot(estadoRef, s => { finalLiberado = !!(s.exists() && s.data().final); desenharFinal(); },
+        () => { $("fin-st").textContent = "Sem permissão. Adicione a regra da coleção noite no Firestore."; });
+      const u2 = onSnapshot(query(collection(db, "memorias"), orderBy("criadoEm", "desc")), snap => {
+        $("lista-mem").replaceChildren(...snap.docs.map(d => {
+          const r = d.data(), box = document.createElement("div"); box.style.cssText = "display:flex;gap:.7rem;align-items:center;margin:.6rem 0";
+          const m = document.createElement(r.tipo === "video" ? "video" : "img"); m.src = r.url; m.style.cssText = "width:64px;height:64px;object-fit:cover;border-radius:8px"; if (r.tipo === "video") m.muted = true;
+          const t = document.createElement("small"); t.textContent = (r.tipo === "video" ? "🎥 " : "🖼️ ") + (r.legenda || "sem legenda"); t.style.flex = "1";
+          const x = document.createElement("button"); x.className = "x"; x.textContent = "apagar"; x.style.margin = "0";
+          x.onclick = async () => { if (!confirm("Apagar esse arquivo?")) return; await deleteDoc(doc(db, "memorias", d.id)); try { await deleteObject(sref(storage, r.caminho)); } catch (e) { } };
+          box.append(m, t, x); return box;
+        }));
+      }, () => { });
+      return () => { u1(); u2(); };
+    }
+
     let subs = [];
     onAuthStateChanged(auth, u => {
       $("login").hidden = !!u; $("app").hidden = !u;
       subs.forEach(f => f()); subs = [];
       if (!u) return;
-      subs = [ouvir("respostas", $("lista-r")), ouvir("recados", $("lista-m"))];
+      subs = [ouvir("respostas", $("lista-r")), ouvir("recados", $("lista-m")), ouvirNoite()];
     });
   </script>
   <script src="js/pwa.js"></script>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Post #9 · Hoje à noite</title>
+    <meta name="theme-color" content="#140a1f">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="../img/icons/icon.svg">
+    <link rel="apple-touch-icon" href="../img/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Nosso Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/noite.css">
+</head>
+
+<body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <main class="post-page pn-page">
+        <article class="letter">
+            <a class="back" href="../index.html">← Página Inicial</a>
+            <h2 class="rv">Post #9: <em>Hoje à noite</em></h2>
+
+            <!-- trancado até ela chegar no lugar -->
+            <section id="p9-tranca">
+                <p class="rv d1" id="p9-intro">Essa página não abre de qualquer lugar. Ela só abre quando você chegar onde eu estiver te esperando.</p>
+
+                <section class="n-card" id="p9-gps">
+                    <p class="n-kicker">o jeito certo</p>
+                    <h3>Cheguei.</h3>
+                    <div class="n-radar" id="p9-radar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                    <p class="n-dist" id="p9-dist" role="status" aria-live="polite"></p>
+                    <div class="n-acoes">
+                        <button class="cta" id="p9-loc" type="button">Estou aqui</button>
+                        <button class="cta ghost" id="p9-sim" type="button" hidden>(prévia) simular chegada</button>
+                    </div>
+                    <p class="n-status" id="p9-gps-st" role="status" aria-live="polite"></p>
+                </section>
+
+                <p class="n-sep">OU</p>
+
+                <section class="n-card" id="p9-cod">
+                    <p class="n-kicker">se o GPS não ajudar</p>
+                    <h3>Tem uma palavra pra você.</h3>
+                    <p class="n-mini">Quando você chegar, eu te entrego a palavra.</p>
+                    <form class="n-form" id="p9-form" autocomplete="off">
+                        <input class="n-input" id="p9-palavra" type="text" placeholder="A palavra" aria-label="A palavra"
+                            autocapitalize="none" spellcheck="false">
+                        <button class="cta" id="p9-go" type="submit">Abrir</button>
+                    </form>
+                    <p class="n-status" id="p9-cod-st" role="status" aria-live="polite"></p>
+                </section>
+            </section>
+
+            <!-- liberado -->
+            <section id="p9-aberto" hidden aria-label="Cardápio da noite">
+                <p class="n-kicker" id="p9-kicker">você chegou</p>
+                <h3 id="p9-titulo" class="n-fecho" style="margin-top:0"></h3>
+                <p id="p9-texto"></p>
+                <div class="n-menu" id="p9-menu"></div>
+                <p class="n-fecho" id="p9-fecho"></p>
+                <p class="n-prox" id="p9-prox" hidden>Tem uma última página. Ela só abre quando a noite acabar.
+                    <br><a href="post-10.html" style="color:var(--gold)">Post #10 →</a></p>
+            </section>
+
+            <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
+        </article>
+    </main>
+    <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/noite-dados.js"></script>
+    <script src="../js/noite-core.js"></script>
+    <script src="../js/post9.js"></script>
+    <script src="../js/pwa.js"></script>
+</body>
+
+</html>

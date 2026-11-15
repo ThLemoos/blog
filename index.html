@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/carta.css">
     <link rel="stylesheet" href="css/surpresa3.css">
     <link rel="stylesheet" href="css/segredo.css">
+    <link rel="stylesheet" href="css/novo.css">
 </head>
 
 <body>
@@ -137,8 +138,14 @@
                     <p>Aproveite cada momento do seu dia.</p>
                     <span class="mark" aria-hidden="true">Abrir</span>
                 </a>
-                <div class="post locked rv d1" role="button" tabindex="0" aria-disabled="true">
+                <a class="post rv" href="posts/post-8.html" data-novo="post-8">
                     <span class="pn">Post #8</span>
+                    <h3>Uma simples foto</h3>
+                    <p>Mas ela diz muito.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <div class="post locked rv d1" id="proximo-card" role="button" tabindex="0" aria-disabled="true">
+                    <span class="pn">Post #9</span>
                     <h3>Ainda é surpresa</h3>
                     <p>Estou escrevendo.</p>
                     <span class="mark" aria-hidden="true">🔒</span>
@@ -210,6 +217,9 @@
     <script src="js/carta.js"></script>
     <script src="js/segredo.js"></script>
     <script src="js/surpresa3.js"></script>
+    <script src="js/noite-dados.js"></script>
+    <script src="js/noite-core.js"></script>
+    <script src="js/noite-index.js"></script>
     <script>
         // Seção Cartas: trancada até ela terminar o Post #2
         (function () {
@@ -254,6 +264,7 @@
             if (Surpresa3.liberada()) destrancar();
         })();
     </script>
+    <script src="js/novo.js"></script>
     <script src="js/pwa.js"></script>
 </body>
 

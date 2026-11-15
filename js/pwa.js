@@ -17,3 +17,13 @@
         }).catch(() => { });
     });
 })();
+
+// Selo "NOVO": ao abrir um post (inclusive por link direto), marca como visto
+(() => {
+    const m = location.pathname.match(/\/posts\/([\w-]+)\.html$/);
+    if (!m) return;
+    try {
+        const v = JSON.parse(localStorage.getItem('blog_vistos') || '[]');
+        if (!v.includes(m[1])) { v.push(m[1]); localStorage.setItem('blog_vistos', JSON.stringify(v)); }
+    } catch (_) { }
+})();
