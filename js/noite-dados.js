@@ -1,4 +1,4 @@
-// Gerado em gerar-noite.html. Tudo que é secreto está criptografado.
+// Gerado em gerar-noite.html. Tudo que é secreto está criptografado..
 window.NOITE = {
   "abreEm": "2099-01-01T12:00:00.000Z",
   "charada": {

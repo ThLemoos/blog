@@ -1,6 +1,6 @@
 // Núcleo compartilhado dos Posts #8, #9 e #10 (a noite do jantar).
 // Cuida de: criptografia (mesma técnica da charada do início), armazenamento local,
-// modo de prévia (?demo) e envio de avisos pro Firestore.
+// modo de prévia (?demo) e envio de avisos pro Firestore..
 (function () {
     'use strict';
 

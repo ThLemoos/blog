@@ -1,10 +1,30 @@
-/* Posts #8, #9 e #10: a noite do jantar */
-html:has(.pn-page) { overflow-x: clip; max-width: 100% }
-.pn-page { overflow-x: clip; max-width: 100% }
-[hidden] { display: none !important }
-.pn-page .letter section { min-height: 0; display: block; padding: 0 }
-.pn-page .letter section.n-card { padding: 1.8rem 1.4rem }
-.pn-page .letter section.n-ticket-wrap { padding: 0 }
+html:has(.pn-page) {
+    overflow-x: clip;
+    max-width: 100%
+}
+
+.pn-page {
+    overflow-x: clip;
+    max-width: 100%
+}
+
+[hidden] {
+    display: none !important
+}
+
+.pn-page .letter section {
+    min-height: 0;
+    display: block;
+    padding: 0
+}
+
+.pn-page .letter section.n-card {
+    padding: 1.8rem 1.4rem
+}
+
+.pn-page .letter section.n-ticket-wrap {
+    padding: 0
+}
 
 .n-card {
     background: rgba(34, 16, 47, .72);
@@ -15,103 +35,469 @@ html:has(.pn-page) { overflow-x: clip; max-width: 100% }
     backdrop-filter: blur(8px);
     box-shadow: 0 24px 70px rgba(0, 0, 0, .35)
 }
-.n-kicker { font: 400 .78rem var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--rose); margin-bottom: .8rem }
-.n-card h3 { font: 300 clamp(1.5rem, 5vw, 2rem)/1.2 var(--serif); margin-bottom: 1rem }
-.letter .n-card p { color: #f0e0ea; margin-bottom: 1rem }
-.n-q { font: 400 clamp(1.15rem, 4vw, 1.4rem)/1.65 var(--serif); color: var(--gold); white-space: pre-line; margin-bottom: 1.4rem }
 
-.n-form { display: flex; flex-direction: column; gap: .9rem; align-items: stretch }
-.n-input, .n-text {
-    font: 1.05rem var(--sans); color: var(--ink); width: 100%;
-    background: rgba(255, 255, 255, .06); border: 1px solid rgba(183, 156, 255, .35);
-    border-radius: 14px; padding: .9rem 1.1rem
+.n-kicker {
+    font: 400 .78rem var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: .8rem
 }
-.n-input { text-align: center }
-.n-text { font: 1.1rem/1.6 var(--serif); resize: vertical; text-align: left }
-.n-input::placeholder, .n-text::placeholder { color: var(--mute) }
-.n-input:focus-visible, .n-text:focus-visible { outline: 3px solid var(--lilac); outline-offset: 3px }
-.n-input.erro { animation: n-treme .45s; border-color: var(--rose) }
-@keyframes n-treme { 20%, 60% { transform: translateX(-8px) } 40%, 80% { transform: translateX(8px) } }
-.n-form button.cta { align-self: center }
-button.cta:disabled { opacity: .6; cursor: wait }
-button.cta.ghost { background: none; color: var(--gold); border: 1px solid rgba(246, 217, 176, .5); box-shadow: none }
-.n-status { min-height: 1.6em; margin-top: .9rem; color: var(--mute); font-size: .95rem }
-.n-status.ok { color: var(--gold) }
-.n-mini { color: var(--mute); font-size: .85rem }
+
+.n-card h3 {
+    font: 300 clamp(1.5rem, 5vw, 2rem)/1.2 var(--serif);
+    margin-bottom: 1rem
+}
+
+.letter .n-card p {
+    color: #f0e0ea;
+    margin-bottom: 1rem
+}
+
+.n-q {
+    font: 400 clamp(1.15rem, 4vw, 1.4rem)/1.65 var(--serif);
+    color: var(--gold);
+    white-space: pre-line;
+    margin-bottom: 1.4rem
+}
+
+.n-form {
+    display: flex;
+    flex-direction: column;
+    gap: .9rem;
+    align-items: stretch
+}
+
+.n-input,
+.n-text {
+    font: 1.05rem var(--sans);
+    color: var(--ink);
+    width: 100%;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(183, 156, 255, .35);
+    border-radius: 14px;
+    padding: .9rem 1.1rem
+}
+
+.n-input {
+    text-align: center
+}
+
+.n-text {
+    font: 1.1rem/1.6 var(--serif);
+    resize: vertical;
+    text-align: left
+}
+
+.n-input::placeholder,
+.n-text::placeholder {
+    color: var(--mute)
+}
+
+.n-input:focus-visible,
+.n-text:focus-visible {
+    outline: 3px solid var(--lilac);
+    outline-offset: 3px
+}
+
+.n-input.erro {
+    animation: n-treme .45s;
+    border-color: var(--rose)
+}
+
+@keyframes n-treme {
+
+    20%,
+    60% {
+        transform: translateX(-8px)
+    }
+
+    40%,
+    80% {
+        transform: translateX(8px)
+    }
+}
+
+.n-form button.cta {
+    align-self: center
+}
+
+button.cta:disabled {
+    opacity: .6;
+    cursor: wait
+}
+
+button.cta.ghost {
+    background: none;
+    color: var(--gold);
+    border: 1px solid rgba(246, 217, 176, .5);
+    box-shadow: none
+}
+
+.n-status {
+    min-height: 1.6em;
+    margin-top: .9rem;
+    color: var(--mute);
+    font-size: .95rem
+}
+
+.n-status.ok {
+    color: var(--gold)
+}
+
+.n-mini {
+    color: var(--mute);
+    font-size: .85rem
+}
 
 /* ---------- convite (Post #8) ---------- */
 .n-ticket {
-    position: relative; margin: 2.4rem 0; padding: 2.2rem 1.5rem 2rem; text-align: center;
-    border-radius: 26px; border: 1px solid rgba(246, 217, 176, .45);
+    position: relative;
+    margin: 2.4rem 0;
+    padding: 2.2rem 1.5rem 2rem;
+    text-align: center;
+    border-radius: 26px;
+    border: 1px solid rgba(246, 217, 176, .45);
     background: linear-gradient(160deg, rgba(246, 217, 176, .13), rgba(255, 93, 143, .10) 55%, rgba(183, 156, 255, .12));
     box-shadow: 0 30px 90px rgba(0, 0, 0, .45), 0 0 90px rgba(255, 93, 143, .14);
     animation: n-entra 1s cubic-bezier(.2, .8, .2, 1)
 }
-.n-ticket::before, .n-ticket::after {
-    content: ''; position: absolute; top: 58%; width: 26px; height: 26px; border-radius: 50%;
-    background: var(--bg); border: 1px solid rgba(246, 217, 176, .45)
+
+.n-ticket::before,
+.n-ticket::after {
+    content: '';
+    position: absolute;
+    top: 58%;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid rgba(246, 217, 176, .45)
 }
-.n-ticket::before { left: -14px; clip-path: inset(0 0 0 50%) }
-.n-ticket::after { right: -14px; clip-path: inset(0 50% 0 0) }
-@keyframes n-entra { from { opacity: 0; transform: translateY(26px) scale(.96) } }
-.n-ticket h3 { font: italic 300 clamp(2rem, 8vw, 3rem)/1.1 var(--serif); color: var(--gold); margin-bottom: 1.2rem }
-.letter .n-ticket p { color: #fff; max-width: 40ch; margin-inline: auto }
-.n-det { list-style: none; margin: 1.8rem 0 1.2rem; padding: 1.2rem 0 0; border-top: 1px dashed rgba(246, 217, 176, .4); display: grid; gap: 1rem; text-align: left }
-.n-det li small { display: block; font: 400 .72rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--rose) }
-.n-det li b { font: 400 1.25rem/1.35 var(--serif); color: #fff }
-.n-det li span { display: block; color: var(--mute); font-size: .92rem }
-.n-cont { font: 400 .95rem var(--mono); color: var(--gold); margin: 1.2rem 0 0 }
-.n-acoes { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 1.4rem }
-.n-acoes a.cta, .n-acoes button.cta { font-size: .95rem; padding: .85rem 1.5rem; text-decoration: none; display: inline-block }
-.n-prox { margin-top: 2rem; padding: 1.2rem 1.3rem; border-left: 3px solid var(--rose); color: #f0e0ea; font: italic 400 1.1rem/1.6 var(--serif) }
+
+.n-ticket::before {
+    left: -14px;
+    clip-path: inset(0 0 0 50%)
+}
+
+.n-ticket::after {
+    right: -14px;
+    clip-path: inset(0 50% 0 0)
+}
+
+@keyframes n-entra {
+    from {
+        opacity: 0;
+        transform: translateY(26px) scale(.96)
+    }
+}
+
+.n-ticket h3 {
+    font: italic 300 clamp(2rem, 8vw, 3rem)/1.1 var(--serif);
+    color: var(--gold);
+    margin-bottom: 1.2rem
+}
+
+.letter .n-ticket p {
+    color: #fff;
+    max-width: 40ch;
+    margin-inline: auto
+}
+
+.n-det {
+    list-style: none;
+    margin: 1.8rem 0 1.2rem;
+    padding: 1.2rem 0 0;
+    border-top: 1px dashed rgba(246, 217, 176, .4);
+    display: grid;
+    gap: 1rem;
+    text-align: left
+}
+
+.n-det li small {
+    display: block;
+    font: 400 .72rem var(--mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--rose)
+}
+
+.n-det li b {
+    font: 400 1.25rem/1.35 var(--serif);
+    color: #fff
+}
+
+.n-det li span {
+    display: block;
+    color: var(--mute);
+    font-size: .92rem
+}
+
+.n-cont {
+    font: 400 .95rem var(--mono);
+    color: var(--gold);
+    margin: 1.2rem 0 0
+}
+
+.n-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .8rem;
+    justify-content: center;
+    margin-top: 1.4rem
+}
+
+.n-acoes a.cta,
+.n-acoes button.cta {
+    font-size: .95rem;
+    padding: .85rem 1.5rem;
+    text-decoration: none;
+    display: inline-block
+}
+
+.n-prox {
+    margin-top: 2rem;
+    padding: 1.2rem 1.3rem;
+    border-left: 3px solid var(--rose);
+    color: #f0e0ea;
+    font: italic 400 1.1rem/1.6 var(--serif)
+}
 
 /* ---------- radar (Post #9) ---------- */
-.n-radar { position: relative; width: min(260px, 70vw); aspect-ratio: 1; margin: 1.6rem auto 1rem }
-.n-radar i { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(183, 156, 255, .35) }
-.n-radar i:nth-child(2) { inset: 18% }
-.n-radar i:nth-child(3) { inset: 36% }
-.n-radar i:nth-child(4) { inset: 47%; background: var(--rose); border: 0; box-shadow: 0 0 22px var(--rose) }
-.n-radar::after {
-    content: ''; position: absolute; inset: 0; border-radius: 50%;
-    background: conic-gradient(from 0deg, rgba(255, 93, 143, .0) 70%, rgba(255, 93, 143, .35));
-    animation: n-gira 3s linear infinite; opacity: 0; transition: opacity .4s
+.n-radar {
+    position: relative;
+    width: min(260px, 70vw);
+    aspect-ratio: 1;
+    margin: 1.6rem auto 1rem
 }
-.n-radar.on::after { opacity: 1 }
-@keyframes n-gira { to { transform: rotate(360deg) } }
-.n-dist { text-align: center; font: 400 1.5rem var(--serif); color: var(--gold); min-height: 2.2em }
-.n-sep { text-align: center; color: var(--mute); font: .8rem var(--mono); margin: 1.6rem 0 .6rem; letter-spacing: .1em }
+
+.n-radar i {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(183, 156, 255, .35)
+}
+
+.n-radar i:nth-child(2) {
+    inset: 18%
+}
+
+.n-radar i:nth-child(3) {
+    inset: 36%
+}
+
+.n-radar i:nth-child(4) {
+    inset: 47%;
+    background: var(--rose);
+    border: 0;
+    box-shadow: 0 0 22px var(--rose)
+}
+
+.n-radar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, rgba(255, 93, 143, .0) 70%, rgba(255, 93, 143, .35));
+    animation: n-gira 3s linear infinite;
+    opacity: 0;
+    transition: opacity .4s
+}
+
+.n-radar.on::after {
+    opacity: 1
+}
+
+@keyframes n-gira {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+.n-dist {
+    text-align: center;
+    font: 400 1.5rem var(--serif);
+    color: var(--gold);
+    min-height: 2.2em
+}
+
+.n-sep {
+    text-align: center;
+    color: var(--mute);
+    font: .8rem var(--mono);
+    margin: 1.6rem 0 .6rem;
+    letter-spacing: .1em
+}
 
 /* ---------- cardápio (Post #9) ---------- */
-.n-menu { margin: 2rem 0 }
-.n-prato {
-    padding: 1.4rem 0; border-top: 1px solid rgba(246, 217, 176, .22);
-    opacity: 0; transform: translateY(18px); transition: opacity .9s ease, transform .9s cubic-bezier(.2, .8, .2, 1)
+.n-menu {
+    margin: 2rem 0
 }
-.n-prato:last-child { border-bottom: 1px solid rgba(246, 217, 176, .22) }
-.n-prato.in { opacity: 1; transform: none }
-.n-prato small { font: 400 .75rem var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--rose) }
-.n-prato h4 { font: italic 300 clamp(1.5rem, 5vw, 2rem)/1.2 var(--serif); color: var(--gold); margin: .3rem 0 .5rem }
-.letter .n-prato p { margin: 0; color: #f0e0ea }
-.n-fecho { font: italic 300 clamp(1.4rem, 5vw, 1.9rem)/1.4 var(--serif); color: #fff; margin: 2rem 0 }
+
+.n-prato {
+    padding: 1.4rem 0;
+    border-top: 1px solid rgba(246, 217, 176, .22);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.2, .8, .2, 1)
+}
+
+.n-prato:last-child {
+    border-bottom: 1px solid rgba(246, 217, 176, .22)
+}
+
+.n-prato.in {
+    opacity: 1;
+    transform: none
+}
+
+.n-prato small {
+    font: 400 .75rem var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--rose)
+}
+
+.n-prato h4 {
+    font: italic 300 clamp(1.5rem, 5vw, 2rem)/1.2 var(--serif);
+    color: var(--gold);
+    margin: .3rem 0 .5rem
+}
+
+.letter .n-prato p {
+    margin: 0;
+    color: #f0e0ea
+}
+
+.n-fecho {
+    font: italic 300 clamp(1.4rem, 5vw, 1.9rem)/1.4 var(--serif);
+    color: #fff;
+    margin: 2rem 0
+}
 
 /* ---------- galeria (Post #10) ---------- */
-.n-gal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; margin: 1.6rem 0 }
-.n-item { position: relative; border-radius: 14px; overflow: hidden; background: #0d0614; aspect-ratio: 4/5; cursor: pointer; border: 0; padding: 0; display: block; width: 100% }
-.n-item img, .n-item video { width: 100%; height: 100%; object-fit: cover; display: block }
-.n-item .play { position: absolute; inset: 0; display: grid; place-items: center; font-size: 2.4rem; color: #fff; background: rgba(0, 0, 0, .25); text-shadow: 0 2px 12px #000 }
-.n-item figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem .7rem .6rem; font-size: .8rem; background: linear-gradient(transparent, rgba(0, 0, 0, .75)); text-align: left }
-.n-vazio { color: var(--mute); font: italic 400 1.1rem/1.6 var(--serif); text-align: center; padding: 2rem 0 }
-dialog.n-lb { margin: auto; max-width: 96vw; max-height: 94vh; border: 0; background: transparent; padding: 0; color: #fff; overflow: visible }
-dialog.n-lb::backdrop { background: rgba(5, 2, 10, .92) }
-dialog.n-lb img, dialog.n-lb video { max-width: 94vw; max-height: 82vh; border-radius: 12px; display: block; margin: auto }
-dialog.n-lb p { text-align: center; margin-top: .8rem; color: var(--gold); font: italic 1.05rem var(--serif) }
-dialog.n-lb button { position: fixed; top: .8rem; right: 1rem; font-size: 2rem; line-height: 1; background: none; border: 0; color: #fff; cursor: pointer; padding: .3rem .7rem }
+.n-gal {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .6rem;
+    margin: 1.6rem 0
+}
+
+.n-item {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0d0614;
+    aspect-ratio: 4/5;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    display: block;
+    width: 100%
+}
+
+.n-item img,
+.n-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block
+}
+
+.n-item .play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 2.4rem;
+    color: #fff;
+    background: rgba(0, 0, 0, .25);
+    text-shadow: 0 2px 12px #000
+}
+
+.n-item figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.6rem .7rem .6rem;
+    font-size: .8rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, .75));
+    text-align: left
+}
+
+.n-vazio {
+    color: var(--mute);
+    font: italic 400 1.1rem/1.6 var(--serif);
+    text-align: center;
+    padding: 2rem 0
+}
+
+dialog.n-lb {
+    margin: auto;
+    max-width: 96vw;
+    max-height: 94vh;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: #fff;
+    overflow: visible
+}
+
+dialog.n-lb::backdrop {
+    background: rgba(5, 2, 10, .92)
+}
+
+dialog.n-lb img,
+dialog.n-lb video {
+    max-width: 94vw;
+    max-height: 82vh;
+    border-radius: 12px;
+    display: block;
+    margin: auto
+}
+
+dialog.n-lb p {
+    text-align: center;
+    margin-top: .8rem;
+    color: var(--gold);
+    font: italic 1.05rem var(--serif)
+}
+
+dialog.n-lb button {
+    position: fixed;
+    top: .8rem;
+    right: 1rem;
+    font-size: 2rem;
+    line-height: 1;
+    background: none;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    padding: .3rem .7rem
+}
 
 @media(min-width:700px) {
-    .n-gal { grid-template-columns: repeat(3, minmax(0, 1fr)) }
-    .n-det { grid-template-columns: 1fr 1fr }
+    .n-gal {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+
+    .n-det {
+        grid-template-columns: 1fr 1fr
+    }
 }
+
 @media(prefers-reduced-motion:reduce) {
-    .n-ticket, .n-input.erro, .n-radar::after { animation: none }
-    .n-prato { transition: none; opacity: 1; transform: none }
+
+    .n-ticket,
+    .n-input.erro,
+    .n-radar::after {
+        animation: none
+    }
+
+    .n-prato {
+        transition: none;
+        opacity: 1;
+        transform: none
+    }
 }

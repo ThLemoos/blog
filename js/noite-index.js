@@ -3,7 +3,7 @@
 (function () {
     'use strict';
     var C = window.NoiteCore; if (!C) return;
-    var grid = document.querySelector('.next .post-grid');
+    var grid = document.querySelector('.next .post-grid'); //
     var velho = document.getElementById('post8-card');
     if (!grid || !velho || !C.postAberto()) return;
 

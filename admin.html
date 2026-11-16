@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
   <title>Painel</title>
   <meta name="theme-color" content="#140a1f">
@@ -14,225 +14,160 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Painel">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <style>
-    body {
-      margin: 0;
-      background: #140a1f;
-      color: #f7ecf1;
-      font: 16px/1.6 system-ui, sans-serif;
-      padding: 6vh 6vw;
-      max-width: 680px;
-      margin-inline: auto
-    }
-
-    input,
-    button {
-      font: inherit;
-      padding: .7rem 1rem;
-      border-radius: 10px;
-      border: 1px solid #b79cff55;
-      background: #ffffff0d;
-      color: inherit;
-      margin: .3rem .3rem .3rem 0
-    }
-
-    button {
-      background: #ff5d8f;
-      color: #2a0f26;
-      border: 0;
-      cursor: pointer
-    }
-
-    h2 {
-      font-weight: 400;
-      margin-top: 2.4rem
-    }
-
-    .r {
-      border: 1px solid #b79cff33;
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      margin: 1rem 0
-    }
-
-    .r small {
-      color: #b9a6c4
-    }
-
-    .r .q {
-      display: block;
-      margin-top: .9rem;
-      font-family: ui-monospace, monospace;
-      font-size: .78rem;
-      color: #b79cff
-    }
-
-    .r p {
-      margin: .2rem 0 0;
-      white-space: pre-wrap
-    }
-
-    .x {
-      background: none;
-      color: #b9a6c4;
-      padding: 0;
-      margin: .8rem 0 0;
-      font-size: .8rem;
-      text-decoration: underline
-    }
-  </style>
+  <link rel="stylesheet" href="css/admin.css">
 </head>
 
 <body>
-  <h1>Painel</h1>
-  <div id="login"><input id="em" type="email" placeholder="seu e-mail" autocomplete="username"><input id="pw"
-      type="password" placeholder="senha" autocomplete="current-password"><button id="go">Entrar</button>
-    <p id="err"></p>
+  <!-- ========== login ========== -->
+  <main class="login" id="login">
+    <form class="login-box" id="login-form">
+      <div class="logo" aria-hidden="true">💌</div>
+      <h1>Painel</h1>
+      <p class="mute">Só você entra aqui.</p>
+      <label for="em">E-mail</label>
+      <input id="em" type="email" placeholder="seu e-mail" autocomplete="username" required>
+      <label for="pw">Senha</label>
+      <input id="pw" type="password" placeholder="senha" autocomplete="current-password" required>
+      <button class="btn" id="go" type="submit">Entrar</button>
+      <p class="erro" id="err" role="alert"></p>
+    </form>
+  </main>
+
+  <!-- ========== app ========== -->
+  <div class="app" id="app" hidden>
+    <aside class="nav" id="nav">
+      <div class="nav-marca"><span aria-hidden="true">💌</span><b>Painel</b></div>
+      <nav aria-label="Seções">
+        <button data-ir="inicio" aria-current="page"><i aria-hidden="true">🏠</i><span>Início</span><em class="bd"
+            hidden></em></button>
+        <button data-ir="respostas"><i aria-hidden="true">💬</i><span>Respostas</span><em class="bd"
+            hidden></em></button>
+        <button data-ir="posts"><i aria-hidden="true">✍️</i><span>Posts dela</span><em class="bd" hidden></em></button>
+        <button data-ir="recados"><i aria-hidden="true">💌</i><span>Recados</span><em class="bd" hidden></em></button>
+        <button data-ir="noite"><i aria-hidden="true">🌙</i><span>Noite</span><em class="bd" hidden></em></button>
+        <button data-ir="ajustes"><i aria-hidden="true">⚙️</i><span>Ajustes</span></button>
+      </nav>
+    </aside>
+
+    <main class="conteudo">
+      <!-- ----- Início ----- -->
+      <section class="tela" id="v-inicio">
+        <header class="topo">
+          <h1>Oi 👋</h1>
+          <p class="mute" id="saudacao">Aqui está o que aconteceu no blog.</p>
+        </header>
+        <div class="tiles" id="tiles"></div>
+        <h2>Atividade recente</h2>
+        <div class="feed" id="feed"></div>
+        <h2>Atalhos</h2>
+        <div class="atalhos">
+          <a class="btn ghost" href="index.html" target="_blank" rel="noopener">Abrir o blog ↗</a>
+          <button class="btn ghost" data-ir="noite">Ir pra noite do jantar</button>
+        </div>
+      </section>
+
+      <!-- ----- Respostas ----- -->
+      <section class="tela" id="v-respostas" hidden>
+        <header class="topo">
+          <h1>Respostas</h1>
+          <p class="mute">O que ela respondeu nos posts e surpresas.</p>
+        </header>
+        <div class="barra"><input type="search" id="q-respostas" placeholder="Buscar nas respostas…"
+            aria-label="Buscar nas respostas"></div>
+        <div class="chips" id="chips-respostas" role="group" aria-label="Filtrar por post"></div>
+        <div class="lista" id="lista-respostas"></div>
+      </section>
+
+      <!-- ----- Posts dela ----- -->
+      <section class="tela" id="v-posts" hidden>
+        <header class="topo">
+          <h1>Posts dela</h1>
+          <p class="mute">O que ela escreve na caixa de posts, numerado.</p>
+        </header>
+        <div class="barra"><input type="search" id="q-posts" placeholder="Buscar nos posts…"
+            aria-label="Buscar nos posts"></div>
+        <div class="lista" id="lista-posts"></div>
+      </section>
+
+      <!-- ----- Recados ----- -->
+      <section class="tela" id="v-recados" hidden>
+        <header class="topo">
+          <h1>Recados</h1>
+          <p class="mute">Mensagens soltas que ela deixou.</p>
+        </header>
+        <div class="barra"><input type="search" id="q-recados" placeholder="Buscar nos recados…"
+            aria-label="Buscar nos recados"></div>
+        <div class="lista" id="lista-recados"></div>
+      </section>
+
+      <!-- ----- Noite ----- -->
+      <section class="tela" id="v-noite" hidden>
+        <header class="topo">
+          <h1>A noite do jantar</h1>
+          <p class="mute">Libere a última página e guarde as fotos e vídeos.</p>
+        </header>
+
+        <div class="painel">
+          <div class="painel-topo">
+            <div>
+              <h3>Página final (Post #10)</h3>
+              <p class="mute" id="fin-st">carregando…</p>
+            </div>
+            <button class="switch" id="fin-tg" role="switch" aria-checked="false" aria-label="Liberar página final"
+              disabled><span></span></button>
+          </div>
+          <p class="mute peq">Quando você liberar, ela abre sozinha no celular de quem estiver com o Post #10 aberto.
+          </p>
+        </div>
+
+        <div class="painel">
+          <h3>Como está a noite</h3>
+          <ol class="passos" id="passos"></ol>
+        </div>
+
+        <div class="painel">
+          <h3>Fotos e vídeos</h3>
+          <label class="drop" id="drop" for="up-f">
+            <input id="up-f" type="file" accept="image/*,video/*" multiple hidden>
+            <span class="drop-i" aria-hidden="true">📷</span>
+            <b>Toque pra escolher</b><span class="mute">ou arraste os arquivos pra cá</span>
+          </label>
+          <div class="fila" id="fila"></div>
+          <input id="up-l" type="text" placeholder="Legenda (opcional, vale pra esse envio)" aria-label="Legenda">
+          <button class="btn" id="up-go" disabled>Enviar</button>
+          <p class="mute peq" id="up-st" role="status" aria-live="polite"></p>
+          <div class="galeria" id="galeria"></div>
+        </div>
+      </section>
+
+      <!-- ----- Ajustes ----- -->
+      <section class="tela" id="v-ajustes" hidden>
+        <header class="topo">
+          <h1>Ajustes</h1>
+        </header>
+        <div class="painel">
+          <h3>Conta</h3>
+          <p class="mute" id="conta">…</p>
+          <button class="btn ghost" id="out">Sair</button>
+        </div>
+        <div class="painel">
+          <h3>Avisos</h3>
+          <p class="mute" id="avisos-st">…</p>
+          <button class="btn" id="avisos" hidden>🔔 Ativar avisos</button>
+          <p class="mute peq">Com o painel aberto ou em segundo plano você recebe um aviso e uma bolinha no ícone quando
+            ela escrever algo.</p>
+        </div>
+        <div class="painel">
+          <h3>Cápsula do tempo</h3>
+          <p class="mute" id="capsula-st"></p>
+        </div>
+        <p class="mute peq" style="text-align:center;margin-top:2rem">Painel v2</p>
+      </section>
+    </main>
   </div>
-  <div id="app" hidden>
-    <button id="out">Sair</button><button id="avisos" hidden>🔔 Ativar avisos</button>
-    <h2>Respostas e versões dela</h2>
-    <div id="lista-r"></div>
-    <h2>A noite do jantar</h2>
-    <div class="r">
-      <b>Página final (Post #10)</b><br><small id="fin-st">carregando…</small><br>
-      <button id="fin-tg" disabled>…</button>
-      <small style="display:block;margin-top:.4rem">Quando você libera, a página abre sozinha no celular dela (se estiver com o Post #10 aberto).</small>
-    </div>
-    <div class="r">
-      <b>Fotos e vídeos da noite</b><br>
-      <input id="up-f" type="file" accept="image/*,video/*" multiple>
-      <input id="up-l" type="text" placeholder="legenda (opcional, vale pra todos desse envio)">
-      <button id="up-go">Enviar</button>
-      <p id="up-st"></p>
-      <div id="lista-mem"></div>
-    </div>
-    <h2>Recados</h2>
-    <div id="lista-m"></div>
-  </div>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, collection, query, orderBy, onSnapshot, deleteDoc, doc, setDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    import { getStorage, ref as sref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-    import { firebaseConfig } from "./js/firebase-config.js";
-    const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app), $ = i => document.getElementById(i);
-    $("go").onclick = () => signInWithEmailAndPassword(auth, $("em").value, $("pw").value).catch(() => $("err").textContent = "E-mail ou senha incorretos.");
-    $("out").onclick = () => signOut(auth);
 
-    // ===== avisos: título, selo no ícone e notificação (quando o app está aberto/em segundo plano) =====
-    const TITULO = document.title; let novas = 0;
-    function marcar() { document.title = novas ? `(${novas}) ${TITULO}` : TITULO; try { novas ? navigator.setAppBadge && navigator.setAppBadge(novas) : navigator.clearAppBadge && navigator.clearAppBadge(); } catch (e) { } }
-    async function avisar(nome, dados) {
-      if (!document.hidden) return; // já está olhando: a lista já atualizou sozinha
-      novas++; marcar();
-      if (!("Notification" in window) || Notification.permission !== "granted") return;
-      const corpo = nome !== "respostas" ? "Tem um recado novo."
-        : (dados && dados.post === 10 ? "Ela deixou uma lembrança da noite 🌙" : dados && dados.post === 9 ? "Ela chegou no lugar! 📍" : dados && dados.post === 8 ? "Ela aceitou o convite 💌" : dados && dados.post === 7 ? "Ela respondeu o Post #7 (Que horas são aí?) 🕰️" : dados && dados.post === 6 ? (dados.itens && dados.itens[0] && String(dados.itens[0].pergunta).startsWith("Surpresa #3") ? "Ela respondeu a Surpresa #3 🎁" : "Ela selou a cápsula do tempo ⏳")
-          : dados && dados.post === 5 ? "Ela respondeu o Post #5 (o vídeo) 🎥"
-            : dados && dados.post === 4 ? "Ela respondeu o Post #4 (passando a limpo)"
-              : dados && dados.post === 3 ? "Ela escreveu a versão dela de um momento 📖" : "Ela terminou o Post #2. Tem resposta nova!");
-      try { const reg = await navigator.serviceWorker.ready; reg.showNotification("Blog", { body: corpo, icon: "img/icons/admin-192.png", badge: "img/icons/admin-192.png", tag: "blog-" + nome }); }
-      catch (e) { try { new Notification("Blog", { body: corpo, icon: "img/icons/admin-192.png" }); } catch (_) { } }
-    }
-    document.addEventListener("visibilitychange", () => { if (!document.hidden) { novas = 0; marcar(); } });
-    if ("Notification" in window && Notification.permission === "default") $("avisos").hidden = false;
-    $("avisos").onclick = async () => { await Notification.requestPermission(); $("avisos").hidden = true; };
-
-    // Cápsula do tempo (Post #6): a mensagem dela fica ESCONDIDA aqui até a data de abertura.
-    // Mantenha esta data igual à ABRE_EM do js/post6.js.
-    const CAPSULA_ABRE = new Date("2027-01-01T09:00:00-03:00");
-    const ehCapsula = r => r.post === 6 && Array.isArray(r.itens) && !(r.itens[0] && String(r.itens[0].pergunta).startsWith("Surpresa #3"));
-    const capsulaSelada = r => ehCapsula(r) && Date.now() < CAPSULA_ABRE.getTime();
-
-    function ouvir(nome, destino) {
-      let primeira = true;
-      return onSnapshot(query(collection(db, nome), orderBy("criadoEm", "desc")), snap => {
-        if (!primeira) snap.docChanges().forEach(c => { if (c.type === "added" && !c.doc.metadata.hasPendingWrites) avisar(nome, c.doc.data()); });
-        primeira = false;
-        destino.replaceChildren(...snap.docs.map(d => {
-          const r = d.data(), el = document.createElement("div"); el.className = "r";
-          const h = document.createElement("small");
-          h.textContent = (r.humor ? r.humor + "  " : "") + (r.post === 10 ? "🌙 Lembrança da noite · " : r.post === 9 ? "📍 Chegada · " : r.post === 8 ? "💌 Convite · " : r.post === 7 ? "🕰️ Que horas são aí? · " : r.post === 3 ? "📖 Versão dela · " : r.post === 5 ? "🎥 Resposta ao vídeo · " : r.post === 6 ? ((r.itens && r.itens[0] && String(r.itens[0].pergunta).startsWith("Surpresa #3")) ? "🎁 Surpresa #3 · " : "⏳ Cápsula do tempo · ") : r.post ? "Post #" + r.post + " · " : "") + (r.criadoEm ? r.criadoEm.toDate().toLocaleString("pt-BR") : "agora");
-          el.append(h);
-          if (nome === "respostas" && capsulaSelada(r)) {
-            const p = document.createElement("p");
-            p.textContent = "🔒 Mensagem selada. Ela só aparece aqui depois de " + CAPSULA_ABRE.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" }) + ".";
-            p.style.opacity = ".7"; p.style.fontStyle = "italic"; el.append(p);
-          } else if (Array.isArray(r.itens)) {
-            r.itens.forEach(it => {
-              const q = document.createElement("small"); q.className = "q"; q.textContent = it.pergunta;
-              const p = document.createElement("p"); p.textContent = it.resposta; el.append(q, p);
-            });
-          } else { const p = document.createElement("p"); p.textContent = r.mensagem || ""; el.append(p); }
-          const x = document.createElement("button"); x.className = "x"; x.textContent = "apagar";
-          x.onclick = () => confirm("Apagar?") && deleteDoc(doc(db, nome, d.id));
-          el.append(x); return el;
-        }));
-        if (!snap.size) destino.textContent = "Nada por aqui ainda.";
-      }, () => destino.textContent = "Sem permissão. Confira o e-mail nas regras do Firestore.");
-    }
-    // ===== A noite do jantar: liberar o Post #10 e subir fotos/vídeos =====
-    const estadoRef = doc(db, "noite", "estado");
-    let finalLiberado = false;
-    function desenharFinal() {
-      $("fin-st").textContent = finalLiberado ? "✅ Liberada: ela já consegue abrir." : "🔒 Trancada.";
-      $("fin-tg").textContent = finalLiberado ? "Trancar de novo" : "Liberar agora";
-      $("fin-tg").disabled = false;
-    }
-    $("fin-tg").onclick = async () => {
-      $("fin-tg").disabled = true;
-      try { await setDoc(estadoRef, { final: !finalLiberado, atualizadoEm: serverTimestamp() }, { merge: true }); }
-      catch (e) { $("fin-st").textContent = "Não consegui salvar (" + (e.code || e.message) + "). Confira as regras do Firestore (coleção noite)."; $("fin-tg").disabled = false; }
-    };
-
-    const storage = getStorage(app);
-    $("up-go").onclick = async () => {
-      const files = [...$("up-f").files], st = $("up-st");
-      if (!files.length) { st.textContent = "Escolha as fotos ou vídeos primeiro."; return; }
-      $("up-go").disabled = true;
-      let ok = 0;
-      for (const [i, f] of files.entries()) {
-        const tipo = f.type.startsWith("video") ? "video" : "imagem";
-        const caminho = "memorias/" + Date.now() + "-" + f.name.replace(/[^\w.\-]+/g, "_");
-        try {
-          const task = uploadBytesResumable(sref(storage, caminho), f);
-          await new Promise((res, rej) => {
-            task.on("state_changed", s => { st.textContent = "Enviando " + (i + 1) + " de " + files.length + "… " + Math.round(s.bytesTransferred / s.totalBytes * 100) + "%"; }, rej, res);
-          });
-          const url = await getDownloadURL(task.snapshot.ref);
-          await addDoc(collection(db, "memorias"), { url, tipo, caminho, legenda: $("up-l").value.trim(), criadoEm: serverTimestamp() });
-          ok++;
-        } catch (e) { st.textContent = "Erro em " + f.name + ": " + (e.code || e.message) + ". Veja as regras do Storage (e se o Storage está ativo no projeto)."; break; }
-      }
-      if (ok === files.length) { st.textContent = "Pronto: " + ok + " arquivo(s) enviado(s). Já aparecem no Post #10."; $("up-f").value = ""; $("up-l").value = ""; }
-      $("up-go").disabled = false;
-    };
-
-    function ouvirNoite() {
-      const u1 = onSnapshot(estadoRef, s => { finalLiberado = !!(s.exists() && s.data().final); desenharFinal(); },
-        () => { $("fin-st").textContent = "Sem permissão. Adicione a regra da coleção noite no Firestore."; });
-      const u2 = onSnapshot(query(collection(db, "memorias"), orderBy("criadoEm", "desc")), snap => {
-        $("lista-mem").replaceChildren(...snap.docs.map(d => {
-          const r = d.data(), box = document.createElement("div"); box.style.cssText = "display:flex;gap:.7rem;align-items:center;margin:.6rem 0";
-          const m = document.createElement(r.tipo === "video" ? "video" : "img"); m.src = r.url; m.style.cssText = "width:64px;height:64px;object-fit:cover;border-radius:8px"; if (r.tipo === "video") m.muted = true;
-          const t = document.createElement("small"); t.textContent = (r.tipo === "video" ? "🎥 " : "🖼️ ") + (r.legenda || "sem legenda"); t.style.flex = "1";
-          const x = document.createElement("button"); x.className = "x"; x.textContent = "apagar"; x.style.margin = "0";
-          x.onclick = async () => { if (!confirm("Apagar esse arquivo?")) return; await deleteDoc(doc(db, "memorias", d.id)); try { await deleteObject(sref(storage, r.caminho)); } catch (e) { } };
-          box.append(m, t, x); return box;
-        }));
-      }, () => { });
-      return () => { u1(); u2(); };
-    }
-
-    let subs = [];
-    onAuthStateChanged(auth, u => {
-      $("login").hidden = !!u; $("app").hidden = !u;
-      subs.forEach(f => f()); subs = [];
-      if (!u) return;
-      subs = [ouvir("respostas", $("lista-r")), ouvir("recados", $("lista-m")), ouvirNoite()];
-    });
-  </script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="js/admin.js"></script>
   <script src="js/pwa.js"></script>
 </body>
 

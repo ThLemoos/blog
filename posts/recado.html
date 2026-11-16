@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Seus posts · Um blog só pra gente</title>
+    <meta name="theme-color" content="#140a1f">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="../img/icons/icon.svg">
+    <link rel="apple-touch-icon" href="../img/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Nosso Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/recado.css">
+</head>
+
+<body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <main class="post-page rc">
+        <article class="letter">
+            <a class="back" href="../index.html">← Página Inicial</a>
+            <h2 class="rv">Sua vez: <em>seus posts</em></h2>
+            <p class="rv d1">Até aqui eu escrevi pra você. Agora o espaço é seu, <b data-nome>branquinha</b>.<br>Eu vou
+                esperar os seus assim como você espera os meus!!!</p>
+            <p class="rv d1">Cada coisa que você escrever aqui vira um post seu, com título e número, igual aos meus:
+                Post #1, Post #2… Escreve o que sentir, quando quiser e do jeito que vier.<br> Tudo o que escrever vai
+                para
+                minha página de admin
+                mas ficará uma cópia do que você escreveu aqui também.</p>
+
+            <!-- o papel -->
+            <section class="rc-mesa" id="mesa">
+                <div class="rc-papel" id="papel">
+                    <div class="rc-topo"><span id="rc-num">Post #1</span><span id="rc-data"></span></div>
+                    <label class="rc-rot" for="titulo">Título do post</label>
+                    <input id="titulo" class="rc-titulo" type="text" maxlength="100" placeholder="Digite o título"
+                        autocomplete="off"><br>
+
+                <!--<p class="rc-rot">Como você está agora? <small>(se quiser)</small></p>
+                    <div class="rc-humores" id="humores" role="group" aria-label="Como você está agora"></div>-->
+
+                    <p class="rc-ideia" id="ideia" hidden></p>
+                    <label class="rc-sr" for="msg">Seu recado</label>
+                    <textarea id="msg" class="rc-msg" rows="8" maxlength="3000"
+                        placeholder="Escreva aqui.&#10;"></textarea>
+                    <div class="rc-rodape">
+                        <!--<button class="rc-sorteia" id="sorteia" type="button">💡 Sem ideia? Me dá uma pergunta</button>-->
+                        <span class="rc-cont" id="cont" aria-hidden="true"></span>
+                    </div>
+                    <div class="rc-enviar">
+                        <button class="cta" id="enviar" type="button">Publicar</button>
+                    </div>
+                    <p class="rc-st" id="st" role="status" aria-live="polite"></p>
+                </div>
+
+                <!-- depois de enviar -->
+                <div class="rc-ok" id="ok" hidden>
+                    <div class="rc-envelope" aria-hidden="true">💌</div>
+                    <h3 id="ok-titulo">Publicado.</h3>
+                    <p>Seu post já está comigo. Obrigado por me contar.</p>
+                    <button class="cta" id="outro" type="button">Escrever o próximo post</button>
+                </div>
+            </section>
+
+            <!-- o que ela já enviou (só neste aparelho) -->
+            <section class="rc-hist" id="hist" hidden>
+                <h3>Seus posts</h3>
+                <p class="rc-mini">Uma cópia fica guardada só aqui no seu aparelho, pra você reler quando quiser.</p>
+                <div id="hist-lista"></div>
+            </section>
+
+            <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
+        </article>
+    </main>
+    <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script type="module" src="../js/recado-ela.js"></script>
+    <script src="../js/pwa.js"></script>
+</body>
+
+</html>
