@@ -32,7 +32,7 @@
     // (troque minhasenha; use minúsculas e sem acento) e cole o resultado em SENHA_HASH. Maiúsculas/acentos que ela digitar não importam.
     var SENHA_HASH = 'd154ed5469fd474149a586fd301473124138f4b22b9a288fb8f24546e7d8d0c8'; // senha atual: branquinha
     var TENTATIVAS = 3;                                        // erros permitidos
-    var BLOQUEIO_ATE = new Date('2026-11-22T00:50:00-03:00');  // se errar tudo, fica bloqueada até esse horário (Brasília)
+    var BLOQUEIO_ATE = new Date('2026-11-22T01:30:00-03:00');  // se errar tudo, fica bloqueada até esse horário (Brasília)
     var BLOQUEIO_MIN = 15;                                     // se esse horário já tiver passado, bloqueia por tantos minutos
     var LEMBRAR = true;                                        // true: depois de acertar, esse aparelho não pede de novo
     var DICA = 'Só você sabe. Digite pra abrir.';              // frase embaixo do título (pode virar uma dica da senha)
