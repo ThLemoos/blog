@@ -4,152 +4,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="robots" content="noindex, nofollow">
-    <title>Em manutenção</title>
+    <title>Um blog só pra gente</title>
     <meta name="theme-color" content="#140a1f">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="favicon.ico" sizes="48x48">
     <link rel="icon" type="image/svg+xml" href="img/icons/icon.svg">
     <link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Nosso Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300&family=JetBrains+Mono:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&family=Caveat:wght@500&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            --bg: #140a1f;
-            --bg2: #22102f;
-            --rose: #ff5d8f;
-            --gold: #f6d9b0;
-            --lilac: #b79cff;
-            --ink: #f7ecf1;
-            --mute: #b9a6c4;
-            --serif: 'Fraunces', Georgia, serif;
-            --mono: 'JetBrains Mono', ui-monospace, monospace;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        html,
-        body {
-            height: 100%
-        }
-
-        body {
-            background:
-                radial-gradient(60vmax 60vmax at 50% 110%, rgba(255, 93, 143, .16), transparent 60%),
-                radial-gradient(50vmax 50vmax at 85% -10%, rgba(183, 156, 255, .14), transparent 60%),
-                var(--bg);
-            color: var(--ink);
-            display: grid;
-            place-items: center;
-            padding: 6vh 7vw;
-            min-height: 100svh;
-            overflow: hidden;
-            -webkit-font-smoothing: antialiased
-        }
-
-        .box {
-            text-align: center;
-            animation: entra 1.2s cubic-bezier(.2, .8, .2, 1) both
-        }
-
-        .tag {
-            display: inline-block;
-            font-family: var(--mono);
-            font-size: .85rem;
-            color: var(--lilac);
-            background: rgba(183, 156, 255, .14);
-            border: 1px solid rgba(183, 156, 255, .3);
-            padding: .25em .8em;
-            border-radius: 6px;
-            margin-bottom: 1.8rem
-        }
-
-        h1 {
-            font-family: var(--serif);
-            font-style: italic;
-            font-weight: 300;
-            font-size: clamp(2.8rem, 10vw, 6rem);
-            line-height: 1.05;
-            letter-spacing: -.02em;
-            text-shadow: 0 0 30px rgba(255, 93, 143, .18)
-        }
-
-        h1 span {
-            color: var(--gold)
-        }
-
-        .dots {
-            margin-top: 2.2rem;
-            display: flex;
-            gap: .6rem;
-            justify-content: center
-        }
-
-        .dots i {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: var(--rose);
-            opacity: .3;
-            animation: pisca 1.4s ease-in-out infinite
-        }
-
-        .dots i:nth-child(2) {
-            animation-delay: .2s
-        }
-
-        .dots i:nth-child(3) {
-            animation-delay: .4s
-        }
-
-        @keyframes pisca {
-
-            0%,
-            100% {
-                opacity: .25;
-                transform: scale(1)
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1.35)
-            }
-        }
-
-        @keyframes entra {
-            from {
-                opacity: 0;
-                transform: translateY(24px)
-            }
-        }
-
-        @media(prefers-reduced-motion:reduce) {
-
-            .box,
-            .dots i {
-                animation: none
-            }
-
-            .dots i {
-                opacity: .7
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/carta.css">
+    <link rel="stylesheet" href="css/surpresa3.css">
+    <link rel="stylesheet" href="css/segredo.css">
+    <link rel="stylesheet" href="css/novo.css">
 </head>
 
 <body>
-    <main class="box">
-        <div class="tag">status: manutenção</div>
-        <h1>Em <span>manutenção</span></h1>
-        <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <canvas id="bg" aria-hidden="true"></canvas>
+
+    <main>
+        <section class="hero">
+            <h1>Oi, <b data-nome>branquinha</b>.<br>Preparada pra<br>um lugar virtual só nosso?</h1>
+            <p>Se envolver com um desenvolvedor dá nisso. Quando quero dizer algo importante, eu <span class="code">uso
+                    códigos</span>.</p>
+            <div class="hint">role pra baixo ↓</div>
+        </section>
+
+        <section>
+            <article class="letter">
+                <h2 class="rv">Post #1: <em>Hello, World</em><br>(versão romântica)</h2>
+                <p class="rv d1">Todo programador começa um projeto novo com um "Hello, World". Eu poderia ter feito
+                    isso com você pesoalmente, mas decidi complicar um pouco, porque é assim que eu demonstro carinho.
+                </p>
+                <p class="rv d1">Você disse que é romântica. Eu disse que sou, mas de um jeito diferente. Então acho que
+                    eu consigo ser um "romântico desenvolvedor": <span class="code">if (coração) { sorrir();
+                        }</span></p>
+                <p class="rv d2">Ainda estamos nos conhecendo, então esse blog vai nascer pequeno e crescer aos poucos.
+                    Um post de cada vez, sem pressa e sem bugs (pelo menos sem bugs graves).</p>
+                <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
+                <div class="hint" style="text-align: center;">continue rolando ↓</div>
+            </article>
+        </section>
+
+        <section>
+            <div class="photo">
+                <figure class="polaroid rv">
+                    <img src="img/foto.jpg" alt="Foto nossa"
+                        onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+                    <div class="ph">salve a sua foto como<br>img/foto.jpg</div>
+                    <figcaption>a gente, em 4:5</figcaption>
+                </figure>
+                <div class="rv d1">
+                    <h2>O primeiro <em style="color:var(--rose)">commit</em></h2>
+                    <p>Essa é a foto que abre o blog. Escolhi ela porque <strong>é a nossa primeira foto juntos e eu
+                            gosto muito
+                            de te ver sorrindo, e é esse sorriso que quebra o meu jeito sério de ser
+                        </strong>. Quando eu olho, lembro de como foi bom jantar contigo em um dia de jogo do flamengo,
+                        então sinta-se importante!</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="log">
+                <h2 class="rv">Histórico do <em style="color:var(--rose)">nosso</em> projeto</h2>
+                <p class="rv d1 log-note">Pra quem programa, isso é um histórico de commits. Pra você, é a nossa
+                    história em ordem.</p>
+                <ul class="commits">
+                    <li class="rv"><span class="hash">feat: nos conhecemos</span>
+                        <h3>O dia em que nos conhecemos</h3>
+                        <p>Começou na prolar mas conhecer de verdade foi após a festa do Nicolas.</p>
+                    </li>
+                    <li class="rv"><span class="hash">fix: tranquilidade</span>
+                        <h3>A primeira conversa</h3>
+                        <p>Eu sempre me mantive tranquilo. Seu sorriso e jeito de ser que resolveu isso.</p>
+                    </li>
+                    <li class="rv"><span class="hash">docs: este blog</span>
+                        <h3>Este blog</h3>
+                        <p>Escrevendo o que eu ainda não sei dizer em voz alta.</p>
+                    </li>
+                    <li class="rv todo"><span class="hash">próximo commit</span>
+                        <h3>O que a gente fizer a seguir</h3>
+                        <p>Você escolhe. Está tudo em aberto.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="next">
+            <h2 class="rv">Próximos posts</h2>
+            <p class="rv d1">Cada caixa abre quando o post estiver pronto.<br>Então, volte aqui sempre que puder.</p>
+            <div class="post-grid">
+                <a class="post rv" href="posts/post-2.html">
+                    <span class="pn">Post #2</span>
+                    <h3>Vamos Jogar?</h3>
+                    <p>Pegue toda sua sinceridade e clique aqui.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <a class="post rv d1" href="posts/post-3.html">
+                    <span class="pn">Post #3</span>
+                    <h3>Coisas simples</h3>
+                    <p>Sem charada e sem código. Só o que eu reparei em você.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <a class="post rv" href="posts/post-4.html">
+                    <span class="pn">Post #4</span>
+                    <h3>Uma história</h3>
+                    <p>Dessa vez eu vou te contar uma história.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <a class="post rv d1" href="posts/post-5.html">
+                    <span class="pn">Post #5</span>
+                    <h3>Você não se vê como eu te vejo</h3>
+                    <p>Um vídeo seu e o que eu enxergo nele.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <a class="post rv" href="posts/post-6.html">
+                    <span class="pn">Post #6</span>
+                    <h3>Cápsula do tempo</h3>
+                    <p>Algumas coisas valem mais quando a gente espera.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <a class="post rv" href="posts/post-7.html">
+                    <span class="pn">Post #7</span>
+                    <h3>As partes do dia</h3>
+                    <p>Aproveite cada momento do seu dia.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <a class="post rv" href="posts/post-8.html" data-novo="post-8">
+                    <span class="pn">Post #8</span>
+                    <h3>Uma simples foto</h3>
+                    <p>Mas ela diz muito.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <a class="post rv" href="posts/post-9.html" data-novo="foto-juntos">
+                    <span class="pn">Post #9</span>
+                    <h3>Espontaneidade</h3>
+                    <p>Não esperava por isso.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                <div class="post locked rv d1" id="proximo-card" role="button" tabindex="0" aria-disabled="true">
+                    <span class="pn">Post #10</span>
+                    <h3>Ainda é surpresa</h3>
+                    <p>Estou escrevendo.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+
+                <!-- COMO LIBERAR UM POST: troque o <div class="post locked ..."> por um <a> assim:
+                <a class="post rv" href="posts/post-2.html">
+                    <span class="pn">Post #2</span>
+                    <h3>Título do post</h3>
+                    <p>Uma frase que dá vontade de abrir.</p>
+                    <span class="mark" aria-hidden="true">Abrir</span>
+                </a>
+                -->
+            </div>
+            <div id="postmsg" role="status" aria-live="polite"></div>
+
+        </section>
+
+        <section class="next" id="seus-posts" style="padding-top: 0; padding-bottom: 4rem; min-height: 0;">
+            <h2 class="rv">Agora é a sua vez: <em style="color:var(--rose)">seus posts</em></h2>
+            <p class="rv d1">Esse espaço é seu, escreva quando quiser.<br></p>
+            <div class="post-grid" style="grid-template-columns: minmax(0, 320px); justify-content: center;">
+                <a class="post rv" href="posts/recado.html">
+                    <span class="pn">Seus posts</span>
+                    <h3>Escreva o seu post</h3>
+                    <p>Dá um título e escreva o que vier.<br> Eu vou ler tudo!</p>
+                    <span class="mark" aria-hidden="true">Escrever</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="next cartas" id="cartas">
+            <h2 class="rv"><em>&amp; surpresas</em></h2>
+            <p class="rv d1" id="cartas-txt">Aqui ficam guardadas as coisas que serão desbloqueadas.<br>Só vai ficar
+                dispnível se você merecer.</p>
+            <div class="post-grid">
+                <div class="post locked rv" id="carta-card" role="button" tabindex="0" aria-disabled="true"
+                    data-msg="cartas-msg">
+                    <span class="pn">Surpresa #1</span>
+                    <h3>Ainda trancada</h3>
+                    <p>Ela abre depois que você terminar o Post #2.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+                <div class="post locked rv d1" id="historia-card" role="button" tabindex="0" aria-disabled="true"
+                    data-msg="cartas-msg" data-aviso="Essa surpresa só abre depois que você terminar o Post #3.">
+                    <span class="pn">Surpresa #2</span>
+                    <h3>Ainda trancada</h3>
+                    <p>Ela abre depois que você terminar o Post #3.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+                <div class="post locked rv" id="surpresa3-card" role="button" tabindex="0" aria-disabled="true"
+                    data-msg="cartas-msg" data-aviso="Essa surpresa ainda está trancada.">
+                    <span class="pn">Surpresa #3</span>
+                    <h3>Ainda trancada</h3>
+                    <p>Ela abre quando for a hora.</p>
+                    <span class="mark" aria-hidden="true">🔒</span>
+                </div>
+            </div>
+            <div id="cartas-msg" class="postmsg" role="status" aria-live="polite"></div>
+            <button class="cta rv d2" id="btn">Botão pra curioso</button>
+        </section>
     </main>
+
+    <dialog id="charada" aria-labelledby="ch-titulo">
+        <button type="button" class="x" id="ch-fechar" aria-label="Fechar">×</button>
+        <h3 id="ch-titulo">Uma charada pra você</h3>
+        <p id="ch-pergunta"></p>
+        <form id="ch-form" autocomplete="off">
+            <input id="ch-resposta" type="text" placeholder="Sua resposta" aria-label="Sua resposta"
+                autocapitalize="none" spellcheck="false">
+            <button class="cta" id="ch-go" type="submit">Abrir</button>
+        </form>
+        <div id="ch-feedback" role="status" aria-live="polite"></div>
+        <div id="ch-segredo" hidden></div>
+    </dialog>
+
+    <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/charada.js"></script>
+    <script src="js/carta.js"></script>
+    <script src="js/segredo.js"></script>
+    <script src="js/surpresa3.js"></script>
+    <script src="js/noite-dados.js"></script>
+    <script src="js/noite-core.js"></script>
+    <script src="js/noite-index.js"></script>
+    <script>
+        // Seção Cartas: trancada até ela terminar o Post #2
+        (function () {
+            const card = document.getElementById('carta-card');
+            function destrancar() {
+                const novo = document.createElement('button');
+                novo.type = 'button'; novo.id = 'carta-card'; novo.className = 'post rv in';
+                novo.innerHTML = '<span class="pn">Carta #1</span><h3>Uma carta pra você 💌</h3><p>Leia com calma.</p><span class="mark" aria-hidden="true">Abrir</span>';
+                novo.addEventListener('click', () => Carta.abrir(novo));
+                document.getElementById('carta-card').replaceWith(novo);
+                document.getElementById('cartas-msg').textContent = '';
+                document.getElementById('cartas-txt').innerHTML = 'Você foi aprovada, então ela é toda sua.<br>Pode reler quantas vezes quiser.';
+            }
+            if (Carta.liberada()) destrancar();
+        })();
+
+        // Surpresa #2 (nossa história, duas versões): trancada até ela terminar o Post #3
+        (function () {
+            function destrancar() {
+                const novo = document.createElement('button');
+                novo.type = 'button'; novo.id = 'historia-card'; novo.className = 'post rv in';
+                novo.innerHTML = '<span class="pn">Surpresa #2</span><h3>Segredo.log</h3><p>Pare e veja isso com calma.</p><span class="mark" aria-hidden="true">Abrir</span>';
+                novo.addEventListener('click', () => Segredo.abrir(novo));
+                document.getElementById('historia-card').replaceWith(novo);
+                document.getElementById('cartas-msg').textContent = '';
+            }
+            if (Segredo.liberada()) destrancar();
+        })();
+
+        // Surpresa #3 ("Pra hoje"): destrancada quando ela sela a cápsula no Post #6
+        (function () {
+            function destrancar() {
+                const velho = document.getElementById('surpresa3-card');
+                if (!velho) return;
+                const novo = document.createElement('button');
+                novo.type = 'button'; novo.id = 'surpresa3-card'; novo.className = 'post rv in';
+                novo.innerHTML = '<span class="pn">Surpresa #3</span><h3>Mais uma carta virtual</h3><p>Leia com calma.</p><span class="mark" aria-hidden="true">Abrir</span>';
+                novo.addEventListener('click', () => Surpresa3.abrir(novo));
+                velho.replaceWith(novo);
+                document.getElementById('cartas-msg').textContent = '';
+            }
+            if (Surpresa3.liberada()) destrancar();
+        })();
+    </script>
+    <script src="js/novo.js"></script>
+    <script src="js/pwa.js"></script>
 </body>
 
 </html>
