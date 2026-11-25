@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Post #9 · Hoje à noite</title>
+    <title>Post #10 · Uma charada</title>
     <meta name="theme-color" content="#140a1f">
     <link rel="manifest" href="../manifest.webmanifest">
     <link rel="icon" href="../favicon.ico" sizes="48x48">
@@ -28,49 +28,30 @@
     <main class="post-page pn-page">
         <article class="letter">
             <a class="back" href="../index.html">← Página Inicial</a>
-            <h2 class="rv">Post #9: <em>Hoje à noite</em></h2>
+            <h2 class="rv">Post #10: <em>Um convite especial</em></h2>
 
-            <!-- trancado até ela chegar no lugar -->
-            <section id="p9-tranca">
-                <p class="rv d1" id="p9-intro">Essa página não abre de qualquer lugar. Ela só abre quando você chegar onde eu estiver te esperando.</p>
+            <!-- antes da data de abertura -->
+            <section id="p8-cedo" hidden>
+                <p class="rv d1">Esse post ainda não abriu. Volta daqui uns dias.</p>
+            </section>
 
-                <section class="n-card" id="p9-gps">
-                    <p class="n-kicker">o jeito certo</p>
-                    <h3>Cheguei.</h3>
-                    <div class="n-radar" id="p9-radar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-                    <p class="n-dist" id="p9-dist" role="status" aria-live="polite"></p>
-                    <div class="n-acoes">
-                        <button class="cta" id="p9-loc" type="button">Estou aqui</button>
-                        <button class="cta ghost" id="p9-sim" type="button" hidden>(prévia) simular chegada</button>
-                    </div>
-                    <p class="n-status" id="p9-gps-st" role="status" aria-live="polite"></p>
-                </section>
-
-                <p class="n-sep">OU</p>
-
-                <section class="n-card" id="p9-cod">
-                    <p class="n-kicker">se o GPS não ajudar</p>
-                    <h3>Tem uma palavra pra você.</h3>
-                    <p class="n-mini">Quando você chegar, eu te entrego a palavra.</p>
-                    <form class="n-form" id="p9-form" autocomplete="off">
-                        <input class="n-input" id="p9-palavra" type="text" placeholder="A palavra" aria-label="A palavra"
+            <div id="p8-corpo">
+                <!-- a charada -->
+                <section class="n-card" id="p8-charada">
+                    <p class="n-kicker">dessa vez tem resposta certa</p>
+                    <h3>Acerte e eu te conto uma coisa.</h3>
+                    <p class="n-q" id="p8-pergunta"></p>
+                    <form class="n-form" id="p8-form" autocomplete="off">
+                        <input class="n-input" id="p8-resp" type="text" placeholder="Sua resposta" aria-label="Sua resposta"
                             autocapitalize="none" spellcheck="false">
-                        <button class="cta" id="p9-go" type="submit">Abrir</button>
+                        <button class="cta" id="p8-go" type="submit">Descobrir</button>
                     </form>
-                    <p class="n-status" id="p9-cod-st" role="status" aria-live="polite"></p>
+                    <p class="n-status" id="p8-status" role="status" aria-live="polite"></p>
                 </section>
-            </section>
 
-            <!-- liberado -->
-            <section id="p9-aberto" hidden aria-label="Cardápio da noite">
-                <p class="n-kicker" id="p9-kicker">você chegou</p>
-                <h3 id="p9-titulo" class="n-fecho" style="margin-top:0"></h3>
-                <p id="p9-texto"></p>
-                <div class="n-menu" id="p9-menu"></div>
-                <p class="n-fecho" id="p9-fecho"></p>
-                <p class="n-prox" id="p9-prox" hidden>Tem uma última página. Ela só abre quando a noite acabar.
-                    <br><a href="post-10.html" style="color:var(--gold)">Post #10 →</a></p>
-            </section>
+                <!-- o convite (só aparece depois de acertar) -->
+                <section id="p8-convite" hidden aria-label="Convite"></section>
+            </div>
 
             <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
         </article>
@@ -80,7 +61,7 @@
     <script src="../js/main.js"></script>
     <script src="../js/noite-dados.js"></script>
     <script src="../js/noite-core.js"></script>
-    <script src="../js/post9.js"></script>
+    <script src="../js/post10.js"></script>
     <script src="../js/pwa.js"></script>
 </body>
 

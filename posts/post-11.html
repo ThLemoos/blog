@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Post #10 · Pra guardar</title>
+    <title>Post #11 · Hoje à noite</title>
     <meta name="theme-color" content="#140a1f">
     <link rel="manifest" href="../manifest.webmanifest">
     <link rel="icon" href="../favicon.ico" sizes="48x48">
@@ -28,58 +28,59 @@
     <main class="post-page pn-page">
         <article class="letter">
             <a class="back" href="../index.html">← Página Inicial</a>
-            <h2 class="rv">Post #10: <em>Pra guardar</em></h2>
+            <h2 class="rv">Post #11: <em>Hoje à noite</em></h2>
 
-            <!-- trancado até a noite acabar -->
-            <section id="p10-tranca">
-                <p class="rv d1">Essa é a última página, e ela só abre quando a noite terminar.
-                    Aproveita cada minuto antes de voltar aqui.</p>
-                <section class="n-card">
-                    <p class="n-kicker">ainda não</p>
-                    <h3 id="p10-espera">Ainda estamos vivendo isso.</h3>
-                    <p class="n-mini">Essa página abre sozinha assim que eu liberar. Pode deixar aberta.</p>
-                    <form class="n-form" id="p10-form" autocomplete="off" hidden>
-                        <input class="n-input" id="p10-cod" type="text" placeholder="Tem uma palavra?" aria-label="Palavra"
+            <!-- trancado até ela chegar no lugar -->
+            <section id="p9-tranca">
+                <p class="rv d1" id="p9-intro">Essa página não abre de qualquer lugar. Ela só abre quando você chegar onde eu estiver te esperando.</p>
+
+                <section class="n-card" id="p9-gps">
+                    <p class="n-kicker">o jeito certo</p>
+                    <h3>Cheguei.</h3>
+                    <div class="n-radar" id="p9-radar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                    <p class="n-dist" id="p9-dist" role="status" aria-live="polite"></p>
+                    <div class="n-acoes">
+                        <button class="cta" id="p9-loc" type="button">Estou aqui</button>
+                        <button class="cta ghost" id="p9-sim" type="button" hidden>(prévia) simular chegada</button>
+                    </div>
+                    <p class="n-status" id="p9-gps-st" role="status" aria-live="polite"></p>
+                </section>
+
+                <p class="n-sep">OU</p>
+
+                <section class="n-card" id="p9-cod">
+                    <p class="n-kicker">se o GPS não ajudar</p>
+                    <h3>Tem uma palavra pra você.</h3>
+                    <p class="n-mini">Quando você chegar, eu te entrego a palavra.</p>
+                    <form class="n-form" id="p9-form" autocomplete="off">
+                        <input class="n-input" id="p9-palavra" type="text" placeholder="A palavra" aria-label="A palavra"
                             autocapitalize="none" spellcheck="false">
-                        <button class="cta ghost" type="submit">Abrir</button>
+                        <button class="cta" id="p9-go" type="submit">Abrir</button>
                     </form>
-                    <p class="n-status" id="p10-st" role="status" aria-live="polite"></p>
+                    <p class="n-status" id="p9-cod-st" role="status" aria-live="polite"></p>
                 </section>
             </section>
 
             <!-- liberado -->
-            <section id="p10-aberto" hidden>
-                <div id="p10-texto"></div>
-
-                <h3 class="n-fecho" style="margin-bottom:0">As nossas memórias dessa noite</h3>
-                <div class="n-gal" id="p10-gal"></div>
-                <p class="n-vazio" id="p10-vazio" hidden>As fotos e os vídeos dessa noite vão aparecer aqui.<br>
-                    Estou colocando tudo no lugar. Volta daqui a pouco.</p>
-
-                <section class="n-card" id="p10-recado-box">
-                    <p class="n-kicker">pra eu guardar também</p>
-                    <h3 id="p10-pergunta"></h3>
-                    <div class="n-form" id="p10-form-r">
-                        <textarea class="n-text" id="p10-recado" rows="4" maxlength="800"
-                            placeholder="Do jeito que vier."></textarea>
-                        <button class="cta" id="p10-env" type="button">Guardar</button>
-                    </div>
-                    <p class="n-status" id="p10-rst" role="status" aria-live="polite"></p>
-                    <blockquote id="p10-ok" hidden style="border-left:3px solid var(--rose);padding:.2rem 0 .2rem 1.1rem;font:italic 1.15rem/1.6 var(--serif);white-space:pre-wrap"></blockquote>
-                </section>
+            <section id="p9-aberto" hidden aria-label="Cardápio da noite">
+                <p class="n-kicker" id="p9-kicker"></p>
+                <h3 id="p9-titulo" class="n-fecho" style="margin-top:0"></h3>
+                <p id="p9-texto"></p>
+                <div class="n-menu" id="p9-menu"></div>
+                <p class="n-fecho" id="p9-fecho"></p>
+                <p class="n-prox" id="p9-prox" hidden>Tem uma última página. Ela só abre quando a noite acabar.
+                    <br><a href="post-10.html" style="color:var(--gold)">Post #10 →</a></p>
             </section>
 
             <p class="rv d2 sig">— <span data-eu>Thiago Lemos</span></p>
         </article>
     </main>
-    <dialog class="n-lb" id="p10-lb"><button type="button" id="p10-lbx" aria-label="Fechar">×</button><div id="p10-lbc"></div></dialog>
     <footer>feito à mão, com muito café e um pouco de criatividade · v0.1</footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/noite-dados.js"></script>
-    <script src="../js/memorias-locais.js"></script>
     <script src="../js/noite-core.js"></script>
-    <script src="../js/post10.js"></script>
+    <script src="../js/post11.js"></script>
     <script src="../js/pwa.js"></script>
 </body>
 
