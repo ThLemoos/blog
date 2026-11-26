@@ -1,0 +1,227 @@
+/* ---------- envelope do convite (Post #10) ---------- */
+.n-env-cena {
+    width: min(100%, 440px);
+    margin: .5rem auto 2rem;
+    padding-top: 38%;
+    position: relative;
+    text-align: center;
+    transition: opacity .6s ease, transform .6s ease,
+        max-height .8s cubic-bezier(.6, 0, .3, 1) .1s, margin .8s ease .1s, padding .8s ease .1s
+}
+
+.n-env {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 300 / 192;
+    perspective: 900px;
+    container-type: inline-size;
+    opacity: 0;
+    transform: translateY(28px) scale(.92);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.2, .8, .2, 1)
+}
+
+.n-env-cena.in .n-env {
+    opacity: 1;
+    transform: none
+}
+
+.n-env>* {
+    position: absolute
+}
+
+/* corpo do envelope (fundo) */
+.n-env-fundo {
+    inset: 0;
+    z-index: 0;
+    border-radius: 6px 6px 10px 10px;
+    background: linear-gradient(160deg, #4b2468, #2d1542);
+    border: 1px solid rgba(246, 217, 176, .38);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .55), 0 0 90px rgba(255, 93, 143, .18);
+    transition: box-shadow 1s ease
+}
+
+.n-env-cena.abre .n-env-fundo {
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .55), 0 0 120px rgba(255, 93, 143, .4)
+}
+
+/* papel que sai de dentro */
+.n-env-papel {
+    left: 6%;
+    top: 4%;
+    width: 88%;
+    height: 90%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .35em;
+    padding: 7% 6% 0;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #fffaf5, #f6e9e2);
+    color: #4a2a40;
+    box-shadow: 0 -6px 22px rgba(0, 0, 0, .28);
+    font-size: 12px;
+    font-size: clamp(11px, 3.6cqw, 17px);
+    transition: transform 1.25s cubic-bezier(.3, .7, .2, 1)
+}
+
+.n-env-papel small {
+    font: 400 .85em var(--mono);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #d6336c
+}
+
+.n-env-papel b {
+    font: italic 300 1.7em/1.15 var(--serif);
+    text-wrap: balance
+}
+
+.n-env-papel span {
+    color: #ff5d8f;
+    font-size: 1.1em
+}
+
+.n-env-cena.sobe .n-env-papel {
+    transform: translateY(-43%)
+}
+
+/* frente do envelope (as três dobras) */
+.n-env-frente {
+    inset: 0;
+    z-index: 3;
+    border-radius: 6px 6px 10px 10px;
+    overflow: hidden;
+    pointer-events: none
+}
+
+.n-env-frente i {
+    position: absolute;
+    inset: 0
+}
+
+.n-env-frente i:nth-child(1) {
+    clip-path: polygon(0 0, 50% 55%, 0 100%);
+    background: linear-gradient(100deg, #5c2e7c, #3c1d52)
+}
+
+.n-env-frente i:nth-child(2) {
+    clip-path: polygon(100% 0, 50% 55%, 100% 100%);
+    background: linear-gradient(260deg, #6a3589, #402058)
+}
+
+.n-env-frente i:nth-child(3) {
+    clip-path: polygon(0 100%, 50% 55%, 100% 100%);
+    background: linear-gradient(0deg, #3f1f57, #6e3a8e)
+}
+
+.n-env-frente svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%
+}
+
+.n-env-frente path {
+    fill: none;
+    stroke: rgba(246, 217, 176, .38);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke
+}
+
+/* aba que abre */
+.n-env-aba {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 55%;
+    z-index: 4;
+    transform-origin: 50% 0;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    background: linear-gradient(180deg, #7a3d9a, #55296f);
+    transition: transform .9s cubic-bezier(.5, 0, .2, 1), z-index 0s .38s, filter .9s ease
+}
+
+.n-env-cena.abre .n-env-aba {
+    transform: rotateX(180deg);
+    z-index: 1;
+    filter: brightness(.72)
+}
+
+/* selo de cera */
+.n-env-selo {
+    left: 50%;
+    top: 55%;
+    width: 17%;
+    aspect-ratio: 1;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 35% 30%, #ff9fbd, #e0356f 55%, #94204f);
+    box-shadow: inset 0 -3px 6px rgba(0, 0, 0, .3), inset 0 2px 4px rgba(255, 255, 255, .35), 0 6px 14px rgba(0, 0, 0, .45);
+    color: #ffe3ec;
+    font-size: 16px;
+    font-size: clamp(14px, 6cqw, 26px);
+    line-height: 1;
+    transition: transform .45s cubic-bezier(.5, -.4, .5, 1.6), opacity .35s ease
+}
+
+.n-env-cena.abre .n-env-selo {
+    transform: translate(-50%, -50%) scale(1.5) rotate(14deg);
+    opacity: 0
+}
+
+/* legenda embaixo do envelope */
+.n-env-leg {
+    margin-top: 1.4rem;
+    font: italic 300 1.15rem/1.4 var(--serif);
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 1s ease .5s
+}
+
+.n-env-cena.in .n-env-leg {
+    opacity: 1
+}
+
+/* sumir o envelope e revelar o convite */
+.n-env-cena.fim {
+    opacity: 0;
+    transform: translateY(18px) scale(.94);
+    overflow: hidden;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0
+}
+
+.n-resto {
+    scroll-margin-top: 4vh
+}
+
+.n-resto.rev>* {
+    animation: n-entra .9s cubic-bezier(.2, .8, .2, 1) both
+}
+
+.n-resto.rev> :nth-child(2) {
+    animation-delay: .3s
+}
+
+.n-resto.rev> :nth-child(3) {
+    animation-delay: .55s
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .n-env-cena,
+    .n-env-cena * {
+        transition-duration: .01s !important;
+        transition-delay: 0s !important
+    }
+
+    .n-resto.rev>* {
+        animation: none
+    }
+}

@@ -7,22 +7,81 @@
     <meta name="robots" content="noindex">
     <title>Gerar noite</title>
     <style>
-        body { margin: 0; background: #140a1f; color: #f7ecf1; font: 16px/1.6 system-ui, sans-serif; padding: 6vh 6vw; max-width: 760px; margin-inline: auto }
-        h1 { font-weight: 400 } h2 { font-weight: 400; margin-top: 2.6rem; border-top: 1px solid #b79cff33; padding-top: 1.4rem }
-        label { display: block; margin: 1.1rem 0 .3rem }
-        input, textarea, button { font: inherit; width: 100%; box-sizing: border-box; padding: .7rem 1rem; border-radius: 10px; border: 1px solid #b79cff55; background: #ffffff0d; color: inherit }
-        textarea { font-size: .95rem }
-        button { width: auto; background: #ff5d8f; color: #2a0f26; border: 0; cursor: pointer; margin: 1.2rem .6rem 0 0 }
-        small { color: #b9a6c4; display: block }
-        .duas { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem } code { color: #f6d9b0 }
+        body {
+            margin: 0;
+            background: #140a1f;
+            color: #f7ecf1;
+            font: 16px/1.6 system-ui, sans-serif;
+            padding: 6vh 6vw;
+            max-width: 760px;
+            margin-inline: auto
+        }
+
+        h1 {
+            font-weight: 400
+        }
+
+        h2 {
+            font-weight: 400;
+            margin-top: 2.6rem;
+            border-top: 1px solid #b79cff33;
+            padding-top: 1.4rem
+        }
+
+        label {
+            display: block;
+            margin: 1.1rem 0 .3rem
+        }
+
+        input,
+        textarea,
+        button {
+            font: inherit;
+            width: 100%;
+            box-sizing: border-box;
+            padding: .7rem 1rem;
+            border-radius: 10px;
+            border: 1px solid #b79cff55;
+            background: #ffffff0d;
+            color: inherit
+        }
+
+        textarea {
+            font-size: .95rem
+        }
+
+        button {
+            width: auto;
+            background: #ff5d8f;
+            color: #2a0f26;
+            border: 0;
+            cursor: pointer;
+            margin: 1.2rem .6rem 0 0
+        }
+
+        small {
+            color: #b9a6c4;
+            display: block
+        }
+
+        .duas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .8rem
+        }
+
+        code {
+            color: #f6d9b0
+        }
     </style>
 </head>
 
 <body>
     <h1>Gerar a noite (Posts #8, #9 e #10)</h1>
     <p><small>Abra pelo Live Server (localhost). Use no seu computador; não precisa publicar esta página.
-        Tudo que identifica o local e o que vai acontecer é <b>criptografado</b>: quem abrir o código-fonte do blog não vê nada.
-        Os valores abaixo já são um exemplo que funciona; troque pelos reais.</small></p>
+            Tudo que identifica o local e o que vai acontecer é <b>criptografado</b>: quem abrir o código-fonte do blog
+            não vê nada.
+            Os valores abaixo já são um exemplo que funciona; troque pelos reais.</small></p>
 
     <h2>1. Quando o Post #8 aparece</h2>
     <label for="abre">Data e hora em que o card do Post #8 destranca sozinho na página inicial</label>
@@ -48,10 +107,12 @@ Que lugar é esse?</textarea>
     <label for="maps">Link do Google Maps</label>
     <input id="maps" value="https://maps.google.com/?q=-23.5505,-46.6333">
     <div class="duas">
-        <div><label for="coord">Coordenadas (cole do Google Maps)</label><input id="coord" value="-23.5505, -46.6333"></div>
+        <div><label for="coord">Coordenadas (cole do Google Maps)</label><input id="coord" value="-23.5505, -46.6333">
+        </div>
         <div><label for="raio">Raio de chegada (metros)</label><input id="raio" type="number" value="150"></div>
     </div>
-    <small>No Google Maps: clique com o botão direito no ponto do restaurante e clique nos números que aparecem para copiar.
+    <small>No Google Maps: clique com o botão direito no ponto do restaurante e clique nos números que aparecem para
+        copiar.
         O raio de 150 m funciona bem em shopping ou rua movimentada. Se for um lugar isolado, pode diminuir.</small>
     <label for="quando">Data e hora do jantar</label>
     <input id="quando" type="datetime-local" value="2026-12-12T20:00">
@@ -65,7 +126,8 @@ Fica bem bonita e me encontra lá.</textarea>
     <label for="p9t">Título</label>
     <input id="p9t" value="Você chegou. Senta que o cardápio já está na mesa.">
     <label for="p9i">Introdução</label>
-    <textarea id="p9i" rows="3">Eu escrevi o cardápio, mas não vou te contar o que tem em cada prato. Só deixei pistas. Lê com calma e depois vem sentar comigo.</textarea>
+    <textarea id="p9i"
+        rows="3">Eu escrevi o cardápio, mas não vou te contar o que tem em cada prato. Só deixei pistas. Lê com calma e depois vem sentar comigo.</textarea>
     <label for="p9l">Pratos (um por linha, no formato <code>rótulo | título | texto</code>)</label>
     <textarea id="p9l" rows="8">Entrada | Conversa sem pressa | Risadas incluídas. O celular fica virado pra baixo.
 Prato principal | Uma pergunta ensaiada | Eu venho guardando ela desde que comecei a escrever esse blog.
@@ -78,11 +140,13 @@ Sobremesa | Ainda não decidida | Depende de uma resposta sua. Só peço que sej
     <small>Não use a mesma palavra da charada. Pode escrever num cartão deixado na mesa.</small>
 
     <h2>5. A página final (Post #10)</h2>
-    <label for="fin">Palavra opcional para abrir a página final (plano B, se a internet falhar na hora de liberar pelo painel)</label>
+    <label for="fin">Palavra opcional para abrir a página final (plano B, se a internet falhar na hora de liberar pelo
+        painel)</label>
     <input id="fin" value="">
     <small>Deixe vazio para só liberar pelo painel.</small>
 
-    <button id="go">Gerar</button><button id="baixar" type="button" style="background:#f6d9b0">Baixar noite-dados.js</button>
+    <button id="go">Gerar</button><button id="baixar" type="button" style="background:#f6d9b0">Baixar
+        noite-dados.js</button>
     <label for="o">Resultado: salve como <code>js/noite-dados.js</code> (substitui o arquivo atual)</label>
     <textarea id="o" rows="12" readonly></textarea>
 

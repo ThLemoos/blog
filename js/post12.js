@@ -1,4 +1,4 @@
-// Post #10: a página final. Abre quando você libera pelo painel (admin) ou por uma palavra opcional.
+// Post #12: a página final. Abre quando você libera pelo painel (admin) ou por uma palavra opcional.
 // Mostra o texto de depois da noite + as fotos e vídeos (do painel e/ou da pasta memorias/).
 (function () {
     'use strict';
@@ -61,10 +61,10 @@
         if (v.length < 3) { st.textContent = 'Escreve um pouquinho, do jeito que vier.'; return; }
         b.disabled = true; st.textContent = 'Guardando…';
         try {
-            await C.enviar(10, [{ pergunta: PERGUNTA, resposta: v }]);
+            await C.enviar(12, [{ pergunta: PERGUNTA, resposta: v }]);
             C.gravar('noite_recado', v); mostrarRecado(v); C.vibrar([30, 40, 60]);
         } catch (e) {
-            console.error('Erro ao enviar o recado do Post 10:', e);
+            console.error('Erro ao enviar o recado do Post 12:', e);
             b.disabled = false; st.textContent = 'Não consegui enviar agora. Tenta de novo daqui a pouco.';
         }
     });

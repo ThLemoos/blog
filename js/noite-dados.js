@@ -1,6 +1,6 @@
 // Gerado em gerar-noite.html. Tudo que é secreto está criptografado.
 window.NOITE = {
-  "abreEm": "2026-11-24T01:30:00.000Z",
+  "abreEm": "2026-12-15T01:30:00.000Z",
   "charada": {
     "pergunta": "Tem um lugar que saímos pela primeira vez...\nFoi lá que antes pegamos uma chuva muito forte, mas chegando lá eu tive a sensação de te ver tirando o capacete com toda essa beleza de cacheada que você tem\nE você percebeu como te olhei...\nSabe onde foi?",
     "dica": "É uma igreja"

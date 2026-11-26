@@ -1,4 +1,4 @@
-// Post #9: só abre quando ela está no lugar (GPS) ou digita a palavra que você entrega lá.
+// Post #11: só abre quando ela está no lugar (GPS) ou digita a palavra que você entrega lá.
 // O conteúdo fica criptografado em js/noite-dados.js (duas cópias: uma com a chave do GPS, outra com a palavra).
 (function () {
     'use strict';
@@ -14,6 +14,9 @@
     }
     function fmt(m) { return m >= 1000 ? (m / 1000).toFixed(1).replace('.', ',') + ' km' : Math.round(m) + ' m'; }
 
+    // corrige "Post 10" -> "Post 11" nos textos vindos do noite-dados.js (criptografados)
+    function fix(s) { return String(s || '').replace(/(Post\s*#?\s*)10\b/gi, function (_, a) { return a + '11'; }); }
+
     // ---------- conteúdo liberado ----------
     function mostrar(txt, aviso) {
         var p;
@@ -21,17 +24,17 @@
         if (watch !== null) { navigator.geolocation.clearWatch(watch); watch = null; }
         C.gravar('noite_p9', txt);
         $('p9-tranca').hidden = true;
-        $('p9-titulo').textContent = p.titulo || '';
-        $('p9-texto').textContent = p.intro || '';
+        $('p9-titulo').textContent = fix(p.titulo);
+        $('p9-texto').textContent = fix(p.intro);
         var menu = $('p9-menu'); menu.replaceChildren();
         (p.itens || []).forEach(function (it) {
             var d = el('div', 'n-prato');
-            d.appendChild(el('small', null, it.rotulo || ''));
-            d.appendChild(el('h4', null, it.titulo || ''));
-            if (it.texto) d.appendChild(el('p', null, it.texto));
+            d.appendChild(el('small', null, fix(it.rotulo)));
+            d.appendChild(el('h4', null, fix(it.titulo)));
+            if (it.texto) d.appendChild(el('p', null, fix(it.texto)));
             menu.appendChild(d);
         });
-        $('p9-fecho').textContent = p.fecho || '';
+        $('p9-fecho').textContent = fix(p.fecho);
         $('p9-aberto').hidden = false;
         window.scrollTo({ top: 0, behavior: 'auto' });
         C.vibrar([60, 40, 120]);
@@ -43,7 +46,7 @@
         // avisa o painel que ela chegou (uma vez só)
         if (aviso && !C.ler('noite_p9_aviso')) {
             C.gravar('noite_p9_aviso', '1');
-            C.enviar(9, [{ pergunta: 'Página da noite', resposta: 'Ela chegou e abriu o Post #9 📍 (' + aviso + ')' }]).catch(function () { });
+            C.enviar(11, [{ pergunta: 'Página da noite', resposta: 'Ela chegou e abriu o Post #11 📍 (' + aviso + ')' }]).catch(function () { });
         }
         return true;
     }
@@ -56,7 +59,7 @@
     var st = $('p9-gps-st'), dd = $('p9-dist'), radar = $('p9-radar'), btn = $('p9-loc');
     var temCoord = conv && typeof conv.lat === 'number' && typeof conv.lng === 'number' && conv.chaveGps;
     if (!temCoord) {
-        $('p9-intro').textContent = 'Essa página só abre no lugar combinado. Abra o convite no Post #8 neste aparelho primeiro, ou use a palavra aqui embaixo.';
+        $('p9-intro').textContent = 'Essa página só abre no lugar combinado. Abra o convite no Post #10 neste aparelho primeiro, ou use a palavra aqui embaixo.';
         if (!C.DEMO) btn.disabled = true;
     }
     if (C.DEMO) $('p9-sim').hidden = false;
@@ -86,7 +89,7 @@
         watch = navigator.geolocation.watchPosition(function (p) { btn.disabled = false; btn.textContent = 'Atualizar'; posicao(p); },
             erroGps, { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 });
     });
-    $('p9-sim').addEventListener('click', function () { if (temCoord) chegou('prévia'); else st.textContent = 'Resolva a charada do Post #8 primeiro (com ?demo).'; });
+    $('p9-sim').addEventListener('click', function () { if (temCoord) chegou('prévia'); else st.textContent = 'Resolva a charada do Post #10 primeiro (com ?demo).'; });
 
     // ---------- palavra ----------
     $('p9-form').addEventListener('submit', async function (e) {

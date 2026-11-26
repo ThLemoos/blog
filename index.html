@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300&family=JetBrains+Mono:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -26,7 +26,7 @@
             --ink: #f7ecf1;
             --mute: #b9a6c4;
             --serif: 'Fraunces', Georgia, serif;
-            --mono: 'JetBrains Mono', ui-monospace, monospace;
+            --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         }
 
         * {
@@ -48,79 +48,214 @@
             color: var(--ink);
             display: grid;
             place-items: center;
-            padding: 6vh 7vw;
-            min-height: 100svh;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 0;
             overflow: hidden;
             -webkit-font-smoothing: antialiased
         }
 
-        .box {
-            text-align: center;
-            animation: entra 1.2s cubic-bezier(.2, .8, .2, 1) both
+        /* janela do terminal */
+        .term {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            background: rgba(20, 10, 31, .82);
+            border: 0;
+            overflow: hidden;
+            animation: entra 1s cubic-bezier(.2, .8, .2, 1) both
         }
 
-        .tag {
-            display: inline-block;
-            font-family: var(--mono);
-            font-size: .85rem;
-            color: var(--lilac);
-            background: rgba(183, 156, 255, .14);
-            border: 1px solid rgba(183, 156, 255, .3);
-            padding: .25em .8em;
-            border-radius: 6px;
-            margin-bottom: 1.8rem
+        @media(min-width:700px) {
+            body {
+                padding: 4vh 4vw
+            }
+
+            .term {
+                width: min(100%, 780px);
+                height: min(78vh, 680px);
+                border: 1px solid rgba(183, 156, 255, .3);
+                border-radius: 18px;
+                box-shadow: 0 30px 90px rgba(0, 0, 0, .55), 0 0 90px rgba(255, 93, 143, .12);
+                backdrop-filter: blur(6px)
+            }
         }
 
-        h1 {
-            font-family: var(--serif);
-            font-style: italic;
-            font-weight: 300;
-            font-size: clamp(2.8rem, 10vw, 6rem);
-            line-height: 1.05;
-            letter-spacing: -.02em;
-            text-shadow: 0 0 30px rgba(255, 93, 143, .18)
+        .bar {
+            flex: none;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .85rem 1rem;
+            padding-top: calc(.85rem + env(safe-area-inset-top, 0px));
+            background: rgba(34, 16, 47, .9);
+            border-bottom: 1px solid rgba(183, 156, 255, .22)
         }
 
-        h1 span {
+        .bar i {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: rgba(183, 156, 255, .35)
+        }
+
+        .bar i:first-child {
+            background: var(--rose)
+        }
+
+        .bar span {
+            margin-left: .5rem;
+            font: 400 .8rem var(--mono);
+            color: var(--mute)
+        }
+
+        .bar em {
+            margin-left: auto;
+            font: italic 300 1rem var(--serif);
             color: var(--gold)
         }
 
-        .dots {
-            margin-top: 2.2rem;
+        /* saída do terminal */
+        .tela {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            padding: 1.1rem 1rem .6rem;
+            font: 400 .92rem/1.65 var(--mono);
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            cursor: text
+        }
+
+        .tela::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .tela::-webkit-scrollbar-thumb {
+            background: rgba(183, 156, 255, .3);
+            border-radius: 6px
+        }
+
+        .l {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            color: var(--ink)
+        }
+
+        .l.m {
+            color: var(--mute)
+        }
+
+        .l.ouro {
+            color: var(--gold)
+        }
+
+        .l.rs {
+            color: var(--rose)
+        }
+
+        .l.li {
+            color: var(--lilac)
+        }
+
+        .l.eco {
+            color: var(--mute);
+            margin-top: .5rem
+        }
+
+        .l.eco::first-letter {
+            color: var(--rose)
+        }
+
+        .l.esp {
+            margin-top: .5rem
+        }
+
+        /* atalhos (ajudam a digitar no celular) */
+        .atalhos {
+            flex: none;
             display: flex;
+            gap: .5rem;
+            padding: .5rem 1rem 0;
+            overflow-x: auto;
+            scrollbar-width: none
+        }
+
+        .atalhos::-webkit-scrollbar {
+            display: none
+        }
+
+        .atalhos button {
+            flex: none;
+            font: 400 .8rem var(--mono);
+            color: var(--lilac);
+            background: rgba(183, 156, 255, .12);
+            border: 1px solid rgba(183, 156, 255, .3);
+            border-radius: 999px;
+            padding: .35rem .85rem;
+            cursor: pointer
+        }
+
+        .atalhos button:hover,
+        .atalhos button:focus-visible {
+            background: rgba(255, 93, 143, .18);
+            border-color: var(--rose);
+            color: var(--ink);
+            outline: none
+        }
+
+        /* linha de comando */
+        .linha {
+            flex: none;
+            display: flex;
+            align-items: center;
             gap: .6rem;
-            justify-content: center
+            padding: .7rem 1rem;
+            padding-bottom: calc(.9rem + env(safe-area-inset-bottom, 0px));
+            border-top: 1px solid rgba(183, 156, 255, .18);
+            margin-top: .5rem
         }
 
-        .dots i {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: var(--rose);
-            opacity: .3;
-            animation: pisca 1.4s ease-in-out infinite
+        .ps {
+            font: 500 1rem var(--mono);
+            color: var(--rose)
         }
 
-        .dots i:nth-child(2) {
-            animation-delay: .2s
+        #cmd {
+            flex: 1;
+            min-width: 0;
+            font: 400 16px var(--mono);
+            color: var(--ink);
+            background: none;
+            border: 0;
+            outline: 0;
+            caret-color: var(--rose)
         }
 
-        .dots i:nth-child(3) {
-            animation-delay: .4s
+        #cmd::placeholder {
+            color: rgba(185, 166, 196, .55)
         }
 
-        @keyframes pisca {
+        .env {
+            flex: none;
+            font: 500 .85rem var(--mono);
+            color: #2a0f26;
+            background: linear-gradient(135deg, var(--gold), #ffb3c9);
+            border: 0;
+            border-radius: 999px;
+            padding: .5rem 1rem;
+            cursor: pointer
+        }
 
-            0%,
-            100% {
-                opacity: .25;
-                transform: scale(1)
-            }
+        .env:active {
+            transform: scale(.96)
+        }
 
-            50% {
-                opacity: 1;
-                transform: scale(1.35)
-            }
+        .env:focus-visible {
+            outline: 3px solid var(--lilac);
+            outline-offset: 3px
         }
 
         @keyframes entra {
@@ -131,25 +266,453 @@
         }
 
         @media(prefers-reduced-motion:reduce) {
-
-            .box,
-            .dots i {
+            .term {
                 animation: none
-            }
-
-            .dots i {
-                opacity: .7
             }
         }
     </style>
 </head>
 
 <body>
-    <main class="box">
-        <div class="tag">status: manutenção</div>
-        <h1>Em <span>manutenção</span></h1>
-        <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <main class="term" id="term" aria-label="Terminal de manutenção">
+        <header class="bar"><i></i><i></i><i></i><span>manutencao.sh</span><em>Em manutenção</em></header>
+        <div class="tela" id="tela" role="log" aria-live="polite"></div>
+        <div class="atalhos" id="atalhos">
+            <button type="button" data-c="ajuda">ajuda</button>
+            <button type="button" data-c="status">status</button>
+            <button type="button" data-c="dicas">dicas</button>
+            <button type="button" data-c="chamado">chamado</button>
+            <button type="button" data-c="limpar">limpar</button>
+        </div>
+        <form class="linha" id="form" autocomplete="off">
+            <span class="ps" aria-hidden="true">&gt;</span>
+            <input id="cmd" type="text" placeholder="digite um comando" aria-label="Digite um comando"
+                autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="send">
+            <button class="env" type="submit">enviar</button>
+        </form>
     </main>
+
+    <script src="js/noite-core.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            /* ================== CONFIGURAÇÃO (edite à vontade) ================== */
+            var POST = 13;          // número com que as respostas aparecem no painel de admin
+            var PROGRESSO = 63;     // onde a barra "trava"
+            // palavras secretas (sem acento e em minúsculas). 'dica' aparece no comando dicas; 'alias' são outras formas de escrever
+            var SEGREDOS = {
+                'branquinha': {
+                    dica: 'uma nomenclatura diferenciada.',
+                    msg: [
+                        ['palavra reconhecida.', 'li'],
+                        ['acesso parcial concedido.', ''],
+                        ['mensagem do sistema: segura a ansiedade, logo o blog estará no ar de novo.', 'ouro']
+                    ]
+                },
+                'sandy': {
+                    dica: 'um cordão que carrega um pingente.',
+                    msg: [
+                        ['usuária reconhecida: Sandy.', 'li'],
+                        ['nível de curiosidade: acima do normal.', ''],
+                        ['previsão de espera: falta pouco.', 'ouro']
+                    ]
+                },
+                'curiosa': {
+                    alias: ['curiosidade', 'curioso'],
+                    dica: 'personalidade de alguém.',
+                    msg: [
+                        ['palavra reconhecida: curiosa.', 'li'],
+                        ['diagnóstico: curiosidade crônica, sem cura conhecida.', ''],
+                        ['o sistema avisa: quem espera sempre vence.', 'ouro']
+                    ]
+                },
+                'saudade': {
+                    dica: 'algo que é difícil controlar.',
+                    msg: [
+                        ['sentimento detectado.', 'li'],
+                        ['eu também sinto saudades sua. Mas não se ache tanto.', 'ouro']
+                    ]
+                },
+                'thiago': {
+                    dica: 'desenvolvedor.',
+                    msg: [
+                        ['o mais brabo desenvolvedor desse site. ah, eu te amo.', 'ouro']
+                    ]
+                },
+                'prolar': {
+                    dica: 'local de origem de conhecimentos.',
+                    msg: [
+                        ['origem do projeto encontrada: prolar.', 'li'],
+                        ['foi ali que tudo começou. e ninguém imaginava.', ''],
+                        ['o sistema agradece o ponto de partida.', 'ouro']
+                    ]
+                },
+                'nicolas': {
+                    dica: 'a comemoração de vida de uma pessoa.',
+                    msg: [
+                        ['registro encontrado: festa do Nicolas.', 'li'],
+                        ['foi ali que a conversa deixou de ser só conversa.', ''],
+                        ['melhor commit da noite.', 'ouro']
+                    ]
+                },
+                'flamengo': {
+                    dica: 'campo, bola e muitos gols.',
+                    msg: [
+                        ['jogo do Flamengo detectado.', 'li'],
+                        ['placar do dia: 1 jantar, 1 sorriso, 0 reclamações.', ''],
+                        ['resultado: vitória.', 'ouro']
+                    ]
+                },
+                'filme': {
+                    alias: ['filmes'],
+                    dica: 'um final de semana perfeito pra nós dois.',
+                    msg: [
+                        ['sessão de cinema localizada.', 'li'],
+                        ['elenco: nós dois e um notebook.', ''],
+                        ['nota do crítico: o melhor filme que eu  prestei atenção.', 'ouro']
+                    ]
+                },
+                'sorriso': {
+                    alias: ['sorrir'],
+                    dica: 'sou sério até algo acontecer.',
+                    msg: [
+                        ['arquivo encontrado: sorriso.exe', 'li'],
+                        ['efeito colateral: quebra todo o meu jeito sério.', ''],
+                        ['uso recomendado: com frequência.', 'ouro']
+                    ]
+                },
+                'cachos': {
+                    alias: ['cacho', 'cacheada'],
+                    dica: 'característica sua que eu acho linda demais.',
+                    msg: [
+                        ['cachos detectados.', 'li'],
+                        ['status: perfeitos, em qualquer clima.', ''],
+                        ['o sistema aprova.', 'ouro']
+                    ]
+                },
+                'cheiro': {
+                    alias: ['cheirinho'],
+                    dica: 'gruda na roupa e na mente.',
+                    msg: [
+                        ['cheiro reconhecido.', 'li'],
+                        ['impossível de armazenar. fica na memória por conta própria.', ''],
+                        ['persistência: alta.', 'ouro']
+                    ]
+                },
+                'abraco': {
+                    alias: ['abracos'],
+                    dica: 'um lugar pessoal.',
+                    msg: [
+                        ['abraço recebido.', 'li'],
+                        ['temperatura: ideal.', ''],
+                        ['sistema reiniciado com sucesso.', 'ouro']
+                    ]
+                },
+                'danca': {
+                    alias: ['dancar', 'dancando'],
+                    dica: 'faz ao vivo e em vídeo.',
+                    msg: [
+                        ['modo dança ativado.', 'li'],
+                        ['♪ ♫ ♪', 'rs'],
+                        ['o sistema não tem pernas, mas você tem, então dance.', 'ouro']
+                    ]
+                },
+                'alegria': {
+                    dica: 'algo seu que me contagia.',
+                    msg: [
+                        ['alegria acima do limite detectada.', 'li'],
+                        ['fonte: você.', ''],
+                        ['o sistema recomenda: não diminuir.', 'ouro']
+                    ]
+                },
+                'paz': {
+                    dica: 'sensação difícil de achar nos dias atuais.',
+                    msg: [
+                        ['paz detectada.', 'li'],
+                        ['é o que você me traz só de chegar.', ''],
+                        ['o sistema agradece.', 'ouro']
+                    ]
+                },
+                'codigo': {
+                    alias: ['codigos'],
+                    dica: 'como eu falo quando algo é importante.',
+                    msg: [
+                        ['código reconhecido.', 'li'],
+                        ['é assim que eu falo quando é importante.', ''],
+                        ['if (coração) { sorrir(); }', 'rs']
+                    ]
+                },
+                'blog': {
+                    dica: 'um lugar que se tornou especial.',
+                    msg: [
+                        ['nosso blog: online.', 'li'],
+                        ['feito à mão, com muito café e um pouco de criatividade.', ''],
+                        ['visitante mais importante: você.', 'ouro']
+                    ]
+                },
+                'baixinha': {
+                    dica: 'algo pequeno.',
+                    msg: [
+                        ['baixinha detectada.', 'li'],
+                        ['tamanho: 1,58m ideial para mim.', ''],
+                        ['o sistema diz: "minha baixinha gata e gostosa".', 'ouro']
+                    ]
+                },
+                'estressada': {
+                    alias: ['brava', 'brabo'],
+                    dica: 'como você fica quando está errada.',
+                    msg: [
+                        ['modo brabinha ativado.', 'li'],
+                        ['nível de esporro: máximo.', ''],
+                        ['o sistema bugou. por precaução.', 'ouro']
+                    ]
+                },
+                'nos': {
+                    alias: ['nós'],
+                    dica: 'pronome que é só nosso agora.',
+                    msg: [
+                        ['pronome reconhecido: nós.', 'li'],
+                        ['plural de eu e você.', ''],
+                        ['a palavra preferida do desenvolvedor.', 'ouro']
+                    ]
+                },
+                'paciencia': {
+                    alias: ['paciência'],
+                    dica: 'o que você mais está precisando agora.',
+                    msg: [
+                        ['paciência: recurso esgotado.', 'rs'],
+                        ['sugestão do sistema: respirar fundo e tentar de novo.', ''],
+                        ['spoiler: já coloco no ar de novo. (não é spoiler.)', 'ouro']
+                    ]
+                },
+                'beijo': {
+                    alias: ['beijos'],
+                    dica: 'quando fico muito perto da sua boca.',
+                    msg: [
+                        ['beijo recebido.', 'li'],
+                        ['protocolo de retribuição: pendente.', ''],
+                        ['aguardando o momento certo.', 'ouro']
+                    ]
+                },
+                'coracao': {
+                    alias: ['coracoes', 'coração', 'corações'],
+                    dica: 'o símbolo que mais aparece por aqui.',
+                    msg: [
+                        ['coração detectado.', 'li'],
+                        ['status: batendo mais forte que o normal.', ''],
+                        ['culpa de uma certa usuária.', 'ouro']
+                    ]
+                },
+                'futuro': {
+                    dica: 'o que não se pode mexer, mas podemos imaginar.',
+                    msg: [
+                        ['futuro: em desenvolvimento.', 'li'],
+                        ['versão atual: 1.0', ''],
+                        ['previsão das próximas atualizações: boas.', 'ouro']
+                    ]
+                }
+            };
+            /* ==================================================================== */
+
+            var C = window.NoiteCore || null;
+            var $ = function (id) { return document.getElementById(id); };
+            var tela = $('tela'), form = $('form'), cmd = $('cmd');
+            var reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var modo = 'normal', fila = Promise.resolve(), pend = [], tFlush = 0;
+            var MAPA = {};
+            Object.keys(SEGREDOS).forEach(function (k) {
+                MAPA[k] = k; (SEGREDOS[k].alias || []).forEach(function (a) { MAPA[a] = k; });
+            });
+            var desc = [];
+            try { desc = JSON.parse(localStorage.getItem('manut_desc') || '[]') || []; } catch (_) { desc = []; }
+            function salvarDesc() { try { localStorage.setItem('manut_desc', JSON.stringify(desc)); } catch (_) { } }
+
+            function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+            function norm(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+            function rolar() { tela.scrollTop = tela.scrollHeight; }
+            function nova(cls, txt) {
+                var d = document.createElement('div'); d.className = 'l' + (cls ? ' ' + cls : '');
+                d.textContent = txt == null ? '' : txt; tela.appendChild(d); rolar(); return d;
+            }
+            async function dizer(txt, cls, vel) {
+                var d = nova(cls, '');
+                if (reduz || !txt) { d.textContent = txt; rolar(); return; }
+                vel = vel || 14;
+                for (var i = 1; i <= txt.length; i++) {
+                    d.textContent = txt.slice(0, i);
+                    if (i % 4 === 0) rolar();
+                    await sleep(vel);
+                }
+                rolar();
+            }
+            async function varias(arr) {
+                for (var i = 0; i < arr.length; i++) { await dizer(arr[i][0], arr[i][1]); if (!reduz) await sleep(110); }
+            }
+            function barra(p) {
+                var n = 20, f = Math.round(n * p / 100);
+                return '[' + new Array(f + 1).join('█') + new Array(n - f + 1).join('░') + '] ' + p + '%';
+            }
+            async function progresso(alvo, animar) {
+                var d = nova('rs', '');
+                if (!animar || reduz) { d.textContent = barra(alvo); return; }
+                for (var p = 0; p < alvo; p += 3) { d.textContent = barra(p); await sleep(45); }
+                d.textContent = barra(alvo);
+            }
+
+            // ---------- envio para o painel ----------
+            function enviar(itens) {
+                if (!C || !C.enviar) return;
+                try {
+                    var p = C.enviar(POST, itens);
+                    if (p && p.catch) p.catch(function (e) { console.error('Falha ao enviar:', e); });
+                } catch (e) { console.error(e); }
+            }
+            function registrar(v) {
+                pend.push({ pergunta: 'Terminal da manutenção', resposta: '> ' + v });
+                clearTimeout(tFlush); tFlush = setTimeout(flush, 6000);
+            }
+            function flush() { if (!pend.length) return; var it = pend; pend = []; enviar(it); }
+            document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') flush(); });
+            window.addEventListener('pagehide', flush);
+
+            function numChamado() {
+                var n = 41;
+                try {
+                    n = (parseInt(localStorage.getItem('manut_ch') || '41', 10) || 41) + 1;
+                    localStorage.setItem('manut_ch', String(n));
+                } catch (_) { n = 42 + Math.floor(Math.random() * 50); }
+                return ('0000' + n).slice(-4);
+            }
+
+            // ---------- comandos ----------
+            async function processar(v) {
+                nova('eco', '> ' + v);
+                var n = norm(v);
+
+                if (modo === 'chamado') {
+                    if (n === 'cancelar' || n === 'sair') { modo = 'normal'; await dizer('chamado cancelado.', 'm'); return; }
+                    modo = 'normal';
+                    enviar([{ pergunta: 'Chamado aberto na manutenção: o que você acha que está acontecendo?', resposta: v.trim() }]);
+                    await dizer('registrando...', 'm', 20);
+                    if (!reduz) await sleep(500);
+                    await varias([
+                        ['chamado #' + numChamado() + ' registrado.', 'li'],
+                        ['prioridade: alta', ''],
+                        ['status: em análise', ''],
+                        ['previsão: em breve', 'ouro']
+                    ]);
+                    return;
+                }
+
+                registrar(v);
+                if (!n) return;
+
+                var chave = MAPA[n];
+                if (chave) {
+                    await varias(SEGREDOS[chave].msg);
+                    if (desc.indexOf(chave) < 0) {
+                        desc.push(chave); salvarDesc();
+                        var tot = Object.keys(SEGREDOS).length;
+                        await dizer('+1 palavra descoberta (' + desc.length + ' de ' + tot + ')', 'rs');
+                        if (desc.length === tot) await varias([['todas as palavras descobertas.', 'li'], ['o sistema está impressionado.', 'ouro']]);
+                    }
+                    return;
+                }
+
+                switch (n) {
+                    case 'ajuda': case 'help': case '?': case 'comandos':
+                        await varias([
+                            ['comandos disponíveis:', 'ouro'],
+                            ['  ajuda     mostra esta lista', ''],
+                            ['  status    estado da atualização', ''],
+                            ['  dicas     pistas de palavras secretas', ''],
+                            ['  chamado   abrir um chamado', ''],
+                            ['  limpar    limpa a tela', ''],
+                            ['existem outros comandos. ou não.', 'm']
+                        ]);
+                        break;
+                    case 'status': case 'progresso':
+                        await varias([['atualização em andamento', '']]);
+                        await progresso(PROGRESSO, false);
+                        await varias([['estado: em manutenção', ''], ['responsável: eu', ''], ['previsão: em breve', 'ouro']]);
+                        break;
+                    case 'chamado': case 'ticket': case 'bug': case 'reportar': case 'abrir chamado':
+                        modo = 'chamado';
+                        await varias([
+                            ['abrindo chamado...', 'm'],
+                            ['descreva o problema:', ''],
+                            ['o que você acha que está acontecendo aqui?', 'ouro'],
+                            ['(escreva e envie. ou digite cancelar)', 'm']
+                        ]);
+                        break;
+                    case 'dicas': case 'dica': case 'pistas': case 'pista':
+                        var ks = Object.keys(SEGREDOS);
+                        await dizer('palavras secretas: digite uma e veja o que acontece.', 'ouro');
+                        for (var i = 0; i < ks.length; i++) {
+                            var ach = desc.indexOf(ks[i]) >= 0;
+                            nova(ach ? 'li' : '', (i + 1) + '. ' + (ach ? '✔ ' + ks[i] : '• ' + SEGREDOS[ks[i]].dica));
+                        }
+                        await dizer('descobertas: ' + desc.length + ' de ' + ks.length, 'm');
+                        break;
+                    case 'limpar': case 'clear': case 'cls':
+                        tela.replaceChildren();
+                        break;
+                    case 'quando': case 'previsao': case 'data': case 'que dia': case 'que horas': case 'ate quando':
+                        await varias([['previsão: em breve.', 'ouro'], ['é tudo que eu posso dizer.', 'm']]);
+                        break;
+                    case 'acelerar': case 'pressa': case 'rapido': case 'abrir': case 'liberar': case 'entrar': case 'me deixa entrar':
+                        await varias([['não adianta insistir.', 'rs'], ['isso carrega no tempo certo.', '']]);
+                        break;
+                    case 'o que': case 'o que e': case 'oque': case 'surpresa': case 'segredo': case 'o que esta acontecendo': case 'o que voce ta fazendo':
+                        await varias([['acesso negado.', 'rs'], ['informação confidencial.', 'm']]);
+                        break;
+                    case 'sudo': case 'sudo abrir': case 'sudo su': case 'root': case 'admin':
+                        await varias([['permissão negada.', 'rs'], ['você não é root aqui. (ou é?)', 'm']]);
+                        break;
+                    case 'oi': case 'ola': case 'oie': case 'bom dia': case 'boa noite': case 'boa tarde':
+                        await varias([['olá.', ''], ['a página está em manutenção, mas o terminal está aberto.', 'm']]);
+                        break;
+                    default:
+                        await varias([['comando não encontrado: ' + v.trim().slice(0, 40), 'rs'], ['digite ajuda para ver os comandos.', 'm']]);
+                }
+            }
+
+            function enfileirar(v) {
+                if (!String(v).trim()) return;
+                fila = fila.then(function () { return processar(String(v)); }).catch(function (e) { console.error(e); });
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var v = cmd.value; cmd.value = '';
+                enfileirar(v);
+                if (matchMedia('(pointer:fine)').matches) cmd.focus();
+            });
+            $('atalhos').addEventListener('click', function (e) {
+                var b = e.target.closest('button[data-c]'); if (!b) return;
+                enfileirar(b.getAttribute('data-c'));
+            });
+            tela.addEventListener('click', function () {
+                var s = window.getSelection && window.getSelection().toString();
+                if (!s) cmd.focus();
+            });
+            cmd.addEventListener('focus', function () { setTimeout(function () { rolar(); }, 250); });
+
+            // ---------- abertura ----------
+            async function boot() {
+                await dizer('manutencao.sh · v1.0', 'm', 10);
+                await dizer('> verificando sistema... ok', '');
+                await dizer('> aplicando atualização', '');
+                await progresso(PROGRESSO, true);
+                await dizer('> aguardando liberação...', 'ouro');
+                await dizer('digite ajuda para ver os comandos.', 'm');
+            }
+            fila = fila.then(boot).catch(function (e) { console.error(e); });
+            if (matchMedia('(pointer:fine)').matches) cmd.focus();
+        })();
+    </script>
+    <script src="js/pwa.js"></script>
 </body>
 
 </html>
